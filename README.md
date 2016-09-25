@@ -9,8 +9,8 @@
 ### Free version ###
 
 * Has adds
-** banner adds
-** full screen add when generating line-up
+* * banner adds
+* * full screen add when generating line-up
 * Not possible to change colors
 * Limited to 5x5 line-ups
 * Limited to 15 players
