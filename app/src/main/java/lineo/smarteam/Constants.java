@@ -45,5 +45,11 @@ public abstract class Constants {
         ThemeColor(String name){
             this.themeColorName=name;
         }
+        public String getColorName(){
+            return themeColorName;
+        }
     }
+
+    public static final int MIN_PLAYERS_PER_MATCH = 6;
+    public static final int MAX_PLAYERS_PER_MATCH = 22;
 }
