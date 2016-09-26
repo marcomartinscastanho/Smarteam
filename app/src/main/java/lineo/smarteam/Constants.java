@@ -4,14 +4,21 @@ package lineo.smarteam;
  * Created by marco on 26/09/2016.
  */
 public abstract class Constants {
-    public static final char C_WIN = 'W';
-    public static final char C_DRAW = 'D';
-    public static final char C_DEFEAT = 'L';
-    public static final char C_ABSENCE = '-';
-    public static final char C_FAULT = 'F';
+    public enum Result{
+        WIN("W"),
+        DRAW("D"),
+        DEFEAT("L"),
+        ABSENCE("-"),
+        FAULT("F");
 
-    public static final int MIN_PLAYERS_PER_MATCH = 6;
-    public static final int MAX_PLAYERS_PER_MATCH = 22;
+        public final String resultCharacter;
+        Result(String resChar){
+            this.resultCharacter=resChar;
+        }
+        public String getChar(){
+            return resultCharacter;
+        }
+    }
 
     public enum ThemeColor{
         RED("Red"),
