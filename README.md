@@ -1,11 +1,18 @@
 # README #
 
 ## Smarteam 1 ##
-
 * No authentication
 * No Sync
 * Data stored only locally
 * Only English
+
+## TODOs ##
+* insert default Configuration Values as the DataBase is created
+* Create ActivityStart and its layout
+* Create Splash Screen
+* * load the DataBase
+* * apply Configurations
+* * move to ActivityStart
 
 ### Free version ###
 
