@@ -5,6 +5,7 @@
 * No authentication
 * No Sync
 * Data stored only locally
+* Only English
 
 ### Free version ###
 
