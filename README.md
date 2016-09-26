@@ -9,7 +9,7 @@
 ## TODOs ##
 * insert default Configuration Values as the DataBase is created
 * Create ActivityStart and its layout
-* Create Splash Screen
+* Create Splash Screen and its layout (all green with logo centered)
 * * load the DataBase
 * * apply Configurations
 * * move to ActivityStart
