@@ -3,17 +3,13 @@ package lineo.smarteam;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 
 public class ActivityStart extends AppCompatActivity {
     private static final String TAG = "Smarteam Test";
     private static Context mContext;
 
-    // Buttons
-    private Button loadButton;
-    private Button createButton;
-    private Button deleteButton;
-    private Button settingsButton;
+    //TODO: Create Splash Screen http://stackoverflow.com/questions/5486789/how-do-i-make-a-splash-screen
+    // This screen will be active while DB is being loaded
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
