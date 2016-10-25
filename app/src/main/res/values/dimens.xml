@@ -1,5 +1,28 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="start_activity_inter_button_margin">5dp</dimen>
+    <dimen name="start_activity_top_bottom_margin">120dp</dimen>
+    <dimen name="start_activity_left_right_margin">160dp</dimen>
+    <dimen name="start_activity_text_size">36sp</dimen>
+
+    <dimen name="team_activity_inter_button_margin">5dp</dimen>
+    <dimen name="team_activity_top_bottom_margin">10dp</dimen>
+    <dimen name="team_activity_left_right_margin">10dp</dimen>
+    <dimen name="team_activity_text_size">26sp</dimen>
+    <dimen name="team_activity_lineups_text_size">52sp</dimen>
+
+    <dimen name="inter_button_margin">10dp</dimen>
+
+    <dimen name="ranking_line_text_size">24sp</dimen>
+    <dimen name="ranking_margins">4dp</dimen>
+
+    <dimen name="lineups_horizontal_margin">10dp</dimen>
+    <dimen name="lineups_vertical_margin">10dp</dimen>
+    <dimen name="lineups_line_text_size">20sp</dimen>
+
+    <dimen name="splash_logo_size">200dp</dimen>
+    <dimen name="splash_text_size">20sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

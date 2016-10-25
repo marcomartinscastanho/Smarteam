@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Smarteam</string>
+
+
+    <string name="splash_loading">Loading</string>
+    <string name="title_activity_splash">ActivitySplash</string>
+    <string name="title_activity_start">ActivityStart</string>
 </resources>
