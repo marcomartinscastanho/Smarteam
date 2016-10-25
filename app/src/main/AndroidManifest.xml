@@ -9,14 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ActivitySplash"
+            android:name=".activity.SplashActivity"
             android:label="@string/title_activity_splash">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityStart"
+            android:name=".activity.StartActivity"
             android:label="@string/title_activity_start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

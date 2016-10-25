@@ -1,10 +1,12 @@
-package lineo.smarteam;
+package lineo.smarteam.activity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class ActivityStart extends AppCompatActivity {
+import lineo.smarteam.R;
+
+public class StartActivity extends AppCompatActivity {
     private static final String TAG = "Smarteam Test";
     private static Context mContext;
 
