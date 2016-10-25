@@ -7,12 +7,11 @@
 * Only English
 
 ## TODOs ##
-* insert default Configuration Values as the DataBase is created
-* Create ActivityStart and its layout
-* Create Splash Screen and its layout (all green with logo centered)
+* Splash Screen
 * * load the DataBase
 * * apply Configurations
 * * move to ActivityStart
+* Create ActivityStart and its layout
 
 ### Free version ###
 
@@ -22,6 +21,9 @@
 * Not possible to change colors
 * Limited to 5x5 line-ups
 * Limited to 15 players
+
+
+
 
 # Default ReadMe #
 PS: let's keep this here just in case:
