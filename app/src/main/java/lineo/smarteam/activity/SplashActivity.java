@@ -5,31 +5,47 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import lineo.smarteam.AppGlobal;
+import java.sql.SQLException;
 import lineo.smarteam.R;
+import lineo.smarteam.db.DataBaseAdapter;
 
 public class SplashActivity extends Activity {
     private static final String TAG = "ActivitySplash";
-    AppGlobal appGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        new LoadDataBase().execute();
+    }
 
-        //in the end, move to ActivityStart
-        Intent mainIntent = new Intent(SplashActivity.this, StartActivity.class);
-        SplashActivity.this.startActivity(mainIntent);
-        SplashActivity.this.finish();
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
     protected class LoadDataBase extends AsyncTask<Context, Integer, String>{
         @Override
         protected String doInBackground(Context... params) {
+            try{
+                new DataBaseAdapter(getApplicationContext()).open();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return null;
         }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            setContentView(R.layout.activity_splash);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Intent startIntent = new Intent(SplashActivity.this, StartActivity.class);
+            startActivity(startIntent);
+        }
     }
-
-
 }
