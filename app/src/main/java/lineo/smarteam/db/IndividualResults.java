@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import java.sql.SQLException;
+
 import lineo.smarteam.db.exception.IndividualResultAlreadyExistsException;
 import lineo.smarteam.db.exception.IndividualResultNotFoundException;
 
@@ -27,7 +29,7 @@ public class IndividualResults {
     private final Context context;
 
     private static class DbHelper extends SQLiteOpenHelper {
-        DbHelper(Context context){
+        DbHelper(Context context) {
             super(context, DataBaseAdapter.DATABASE_NAME, null, DataBaseAdapter.DATABASE_VERSION);
         }
 
@@ -39,19 +41,23 @@ public class IndividualResults {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         }
     }
-    public IndividualResults(Context context){
+
+    public IndividualResults(Context context) {
         this.context = context;
     }
+
     public IndividualResults open() throws SQLException {
         dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
         return this;
     }
-    public void close(){
+
+    public void close() {
         dbHelper.close();
     }
-    public long insertIndividualResult(Integer playerId, Integer teamId, Integer matchday, String result, Integer date) throws SQLException{
-        if(checkIndividualResultExists(playerId, teamId, matchday)){
+
+    public long insertIndividualResult(Integer playerId, Integer teamId, Integer matchday, String result, Integer date) throws SQLException {
+        if (checkIndividualResultExists(playerId, teamId, matchday)) {
             throw new IndividualResultAlreadyExistsException();
         }
         ContentValues values = new ContentValues();
@@ -60,28 +66,29 @@ public class IndividualResults {
         values.put(COLUMN_NAME_MATCHDAY, matchday);
         values.put(COLUMN_NAME_RESULT, result);
         values.put(COLUMN_NAME_MATCHDAY_DATE, date);
-        Long tsLong = System.currentTimeMillis()/1000;
+        Long tsLong = System.currentTimeMillis() / 1000;
         values.put(COLUMN_NAME_UPDATE_DATE, tsLong.toString());
         return db.insertOrThrow(TABLE_NAME, null, values);
     }
-    public boolean checkIndividualResultExists(Integer playerId, Integer teamId, Integer matchday){
+
+    public boolean checkIndividualResultExists(Integer playerId, Integer teamId, Integer matchday) {
         String[] projection = {COLUMN_NAME_RESULT};
         String selection = COLUMN_NAME_PLAYER_ID + " = ? AND " + COLUMN_NAME_TEAM_ID + " = ? AND " + COLUMN_NAME_MATCHDAY + " = ?";
         String[] selectionArgs = {String.format("%d", playerId), String.format("%d", teamId), String.format("%d", matchday)};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         return c.moveToFirst();
     }
+
     public String getResult(Integer playerId, Integer teamId, Integer matchday) throws IndividualResultNotFoundException {
         String[] projection = {COLUMN_NAME_RESULT};
         String selection = COLUMN_NAME_PLAYER_ID + " = ? AND " + COLUMN_NAME_TEAM_ID + " = ? AND " + COLUMN_NAME_MATCHDAY + " = ?";
         String[] selectionArgs = {String.format("%d", playerId), String.format("%d", teamId), String.format("%d", matchday)};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        if(c.moveToFirst()){
+        if (c.moveToFirst()) {
             String value = c.getString(c.getColumnIndexOrThrow(COLUMN_NAME_RESULT));
             c.close();
             return value;
-        }
-        else{
+        } else {
             c.close();
             throw new IndividualResultNotFoundException();
         }

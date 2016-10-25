@@ -1,10 +1,9 @@
 package lineo.smarteam;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.app.Activity;
 
 public class ActivitySplash extends Activity {
     private static final String TAG = "ActivitySplash";
@@ -23,7 +22,7 @@ public class ActivitySplash extends Activity {
         // ALL CONFIGURATIONS MUST BE APPLIED HERE
 
         //in the end, move to ActivityStart
-        Intent mainIntent = new Intent(ActivitySplash.this,ActivityStart.class);
+        Intent mainIntent = new Intent(ActivitySplash.this, ActivityStart.class);
         ActivitySplash.this.startActivity(mainIntent);
         ActivitySplash.this.finish();
     }

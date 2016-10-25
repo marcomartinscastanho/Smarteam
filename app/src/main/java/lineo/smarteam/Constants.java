@@ -4,7 +4,7 @@ package lineo.smarteam;
  * Created by marco on 26/09/2016.
  */
 public abstract class Constants {
-    public enum Result{
+    public enum Result {
         WIN("W"),
         DRAW("D"),
         DEFEAT("L"),
@@ -12,15 +12,17 @@ public abstract class Constants {
         FAULT("F");
 
         public final String resultCharacter;
-        Result(String resChar){
-            this.resultCharacter=resChar;
+
+        Result(String resChar) {
+            this.resultCharacter = resChar;
         }
-        public String getChar(){
+
+        public String getChar() {
             return resultCharacter;
         }
     }
 
-    public enum ThemeColor{
+    public enum ThemeColor {
         RED("Red"),
         PINK("Pink"),
         PURPLE("Purple"),
@@ -42,10 +44,12 @@ public abstract class Constants {
         BLUE_GREY("Blue Grey");
 
         public final String themeColorName;
-        ThemeColor(String name){
-            this.themeColorName=name;
+
+        ThemeColor(String name) {
+            this.themeColorName = name;
         }
-        public String getColorName(){
+
+        public String getColorName() {
             return themeColorName;
         }
     }

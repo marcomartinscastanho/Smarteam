@@ -10,6 +10,7 @@ public class TeamAlreadyExistsException extends SQLException {
     public TeamAlreadyExistsException() {
         new TeamAlreadyExistsException("Team already exists");
     }
+
     public TeamAlreadyExistsException(String theReason) {
         super(theReason);
     }

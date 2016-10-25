@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import java.sql.SQLException;
 
 /**
@@ -22,7 +23,7 @@ public class Configurations {
     private final Context context;
 
     private static class DbHelper extends SQLiteOpenHelper {
-        DbHelper(Context context){
+        DbHelper(Context context) {
             super(context, DataBaseAdapter.DATABASE_NAME, null, DataBaseAdapter.DATABASE_VERSION);
         }
 
@@ -34,47 +35,54 @@ public class Configurations {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         }
     }
-    public Configurations(Context context){
+
+    public Configurations(Context context) {
         this.context = context;
     }
+
     public Configurations open() throws SQLException {
         dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
         return this;
     }
-    public void close(){
+
+    public void close() {
         dbHelper.close();
     }
-    public long insertConfiguration(String attribute, String value){
+
+    public long insertConfiguration(String attribute, String value) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_ATTRIBUTE, attribute);
         values.put(COLUMN_NAME_VALUE, value);
-        Long tsLong = System.currentTimeMillis()/1000;
+        Long tsLong = System.currentTimeMillis() / 1000;
         values.put(COLUMN_NAME_UPDATE_DATE, tsLong.toString());
         return db.insert(TABLE_NAME, null, values);
     }
-    public String getConfigurationValue(String attribute){
+
+    public String getConfigurationValue(String attribute) {
         String[] projection = {COLUMN_NAME_VALUE};
         String selection = COLUMN_NAME_ATTRIBUTE + " = ?";
         String[] selectionArgs = {attribute};
         String value = null;
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        if(c.moveToFirst()){
+        if (c.moveToFirst()) {
             value = c.getString(c.getColumnIndexOrThrow(COLUMN_NAME_VALUE));
         }
         c.close();
         return value;
     }
-    public boolean updateConfiguration(String attribute, String newValue){
+
+    public boolean updateConfiguration(String attribute, String newValue) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_VALUE, newValue);
-        Long tsLong = System.currentTimeMillis()/1000;
+        Long tsLong = System.currentTimeMillis() / 1000;
         values.put(COLUMN_NAME_UPDATE_DATE, tsLong.toString());
         String selection = COLUMN_NAME_ATTRIBUTE + " LIKE ?";
         String[] selectionArgs = {attribute};
         return db.update(TABLE_NAME, values, selection, selectionArgs) > 0;
     }
-    public boolean deleteConfiguration(String attribute){   //might never be used
+
+    public boolean deleteConfiguration(String attribute) {   //might never be used
         String selection = COLUMN_NAME_ATTRIBUTE + " LIKE ?";
         String[] selectionArgs = {attribute};
         return db.delete(TABLE_NAME, selection, selectionArgs) > 0;

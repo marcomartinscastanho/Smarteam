@@ -10,6 +10,7 @@ public class PlayerAlreadyExistsException extends SQLException {
     public PlayerAlreadyExistsException(String theReason) {
         super(theReason);
     }
+
     public PlayerAlreadyExistsException() {
         new PlayerAlreadyExistsException("Player already exists");
     }

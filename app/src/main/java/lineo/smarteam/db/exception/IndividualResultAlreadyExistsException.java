@@ -10,6 +10,7 @@ public class IndividualResultAlreadyExistsException extends SQLException {
     public IndividualResultAlreadyExistsException(String theReason) {
         super(theReason);
     }
+
     public IndividualResultAlreadyExistsException() {
         new IndividualResultAlreadyExistsException("Individual Result already exists");
     }

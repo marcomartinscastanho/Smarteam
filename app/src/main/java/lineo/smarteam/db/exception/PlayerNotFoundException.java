@@ -10,6 +10,7 @@ public class PlayerNotFoundException extends SQLException {
     public PlayerNotFoundException(String theReason) {
         super(theReason);
     }
+
     public PlayerNotFoundException() {
         new PlayerNotFoundException("Player not found");
     }

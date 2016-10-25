@@ -10,6 +10,7 @@ public class TeamNotFoundException extends SQLException {
     public TeamNotFoundException(String theReason) {
         super(theReason);
     }
+
     public TeamNotFoundException() {
         new TeamNotFoundException("Team not found");
     }

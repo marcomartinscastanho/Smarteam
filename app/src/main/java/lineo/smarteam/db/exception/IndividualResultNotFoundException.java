@@ -10,6 +10,7 @@ public class IndividualResultNotFoundException extends SQLException {
     public IndividualResultNotFoundException(String theReason) {
         super(theReason);
     }
+
     public IndividualResultNotFoundException() {
         new IndividualResultNotFoundException("Individual Result not found");
     }
