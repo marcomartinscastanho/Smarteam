@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLException;
 
-import lineo.smarteam.db.exception.TeamAlreadyExistsException;
-import lineo.smarteam.db.exception.TeamNotFoundException;
+import lineo.smarteam.exception.TeamAlreadyExistsException;
+import lineo.smarteam.exception.TeamNotFoundException;
 
 /**
  * Created by marco on 24/10/2016.

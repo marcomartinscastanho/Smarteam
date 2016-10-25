@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.sql.SQLException;
 
 import lineo.smarteam.R;
-import lineo.smarteam.db.exception.PlayerAlreadyExistsException;
-import lineo.smarteam.db.exception.PlayerNotFoundException;
+import lineo.smarteam.exception.PlayerAlreadyExistsException;
+import lineo.smarteam.exception.PlayerNotFoundException;
 
 /**
  * Created by marco on 25/10/2016.

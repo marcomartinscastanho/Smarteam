@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLException;
 
-import lineo.smarteam.db.exception.IndividualResultAlreadyExistsException;
-import lineo.smarteam.db.exception.IndividualResultNotFoundException;
+import lineo.smarteam.exception.IndividualResultAlreadyExistsException;
+import lineo.smarteam.exception.IndividualResultNotFoundException;
 
 /**
  * Created by marco on 25/10/2016.
