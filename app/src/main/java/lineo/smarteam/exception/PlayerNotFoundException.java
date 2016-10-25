@@ -1,4 +1,4 @@
-package lineo.smarteam.db.exception;
+package lineo.smarteam.exception;
 
 import java.sql.SQLException;
 
