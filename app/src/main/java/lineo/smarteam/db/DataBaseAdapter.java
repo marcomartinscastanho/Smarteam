@@ -50,7 +50,7 @@ public class DataBaseAdapter {
             "CREATE TABLE " + IndividualResults.TABLE_NAME + " (" + IndividualResults.COLUMN_NAME_PLAYER_ID + INTEGER_TYPE + COMMA_SEP
                     + IndividualResults.COLUMN_NAME_TEAM_ID + INTEGER_TYPE + COMMA_SEP + IndividualResults.COLUMN_NAME_MATCHDAY + INTEGER_TYPE + COMMA_SEP
                     + IndividualResults.COLUMN_NAME_RESULT + TEXT_TYPE + COMMA_SEP + IndividualResults.COLUMN_NAME_MATCHDAY_DATE + DATETIME_TYPE + COMMA_SEP
-                    + IndividualResults.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE
+                    + IndividualResults.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
                     + " PRIMARY KEY (" + IndividualResults.COLUMN_NAME_PLAYER_ID + COMMA_SEP + IndividualResults.COLUMN_NAME_MATCHDAY + ")" + ")";
     private static final String SQL_DELETE_TABLE_INDIVIDUAL_RESULTS = "DROP TABLE IF EXISTS " + IndividualResults.TABLE_NAME;
 

@@ -17,7 +17,7 @@ import lineo.smarteam.exception.PlayerNotFoundException;
  * Adapter for DB Table Players
  */
 public class Players {
-    public static final String TABLE_NAME = "TEAMS";
+    public static final String TABLE_NAME = "PLAYERS";
     public static final String COLUMN_NAME_ID = "PLAYER_ID";
     public static final String COLUMN_NAME_NAME = "NAME";
     public static final String COLUMN_NAME_TEAM = "TEAM_ID";
