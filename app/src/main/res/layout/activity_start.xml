@@ -1,13 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activity.StartActivity">
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+               xmlns:tools="http://schemas.android.com/tools"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               android:gravity="center_vertical"
+               tools:context=".activity.StartActivity">
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/start_activity_top_bottom_margin"
+        android:layout_marginLeft="@dimen/start_activity_inter_button_margin"
+        android:layout_marginRight="@dimen/start_activity_inter_button_margin"
+        android:layout_weight="1"
+        >
+        <Button
+            android:id="@+id/main_buttonLoad"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:background="@color/colorGreen"
+            android:textColor="@color/colorWhite"
+            android:text="@string/buttonStartMenuLoad"
+            android:textSize="@dimen/start_activity_text_size"
+            style="?android:attr/borderlessButtonStyle"
+            tools:ignore="NestedWeights"/>
+        <Button
+            android:id="@+id/main_buttonCreate"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:background="@color/colorGreen"
+            android:textColor="@color/colorWhite"
+            android:text="@string/buttonStartMenuCreate"
+            android:textSize="@dimen/start_activity_text_size"
+            style="?android:attr/borderlessButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/start_activity_top_bottom_margin"
+        android:layout_marginLeft="@dimen/start_activity_inter_button_margin"
+        android:layout_marginRight="@dimen/start_activity_inter_button_margin"
+        android:layout_weight="1" >
+        <Button
+            android:id="@+id/main_buttonDelete"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:background="@color/colorGreen"
+            android:textColor="@color/colorWhite"
+            android:text="@string/buttonStartMenuDelete"
+            android:textSize="@dimen/start_activity_text_size"
+            style="?android:attr/borderlessButtonStyle"
+            tools:ignore="NestedWeights"/>
+        <Button
+            android:id="@+id/main_buttonSettings"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:background="@color/colorGreen"
+            android:textColor="@color/colorWhite"
+            android:text="@string/buttonStartMenuSettings"
+            android:textSize="@dimen/start_activity_text_size"
+            style="?android:attr/borderlessButtonStyle" />
+    </LinearLayout>
+</LinearLayout >

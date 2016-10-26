@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Smarteam</string>
 
-
-    <string name="splash_loading">Loading</string>
+    <!-- Activities Names -->
     <string name="title_activity_splash">ActivitySplash</string>
     <string name="title_activity_start">ActivityStart</string>
+
+    <!-- Buttons text -->
+    <string name="buttonStartMenuLoad">Open</string>
+    <string name="buttonStartMenuCreate">New</string>
+    <string name="buttonStartMenuDelete">Delete</string>
+    <string name="buttonStartMenuSettings">Settings</string>
+
+    <string name="splash_loading">Loading</string>
 </resources>
