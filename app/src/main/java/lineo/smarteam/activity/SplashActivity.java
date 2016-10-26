@@ -10,7 +10,7 @@ import lineo.smarteam.R;
 import lineo.smarteam.db.DataBaseAdapter;
 
 public class SplashActivity extends Activity {
-    private static final String TAG = "ActivitySplash";
+    private static final String TAG = "SplashActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
