@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import lineo.smarteam.exception.TeamAlreadyExistsException;
 import lineo.smarteam.exception.TeamNotFoundException;
@@ -16,6 +18,7 @@ import lineo.smarteam.exception.TeamNotFoundException;
  * Adapter for DB Table Teams
  */
 public class Teams {
+    private static final String TAG = "Teams";
     public static final String TABLE_NAME = "TEAMS";
     public static final String COLUMN_NAME_ID = "TEAM_ID";
     public static final String COLUMN_NAME_NAME = "NAME";
@@ -119,5 +122,17 @@ public class Teams {
             throw new TeamNotFoundException();
         }
     }
-    //TODO: getAllTeams
+
+    public ArrayList<String> getTeamsNames(){
+        ArrayList<String> list = new ArrayList<>();
+        String[] projection = {COLUMN_NAME_NAME};
+        Cursor c = db.query(TABLE_NAME, projection, null, null, null, null, null);
+        if (c.moveToFirst()){
+            do{
+                list.add(c.getString(c.getColumnIndexOrThrow(COLUMN_NAME_NAME)));
+            }while(c.moveToNext());
+        }
+        c.close();
+        return list;
+    }
 }
