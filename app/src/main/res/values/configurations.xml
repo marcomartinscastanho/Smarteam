@@ -2,6 +2,8 @@
 <resources>
     <item name="minPlayersPerMatch" type="integer">6</item>
     <item name="maxPlayersPerMatch" type="integer">22</item>
+    <item name="minCharsTeamName" type="integer">3</item>
+    <item name="maxCharsTeamName" type="integer">30</item>
     <item name="valueK" format="float" type="string">1.1</item>
     <item name="valueColor" type="integer">9</item>
     <item name="defInitialWinPercentage" type="integer">0.5</item>
