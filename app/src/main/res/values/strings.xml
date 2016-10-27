@@ -12,4 +12,9 @@
     <string name="buttonStartMenuSettings">Settings</string>
 
     <string name="splash_loading">Loading</string>
+    <string name="toastNoTeams">Start by creating a New team</string>
+    <string name="toastTeamNameTooShort">That name is too short</string>
+    <string name="toastTeamNameTooLong">That name is too long</string>
+    <string name="toastTeamAlreadyExists">That name is already in use</string>
+    <string name="dialogCreateTeamTitle">Add a New Team</string>
 </resources>
