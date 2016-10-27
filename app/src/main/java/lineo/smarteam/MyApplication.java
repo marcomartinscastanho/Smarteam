@@ -4,9 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
-/**
- * Created by marco on 23/10/2016.
- */
 public class MyApplication extends Application {
     private static final String TAG = "AppGlobal";
     private Toast toast;

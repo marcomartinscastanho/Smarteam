@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import lineo.smarteam.exception.TeamAlreadyExistsException;
 import lineo.smarteam.exception.TeamNotFoundException;
 
@@ -18,13 +15,13 @@ import lineo.smarteam.exception.TeamNotFoundException;
  * Adapter for DB Table Teams
  */
 public class Teams {
-    private static final String TAG = "Teams";
-    public static final String TABLE_NAME = "TEAMS";
-    public static final String COLUMN_NAME_ID = "TEAM_ID";
-    public static final String COLUMN_NAME_NAME = "NAME";
-    public static final String COLUMN_NAME_NUM_MATCHES = "NUM_MATCHES";
-    public static final String COLUMN_NAME_LAST_MATCH_DATE = "LAST_MATCH";
-    public static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
+    //private static final String TAG = "Teams";
+    static final String TABLE_NAME = "TEAMS";
+    static final String COLUMN_NAME_ID = "TEAM_ID";
+    static final String COLUMN_NAME_NAME = "NAME";
+    static final String COLUMN_NAME_NUM_MATCHES = "NUM_MATCHES";
+    static final String COLUMN_NAME_LAST_MATCH_DATE = "LAST_MATCH";
+    static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
 
     private DbHelper dbHelper;
     private SQLiteDatabase db;

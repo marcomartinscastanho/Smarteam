@@ -14,13 +14,11 @@ import lineo.smarteam.R;
  * Adapter for the whole DB
  */
 public class DataBaseAdapter {
-    private final Context context;
     private DbHelper dbHelper;
-    private SQLiteDatabase db;
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Smarteam.db";
+    static final int DATABASE_VERSION = 1;
+    static final String DATABASE_NAME = "Smarteam.db";
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
@@ -55,12 +53,11 @@ public class DataBaseAdapter {
     private static final String SQL_DELETE_TABLE_INDIVIDUAL_RESULTS = "DROP TABLE IF EXISTS " + IndividualResults.TABLE_NAME;
 
     public DataBaseAdapter(Context context) {
-        this.context = context;
-        dbHelper = new DbHelper(this.context);
+        dbHelper = new DbHelper(context);
     }
 
     private static class DbHelper extends SQLiteOpenHelper {
-        public DbHelper(Context context) {
+        DbHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
@@ -72,11 +69,11 @@ public class DataBaseAdapter {
             ContentValues values = new ContentValues();
             values.put(Configurations.COLUMN_NAME_ATTRIBUTE, "VALUE_K");
             values.put(Configurations.COLUMN_NAME_VALUE, R.string.valueK);
-            long newRowId = db.insert(Configurations.TABLE_NAME, null, values);
+            db.insert(Configurations.TABLE_NAME, null, values);
             values = new ContentValues();
             values.put(Configurations.COLUMN_NAME_ATTRIBUTE, "VALUE_COLOR");
             values.put(Configurations.COLUMN_NAME_VALUE, R.integer.valueColor);
-            newRowId = db.insert(Configurations.TABLE_NAME, null, values);
+            db.insert(Configurations.TABLE_NAME, null, values);
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -94,7 +91,7 @@ public class DataBaseAdapter {
     }
 
     public DataBaseAdapter open() throws SQLException {
-        db = dbHelper.getWritableDatabase();
+        dbHelper.getWritableDatabase();
         return this;
     }
 

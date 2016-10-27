@@ -16,13 +16,13 @@ import lineo.smarteam.exception.IndividualResultNotFoundException;
  * Adapter for DB Table IndividualResults
  */
 public class IndividualResults {
-    public static final String TABLE_NAME = "INDIVIDUAL_RESULTS";
-    public static final String COLUMN_NAME_PLAYER_ID = "PLAYER_ID";
-    public static final String COLUMN_NAME_TEAM_ID = "TEAM_ID";
-    public static final String COLUMN_NAME_MATCHDAY = "MATCHDAY";
-    public static final String COLUMN_NAME_RESULT = "RESULT";
-    public static final String COLUMN_NAME_MATCHDAY_DATE = "MATCHDAY_DATE";
-    public static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
+    static final String TABLE_NAME = "INDIVIDUAL_RESULTS";
+    static final String COLUMN_NAME_PLAYER_ID = "PLAYER_ID";
+    static final String COLUMN_NAME_TEAM_ID = "TEAM_ID";
+    static final String COLUMN_NAME_MATCHDAY = "MATCHDAY";
+    static final String COLUMN_NAME_RESULT = "RESULT";
+    static final String COLUMN_NAME_MATCHDAY_DATE = "MATCHDAY_DATE";
+    static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
 
     private DbHelper dbHelper;
     private SQLiteDatabase db;
@@ -74,15 +74,17 @@ public class IndividualResults {
     public boolean checkIndividualResultExists(Integer playerId, Integer teamId, Integer matchday) {
         String[] projection = {COLUMN_NAME_RESULT};
         String selection = COLUMN_NAME_PLAYER_ID + " = ? AND " + COLUMN_NAME_TEAM_ID + " = ? AND " + COLUMN_NAME_MATCHDAY + " = ?";
-        String[] selectionArgs = {String.format("%d", playerId), String.format("%d", teamId), String.format("%d", matchday)};
+        String[] selectionArgs = {playerId.toString(), teamId.toString(), matchday.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        return c.moveToFirst();
+        boolean exist = c.moveToFirst();
+        c.close();
+        return exist;
     }
 
     public String getResult(Integer playerId, Integer teamId, Integer matchday) throws IndividualResultNotFoundException {
         String[] projection = {COLUMN_NAME_RESULT};
         String selection = COLUMN_NAME_PLAYER_ID + " = ? AND " + COLUMN_NAME_TEAM_ID + " = ? AND " + COLUMN_NAME_MATCHDAY + " = ?";
-        String[] selectionArgs = {String.format("%d", playerId), String.format("%d", teamId), String.format("%d", matchday)};
+        String[] selectionArgs = {playerId.toString(), teamId.toString(), matchday.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             String value = c.getString(c.getColumnIndexOrThrow(COLUMN_NAME_RESULT));

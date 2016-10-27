@@ -13,10 +13,10 @@ import java.sql.SQLException;
  * Adapter for DB Table Configurations
  */
 public class Configurations {
-    public static final String TABLE_NAME = "CONFIGURATIONS";
-    public static final String COLUMN_NAME_ATTRIBUTE = "ATTRIBUTE";
-    public static final String COLUMN_NAME_VALUE = "VALUE";
-    public static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
+    static final String TABLE_NAME = "CONFIGURATIONS";
+    static final String COLUMN_NAME_ATTRIBUTE = "ATTRIBUTE";
+    static final String COLUMN_NAME_VALUE = "VALUE";
+    static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
 
     private DbHelper dbHelper;
     private SQLiteDatabase db;

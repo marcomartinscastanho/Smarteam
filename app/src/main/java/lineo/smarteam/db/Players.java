@@ -17,18 +17,18 @@ import lineo.smarteam.exception.PlayerNotFoundException;
  * Adapter for DB Table Players
  */
 public class Players {
-    public static final String TABLE_NAME = "PLAYERS";
-    public static final String COLUMN_NAME_ID = "PLAYER_ID";
-    public static final String COLUMN_NAME_NAME = "NAME";
-    public static final String COLUMN_NAME_TEAM = "TEAM_ID";
-    public static final String COLUMN_NAME_WINS = "WINS";
-    public static final String COLUMN_NAME_DRAWS = "DRAWS";
-    public static final String COLUMN_NAME_DEFEATS = "DEFEATS";
-    public static final String COLUMN_NAME_MATCHES = "MATCHES";
-    public static final String COLUMN_NAME_MATCHES_AFTER_DEBUT = "MATCHES_AFTER_DEBUT";
-    public static final String COLUMN_NAME_WIN_PERCENTAGE = "WIN_PERCENTAGE";
-    public static final String COLUMN_NAME_SCORE = "SCORE";
-    public static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
+    static final String TABLE_NAME = "PLAYERS";
+    static final String COLUMN_NAME_ID = "PLAYER_ID";
+    static final String COLUMN_NAME_NAME = "NAME";
+    static final String COLUMN_NAME_TEAM = "TEAM_ID";
+    static final String COLUMN_NAME_WINS = "WINS";
+    static final String COLUMN_NAME_DRAWS = "DRAWS";
+    static final String COLUMN_NAME_DEFEATS = "DEFEATS";
+    static final String COLUMN_NAME_MATCHES = "MATCHES";
+    static final String COLUMN_NAME_MATCHES_AFTER_DEBUT = "MATCHES_AFTER_DEBUT";
+    static final String COLUMN_NAME_WIN_PERCENTAGE = "WIN_PERCENTAGE";
+    static final String COLUMN_NAME_SCORE = "SCORE";
+    static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
 
     private DbHelper dbHelper;
     private SQLiteDatabase db;
@@ -84,15 +84,17 @@ public class Players {
     public boolean checkPlayerExistsByName(String name, Integer teamId) {
         String[] projection = {COLUMN_NAME_ID};
         String selection = COLUMN_NAME_NAME + " = ? AND " + COLUMN_NAME_TEAM + " = ?";
-        String[] selectionArgs = {name, String.format("%d", teamId)};
+        String[] selectionArgs = {name, teamId.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        return c.moveToFirst();
+        boolean exist = c.moveToFirst();
+        c.close();
+        return exist;
     }
 
     public Integer getWinsById(Integer id) throws PlayerNotFoundException {
         String[] projection = {COLUMN_NAME_WINS};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer value = c.getInt(c.getColumnIndexOrThrow(COLUMN_NAME_WINS));
@@ -107,7 +109,7 @@ public class Players {
     public Integer getDrawsById(Integer id) throws PlayerNotFoundException {
         String[] projection = {COLUMN_NAME_DRAWS};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer value = c.getInt(c.getColumnIndexOrThrow(COLUMN_NAME_DRAWS));
@@ -122,7 +124,7 @@ public class Players {
     public Integer getDefeatsById(Integer id) throws PlayerNotFoundException {
         String[] projection = {COLUMN_NAME_DEFEATS};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer value = c.getInt(c.getColumnIndexOrThrow(COLUMN_NAME_DEFEATS));
@@ -137,7 +139,7 @@ public class Players {
     public Integer getMatchesById(Integer id) throws PlayerNotFoundException {
         String[] projection = {COLUMN_NAME_MATCHES};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer value = c.getInt(c.getColumnIndexOrThrow(COLUMN_NAME_MATCHES));
@@ -152,7 +154,7 @@ public class Players {
     public Integer getMatchesAfterDebutById(Integer id) throws PlayerNotFoundException {
         String[] projection = {COLUMN_NAME_MATCHES_AFTER_DEBUT};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer value = c.getInt(c.getColumnIndexOrThrow(COLUMN_NAME_MATCHES_AFTER_DEBUT));
@@ -167,7 +169,7 @@ public class Players {
     public Double getWinPercentageById(Integer id) throws PlayerNotFoundException {
         String[] projection = {COLUMN_NAME_WIN_PERCENTAGE};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Double value = c.getDouble(c.getColumnIndexOrThrow(COLUMN_NAME_WIN_PERCENTAGE));
@@ -182,7 +184,7 @@ public class Players {
     public Double getScoreById(Integer id) throws PlayerNotFoundException {
         String[] projection = {COLUMN_NAME_SCORE};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Double value = c.getDouble(c.getColumnIndexOrThrow(COLUMN_NAME_SCORE));
