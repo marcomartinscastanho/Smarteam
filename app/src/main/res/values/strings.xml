@@ -12,9 +12,17 @@
     <string name="buttonStartMenuSettings">Settings</string>
 
     <string name="splash_loading">Loading</string>
-    <string name="toastNoTeams">Start by creating a New team</string>
+    <string name="toastNoTeamsInit">Start by creating a New team</string>
+    <string name="toastNoTeamsToDelete">There are no Teams to delete</string>
     <string name="toastTeamNameTooShort">That name is too short</string>
     <string name="toastTeamNameTooLong">That name is too long</string>
     <string name="toastTeamAlreadyExists">That name is already in use</string>
     <string name="dialogCreateTeamTitle">Add a New Team</string>
+    <string name="dialogTeamToDelete">Select a Team to delete</string>
+    <string name="dialogAreYouSureDeleteTeamPrefix">Are you sure you want to delete Team&#160;</string>
+    <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
+    <string name="toastSuccessfullyDeletedPrefix">Deleted Team&#160;</string>
+    <string name="toastSuccessfullyDeletedSuffix"/>
+    <string name="toastFailedToDeletedPrefix">Failed to Delete Team&#160;</string>
+    <string name="toastFailedToDeletedSuffix"/>
 </resources>
