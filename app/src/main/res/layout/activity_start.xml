@@ -17,7 +17,7 @@
         android:layout_weight="1"
         >
         <Button
-            android:id="@+id/main_buttonLoad"
+            android:id="@+id/start_button_load"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -26,10 +26,10 @@
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuLoad"
             android:textSize="@dimen/start_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"
+            android:drawableTop="@drawable/ic_folder_open_white_48dp"
             tools:ignore="NestedWeights"/>
         <Button
-            android:id="@+id/main_buttonCreate"
+            android:id="@+id/start_button_create"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -37,8 +37,8 @@
             android:background="@color/colorGreen"
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuCreate"
-            android:textSize="@dimen/start_activity_text_size"
-            style="?android:attr/borderlessButtonStyle" />
+            android:drawableTop="@drawable/ic_add_white_48dp"
+            android:textSize="@dimen/start_activity_text_size"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,7 +50,7 @@
         android:layout_marginRight="@dimen/start_activity_inter_button_margin"
         android:layout_weight="1" >
         <Button
-            android:id="@+id/main_buttonDelete"
+            android:id="@+id/start_button_delete"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,10 +59,10 @@
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuDelete"
             android:textSize="@dimen/start_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"
+            android:drawableTop="@drawable/ic_remove_white_48dp"
             tools:ignore="NestedWeights"/>
         <Button
-            android:id="@+id/main_buttonSettings"
+            android:id="@+id/start_button_settings"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -71,6 +71,6 @@
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuSettings"
             android:textSize="@dimen/start_activity_text_size"
-            style="?android:attr/borderlessButtonStyle" />
+            android:drawableTop="@drawable/ic_settings_white_48dp"/>
     </LinearLayout>
 </LinearLayout >

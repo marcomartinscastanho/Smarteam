@@ -1,9 +1,9 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="start_activity_inter_button_margin">5dp</dimen>
+    <dimen name="start_activity_inter_button_margin">1dp</dimen>
     <dimen name="start_activity_top_bottom_margin">120dp</dimen>
     <dimen name="start_activity_left_right_margin">160dp</dimen>
-    <dimen name="start_activity_text_size">36sp</dimen>
+    <dimen name="start_activity_text_size">20sp</dimen>
 
     <dimen name="team_activity_inter_button_margin">5dp</dimen>
     <dimen name="team_activity_top_bottom_margin">10dp</dimen>
