@@ -17,6 +17,7 @@ import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
 import lineo.smarteam.db.Teams;
 import lineo.smarteam.exception.TeamAlreadyExistsException;
+import lineo.smarteam.exception.TeamNotFoundException;
 
 public class StartActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "StartActivity";
@@ -30,7 +31,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
     private Button settingsButton;
 
     private Teams teamsDb;
-    private ArrayList<String> teamNamesList;
+    private int selectedTeam = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +54,8 @@ public class StartActivity extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume()");
-        teamNamesList = teamsDb.getTeamsNames();
-        if(teamNamesList.isEmpty()){
-            myApp.showToast(context, getResources().getString(R.string.toastNoTeams));
+        if(teamsDb.isEmpty()){
+            myApp.showToast(context, getResources().getString(R.string.toastNoTeamsInit));
         }
     }
 
@@ -71,7 +71,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         }
         else if(v.equals(deleteButton)){
             Log.i(TAG, "onClick() - Delete");
-            //deleteButtonClick();
+            deleteButtonClick();
         }
         else if(v.equals(settingsButton)){
             Log.i(TAG, "onClick() - Settings");
@@ -109,6 +109,67 @@ public class StartActivity extends Activity implements View.OnClickListener {
         okButton.setOnClickListener(new CreateTeamDialogListener(createDialog, editTextCreateTeam));
     }
 
+    private void deleteButtonClick(){
+        Log.i(TAG, "deleteButtonClick()");
+        selectedTeam = -1;
+
+        if(teamsDb.isEmpty()){
+            myApp.showToast(context, getResources().getString(R.string.toastNoTeamsToDelete));
+            return;
+        }
+        ArrayList<String> teamsNamesList = teamsDb.getTeamsNames();
+        final CharSequence[] choiceList = teamsNamesList.toArray(new CharSequence[teamsNamesList.size()]);
+        AlertDialog.Builder deleteTeamBuilder = new AlertDialog.Builder(context);
+        deleteTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToDelete));
+        deleteTeamBuilder.setSingleChoiceItems(choiceList, selectedTeam, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedTeam = which;
+            }
+        });
+        deleteTeamBuilder.setCancelable(true);
+        deleteTeamBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "Which value=" + which);
+                Log.d(TAG, "Selected value=" + selectedTeam);
+                if(selectedTeam<0)
+                    return;
+                // Are you sure you want to delete selectedTeamName?
+                AlertDialog.Builder builderAreYouSure = new AlertDialog.Builder(context);
+                builderAreYouSure.setTitle(getResources().getString(R.string.dialogAreYouSureDeleteTeamPrefix) + choiceList[selectedTeam] + getResources().getString(R.string.dialogAreYouSureDeleteTeamSuffix));
+                builderAreYouSure.setCancelable(true);
+                builderAreYouSure.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i(TAG, "deleteButtonClick() - Deleting team " + choiceList[selectedTeam]);
+                        try {
+                            teamsDb.deleteTeamByName(choiceList[selectedTeam].toString());
+                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastSuccessfullyDeletedSuffix)));
+                        } catch (TeamNotFoundException e) {
+                            e.printStackTrace();
+                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeletedPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastFailedToDeletedSuffix)));
+                        }
+                    }
+                });
+                builderAreYouSure.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog areYouSureDialog = builderAreYouSure.create();
+                areYouSureDialog.show();
+            }
+        });
+        deleteTeamBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog deleteDialog = deleteTeamBuilder.create();
+        deleteDialog.show();
+    }
+
     public class CreateTeamDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         private final EditText editTextCreateTeam;
@@ -121,7 +182,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
             CharSequence selectedTeamName = editTextCreateTeam.getText();
             if(validate(selectedTeamName.toString())){
                 dialog.dismiss();
-                Log.wtf(TAG, "onClick(View v) - Loading team " + selectedTeamName);
+                Log.i(TAG, "onClick(View v) - Loading team " + selectedTeamName);
                 callTeamActivity(selectedTeamName.toString());
             }
         }
