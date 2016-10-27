@@ -25,4 +25,5 @@
     <string name="toastSuccessfullyDeletedSuffix"/>
     <string name="toastFailedToDeletedPrefix">Failed to Delete Team&#160;</string>
     <string name="toastFailedToDeletedSuffix"/>
+    <string name="toastNoTeamsToLoad">There are no Teams to open</string>
 </resources>

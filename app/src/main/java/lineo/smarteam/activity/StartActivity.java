@@ -41,6 +41,13 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
         context=this;
         myApp = ((MyApplication) ((Activity) context).getApplication());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart()");
+
         teamsDb = new Teams(context);
         try {
             teamsDb = teamsDb.open();
@@ -60,10 +67,17 @@ public class StartActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop()");
+        teamsDb.close();
+    }
+
+    @Override
     public void onClick(View v) {
         if(v.equals(loadButton)){
             Log.i(TAG, "onClick() - Load");
-            //loadButtonClick();
+            loadButtonClick();
         }
         else if(v.equals(createButton)){
             Log.i(TAG, "onClick() - Create");
@@ -170,6 +184,45 @@ public class StartActivity extends Activity implements View.OnClickListener {
         deleteDialog.show();
     }
 
+    private void loadButtonClick(){
+        Log.i(TAG, "loadButtonClick()");
+        selectedTeam = -1;
+
+        if(teamsDb.isEmpty()){
+            myApp.showToast(context, getResources().getString(R.string.toastNoTeamsToLoad));
+            return;
+        }
+        ArrayList<String> teamsNamesList = teamsDb.getTeamsNames();
+        final CharSequence[] choiceList = teamsNamesList.toArray(new CharSequence[teamsNamesList.size()]);
+        AlertDialog.Builder loadTeamBuilder = new AlertDialog.Builder(context);
+        loadTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToDelete));
+        loadTeamBuilder.setSingleChoiceItems(choiceList, selectedTeam, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedTeam = which;
+            }
+        });
+        loadTeamBuilder.setCancelable(true);
+        loadTeamBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "Which value=" + which);
+                Log.d(TAG, "Selected value=" + selectedTeam);
+                if(selectedTeam<0)
+                    return;
+                Log.i(TAG, "loadButtonClick() - Loading team " + choiceList[selectedTeam]);
+                callTeamActivity(choiceList[selectedTeam].toString());
+            }
+        });
+        loadTeamBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog loadDialog = loadTeamBuilder.create();
+        loadDialog.show();
+    }
+
     public class CreateTeamDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         private final EditText editTextCreateTeam;
@@ -206,10 +259,10 @@ public class StartActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public void callTeamActivity(String teamId){/*
-        Intent intent = new Intent(this, TeamMenuActivity.class);
-        intent.putExtra("teamName", teamId);
-        startActivity(intent);*/
+    public void callTeamActivity(String teamName){
+        Intent intent = new Intent(this, TeamActivity.class);
+        intent.putExtra("teamName", teamName);
+        startActivity(intent);
     }
 
     private void setLayout(){

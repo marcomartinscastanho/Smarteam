@@ -84,13 +84,15 @@ public class Teams {
         String selection = COLUMN_NAME_NAME + " = ?";
         String[] selectionArgs = {name};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        return c.moveToFirst();
+        boolean exists = c.moveToFirst();
+        c.close();
+        return exists;
     }
 
     public Integer getNumMatchesById(Integer id) throws TeamNotFoundException {
         String[] projection = {COLUMN_NAME_NUM_MATCHES};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer value = c.getInt(c.getColumnIndexOrThrow(COLUMN_NAME_NUM_MATCHES));
@@ -105,7 +107,7 @@ public class Teams {
     public Long getLastMatchDateById(Integer id) throws TeamNotFoundException {
         String[] projection = {COLUMN_NAME_LAST_MATCH_DATE};
         String selection = COLUMN_NAME_ID + " = ?";
-        String[] selectionArgs = {String.format("%d", id)};
+        String[] selectionArgs = {id.toString()};
         Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Long value = c.getLong(c.getColumnIndexOrThrow(COLUMN_NAME_LAST_MATCH_DATE));
