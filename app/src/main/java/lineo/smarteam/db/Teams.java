@@ -70,6 +70,15 @@ public class Teams {
         return db.insertOrThrow(TABLE_NAME, null, values);
     }
 
+    public long deleteTeamByName(String name) throws TeamNotFoundException {
+        if (!checkTeamExistsByName(name)) {
+            throw new TeamNotFoundException();
+        }
+        String selection = COLUMN_NAME_NAME + " LIKE ?";
+        String[] selectionArgs = {name};
+        return db.delete(TABLE_NAME, selection, selectionArgs);
+    }
+
     public boolean checkTeamExistsByName(String name) {
         String[] projection = {COLUMN_NAME_ID};
         String selection = COLUMN_NAME_NAME + " = ?";
@@ -134,5 +143,16 @@ public class Teams {
         }
         c.close();
         return list;
+    }
+
+    public Integer getTeamsCount(){
+        Cursor c = db.query(TABLE_NAME, null, null, null, null, null, null);
+        Integer count = c.getCount();
+        c.close();
+        return count;
+    }
+
+    public boolean isEmpty(){
+        return getTeamsCount()==0;
     }
 }
