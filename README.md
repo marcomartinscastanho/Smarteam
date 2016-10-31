@@ -7,11 +7,8 @@
 * Only English
 
 ## TODOs ##
-* Splash Screen
-* * load the DataBase
-* * apply Configurations
-* * move to ActivityStart
-* Create ActivityStart and its layout
+* Create Settings Menu
+* Add Settings feature to Settings button
 
 ### Free version ###
 
