@@ -62,7 +62,7 @@ public class Players {
         dbHelper.close();
     }
 
-    public long insertPlayer(String name, Integer teamId) throws SQLException {
+    public long insertPlayer(String name, Integer teamId) throws PlayerAlreadyExistsException {
         if (checkPlayerExistsByName(name, teamId)) {
             throw new PlayerAlreadyExistsException();
         }
@@ -194,6 +194,19 @@ public class Players {
             c.close();
             throw new PlayerNotFoundException();
         }
+    }
+
+    public Integer getPlayersCountByTeamId(Integer teamId){
+        String selection = COLUMN_NAME_TEAM + " = ?";
+        String[] selectionArgs = {teamId.toString()};
+        Cursor c = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        Integer count = c.getCount();
+        c.close();
+        return count;
+    }
+
+    public boolean isEmptyByTeamId(Integer teamId){
+        return getPlayersCountByTeamId(teamId)==0;
     }
     //TODO: getAllPlayersByTeam
 }
