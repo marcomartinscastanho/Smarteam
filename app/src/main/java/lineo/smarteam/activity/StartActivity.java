@@ -159,10 +159,10 @@ public class StartActivity extends Activity implements View.OnClickListener {
                         Log.i(TAG, "deleteButtonClick() - Deleting team " + choiceList[selectedTeam]);
                         try {
                             teamsDb.deleteTeamByName(choiceList[selectedTeam].toString());
-                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastSuccessfullyDeletedSuffix)));
+                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastSuccessfullyDeletedTeamSuffix)));
                         } catch (TeamNotFoundException e) {
                             e.printStackTrace();
-                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeletedPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastFailedToDeletedSuffix)));
+                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeleteTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastFailedToDeleteTeamSuffix)));
                         }
                     }
                 });

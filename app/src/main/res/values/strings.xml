@@ -4,28 +4,15 @@
     <!-- Activities Names -->
     <string name="title_activity_splash">ActivitySplash</string>
     <string name="title_activity_start">ActivityStart</string>
+    <string name="title_activity_team">ActivityTeam</string>
+
+    <string name="splash_loading">Loading</string>
 
     <!-- Buttons text -->
     <string name="buttonStartMenuLoad">Open</string>
     <string name="buttonStartMenuCreate">New</string>
     <string name="buttonStartMenuDelete">Delete</string>
     <string name="buttonStartMenuSettings">Settings</string>
-
-    <string name="splash_loading">Loading</string>
-    <string name="toastNoTeamsInit">Start by creating a New team</string>
-    <string name="toastNoTeamsToDelete">There are no Teams to delete</string>
-    <string name="toastTeamNameTooShort">That name is too short</string>
-    <string name="toastTeamNameTooLong">That name is too long</string>
-    <string name="toastTeamAlreadyExists">That name is already in use</string>
-    <string name="dialogCreateTeamTitle">Add a New Team</string>
-    <string name="dialogTeamToDelete">Select a Team to delete</string>
-    <string name="dialogAreYouSureDeleteTeamPrefix">Are you sure you want to delete Team&#160;</string>
-    <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
-    <string name="toastSuccessfullyDeletedPrefix">Deleted Team&#160;</string>
-    <string name="toastSuccessfullyDeletedSuffix"/>
-    <string name="toastFailedToDeletedPrefix">Failed to Delete Team&#160;</string>
-    <string name="toastFailedToDeletedSuffix"/>
-    <string name="toastNoTeamsToLoad">There are no Teams to open</string>
     <string name="buttonTeamInsertPlayer">Add Player</string>
     <string name="buttonTeamDeletePlayer">Remove Player</string>
     <string name="buttonTeamInsertResult">New Result</string>
@@ -33,9 +20,40 @@
     <string name="buttonTeamGenerateLineups">Generate Lineups</string>
     <string name="buttonTeamRanking">Ranking</string>
     <string name="buttonTeamStatistics">Statistics</string>
+
+    <!-- Toasts -->
+    <!--- Teams -->
+    <string name="toastNoTeamsInit">Start by creating a New team</string>
+    <string name="toastNoTeamsToDelete">There are no Teams to delete</string>
+    <string name="toastTeamNameTooShort">That name is too short</string>
+    <string name="toastTeamNameTooLong">That name is too long</string>
+    <string name="toastTeamAlreadyExists">That name is already in use</string>
+    <string name="toastSuccessfullyDeletedTeamPrefix">Deleted Team&#160;</string>
+    <string name="toastSuccessfullyDeletedTeamSuffix"/>
+    <string name="toastFailedToDeleteTeamPrefix">Failed to Delete Team&#160;</string>
+    <string name="toastFailedToDeleteTeamSuffix"/>
+    <string name="toastNoTeamsToLoad">There are no Teams to open</string>
+    <!--- Players -->
     <string name="toastNoPlayersInit">There are no players in this team yet</string>
-    <string name="dialogAddPlayerTitle">Add a new Player</string>
     <string name="toastPlayerAlreadyExists">There is already a player with that name in this team</string>
     <string name="toastPlayerNameTooShort">That Player name is too short</string>
     <string name="toastPlayerNameTooLong">That Player name is too long</string>
+    <string name="toastNoPlayersToDelete">There are no Players to delete</string>
+    <string name="toastSuccessfullyDeletedPlayerPrefix">Deleted Player&#160;</string>
+    <string name="toastSuccessfullyDeletedPlayerSuffix"/>
+    <string name="toastFailedToDeletePlayerPrefix">Failed to delete Player&#160;</string>
+    <string name="toastFailedToDeletePlayerSuffix"/>
+
+    <!-- Dialogs -->
+    <!--- Teams -->
+    <string name="dialogCreateTeamTitle">Add a New Team</string>
+    <string name="dialogTeamToDelete">Select a Team to delete</string>
+    <string name="dialogAreYouSureDeleteTeamPrefix">Are you sure you want to delete Team&#160;</string>
+    <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
+    <!--- Players -->
+    <string name="dialogAddPlayerTitle">Add a new Player</string>
+    <string name="dialogPlayerToDelete">Select a Player to delete</string>
+    <string name="dialogAreYouSureDeletePlayerPrefix">Are you sure you want to delete Player&#160;</string>
+    <string name="dialogAreYouSureDeletePlayerSuffix">\?</string>
+
 </resources>
