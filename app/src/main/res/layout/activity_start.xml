@@ -6,71 +6,49 @@
                android:orientation="vertical"
                android:gravity="center_vertical"
                tools:context=".activity.StartActivity">
-
-    <LinearLayout
+    <Button
+        android:id="@+id/start_button_load"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/start_activity_top_bottom_margin"
-        android:layout_marginLeft="@dimen/start_activity_inter_button_margin"
-        android:layout_marginRight="@dimen/start_activity_inter_button_margin"
         android:layout_weight="1"
-        >
-        <Button
-            android:id="@+id/start_button_load"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonStartMenuLoad"
-            android:textSize="@dimen/start_activity_text_size"
-            android:drawableTop="@drawable/ic_folder_open_white_48dp"
-            tools:ignore="NestedWeights"/>
-        <Button
-            android:id="@+id/start_button_create"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonStartMenuCreate"
-            android:drawableTop="@drawable/ic_add_white_48dp"
-            android:textSize="@dimen/start_activity_text_size"/>
-    </LinearLayout>
-
-    <LinearLayout
+        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonStartMenuLoad"
+        android:textSize="@dimen/start_activity_text_size"
+        android:drawableTop="@drawable/ic_folder_open_white_48dp"
+        tools:ignore="NestedWeights"/>
+    <Button
+        android:id="@+id/start_button_create"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/start_activity_top_bottom_margin"
-        android:layout_marginLeft="@dimen/start_activity_inter_button_margin"
-        android:layout_marginRight="@dimen/start_activity_inter_button_margin"
-        android:layout_weight="1" >
-        <Button
-            android:id="@+id/start_button_delete"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonStartMenuDelete"
-            android:textSize="@dimen/start_activity_text_size"
-            android:drawableTop="@drawable/ic_remove_white_48dp"
-            tools:ignore="NestedWeights"/>
-        <Button
-            android:id="@+id/start_button_settings"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonStartMenuSettings"
-            android:textSize="@dimen/start_activity_text_size"
-            android:drawableTop="@drawable/ic_settings_white_48dp"/>
-    </LinearLayout>
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonStartMenuCreate"
+        android:drawableTop="@drawable/ic_add_white_48dp"
+        android:textSize="@dimen/start_activity_text_size"/>
+    <Button
+        android:id="@+id/start_button_delete"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonStartMenuDelete"
+        android:textSize="@dimen/start_activity_text_size"
+        android:drawableTop="@drawable/ic_remove_white_48dp"
+        tools:ignore="NestedWeights"/>
+    <Button
+        android:id="@+id/start_button_settings"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonStartMenuSettings"
+        android:textSize="@dimen/start_activity_text_size"
+        android:drawableTop="@drawable/ic_settings_white_48dp"/>
 </LinearLayout >
