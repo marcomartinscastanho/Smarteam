@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import lineo.smarteam.R;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
@@ -79,6 +80,15 @@ public class Players {
         Long tsLong = System.currentTimeMillis() / 1000;
         values.put(COLUMN_NAME_UPDATE_DATE, tsLong.toString());
         return db.insertOrThrow(TABLE_NAME, null, values);
+    }
+
+    public long deleteTeamByNameAndTeamId(String name, Integer teamId) throws PlayerNotFoundException {
+        if (!checkPlayerExistsByName(name, teamId)) {
+            throw new PlayerNotFoundException();
+        }
+        String selection = COLUMN_NAME_NAME + " = ? AND " + COLUMN_NAME_TEAM + " = ?";
+        String[] selectionArgs = {name, teamId.toString()};
+        return db.delete(TABLE_NAME, selection, selectionArgs);
     }
 
     public boolean checkPlayerExistsByName(String name, Integer teamId) {
@@ -196,6 +206,21 @@ public class Players {
         }
     }
 
+    public ArrayList<String> getPlayersNamesByTeamId(Integer teamId){
+        ArrayList<String> list = new ArrayList<>();
+        String[] projection = {COLUMN_NAME_NAME};
+        String selection = COLUMN_NAME_TEAM + " = ?";
+        String[] selectionArgs = {teamId.toString()};
+        Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        if (c.moveToFirst()){
+            do{
+                list.add(c.getString(c.getColumnIndexOrThrow(COLUMN_NAME_NAME)));
+            }while(c.moveToNext());
+        }
+        c.close();
+        return list;
+    }
+
     public Integer getPlayersCountByTeamId(Integer teamId){
         String selection = COLUMN_NAME_TEAM + " = ?";
         String[] selectionArgs = {teamId.toString()};
@@ -208,5 +233,4 @@ public class Players {
     public boolean isEmptyByTeamId(Integer teamId){
         return getPlayersCountByTeamId(teamId)==0;
     }
-    //TODO: getAllPlayersByTeam
 }
