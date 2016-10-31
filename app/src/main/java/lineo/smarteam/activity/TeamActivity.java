@@ -12,10 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
 import lineo.smarteam.db.Players;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
+import lineo.smarteam.exception.PlayerNotFoundException;
 
 public class TeamActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "TeamActivity";
@@ -94,7 +97,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         }
         else if(v.equals(deletePlayerButton)){
             Log.i(TAG, "onClick(View v) - Delete Player button clicked");
-            //deletePlayerButtonClick();
+            deletePlayerButtonClick();
         }
         else if(v.equals(generateLineupsButton)){
             Log.i(TAG, "onClick(View v) - Generate Lineups button clicked");
@@ -137,6 +140,67 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         addDialog.show();
         Button okButton = addDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         okButton.setOnClickListener(new TeamActivity.AddPlayerDialogListener(addDialog, editTextAddPlayer));
+    }
+
+    private void deletePlayerButtonClick() {
+        Log.i(TAG, "deletePlayerButtonClick()");
+        selectedPlayer = -1;
+
+        if(playersDb.isEmptyByTeamId(teamId)){
+            myApp.showToast(context, getResources().getString(R.string.toastNoPlayersToDelete));
+            return;
+        }
+        ArrayList<String> playersNamesList = playersDb.getPlayersNamesByTeamId(teamId);
+        final CharSequence[] choiceList = playersNamesList.toArray(new CharSequence[playersNamesList.size()]);
+        AlertDialog.Builder deletePlayerBuilder = new AlertDialog.Builder(context);
+        deletePlayerBuilder.setTitle(getResources().getString(R.string.dialogPlayerToDelete));
+        deletePlayerBuilder.setSingleChoiceItems(choiceList, selectedPlayer, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedPlayer = which;
+            }
+        });
+        deletePlayerBuilder.setCancelable(true);
+        deletePlayerBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "Which value=" + which);
+                Log.d(TAG, "Selected value=" + selectedPlayer);
+                if(selectedPlayer<0)
+                    return;
+                // Are you sure you want to delete?
+                AlertDialog.Builder builderAreYouSure = new AlertDialog.Builder(context);
+                builderAreYouSure.setTitle(getResources().getString(R.string.dialogAreYouSureDeletePlayerPrefix) + choiceList[selectedPlayer] + getResources().getString(R.string.dialogAreYouSureDeletePlayerSuffix));
+                builderAreYouSure.setCancelable(true);
+                builderAreYouSure.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i(TAG, "deleteButtonClick() - Deleting player " + choiceList[selectedPlayer]);
+                        try {
+                            playersDb.deleteTeamByNameAndTeamId(choiceList[selectedPlayer].toString(), teamId);
+                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedPlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastSuccessfullyDeletedPlayerSuffix)));
+                        } catch (PlayerNotFoundException e) {
+                            e.printStackTrace();
+                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeletePlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastFailedToDeletePlayerSuffix)));
+                        }
+                    }
+                });
+                builderAreYouSure.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog areYouSureDialog = builderAreYouSure.create();
+                areYouSureDialog.show();
+            }
+        });
+        deletePlayerBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog deleteDialog = deletePlayerBuilder.create();
+        deleteDialog.show();
     }
 
     public class AddPlayerDialogListener implements View.OnClickListener {
