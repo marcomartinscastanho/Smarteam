@@ -26,4 +26,16 @@
     <string name="toastFailedToDeletedPrefix">Failed to Delete Team&#160;</string>
     <string name="toastFailedToDeletedSuffix"/>
     <string name="toastNoTeamsToLoad">There are no Teams to open</string>
+    <string name="buttonTeamInsertPlayer">Add Player</string>
+    <string name="buttonTeamDeletePlayer">Remove Player</string>
+    <string name="buttonTeamInsertResult">New Result</string>
+    <string name="buttonTeamDeleteLastResult">Delete Last Result</string>
+    <string name="buttonTeamGenerateLineups">Generate Lineups</string>
+    <string name="buttonTeamRanking">Ranking</string>
+    <string name="buttonTeamStatistics">Statistics</string>
+    <string name="toastNoPlayersInit">There are no players in this team yet</string>
+    <string name="dialogAddPlayerTitle">Add a new Player</string>
+    <string name="toastPlayerAlreadyExists">There is already a player with that name in this team</string>
+    <string name="toastPlayerNameTooShort">That Player name is too short</string>
+    <string name="toastPlayerNameTooLong">That Player name is too long</string>
 </resources>
