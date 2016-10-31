@@ -260,7 +260,15 @@ public class StartActivity extends Activity implements View.OnClickListener {
     }
 
     public void callTeamActivity(String teamName){
+        Integer teamId = null;
+        try {
+            teamId = teamsDb.getIdByName(teamName);
+        } catch (TeamNotFoundException e) {
+            e.printStackTrace();
+            Log.w(TAG, "callTeamActivity() - TeamNotFoundException: "+teamName);
+        }
         Intent intent = new Intent(this, TeamActivity.class);
+        intent.putExtra("teamId", teamId);
         intent.putExtra("teamName", teamName);
         startActivity(intent);
     }
