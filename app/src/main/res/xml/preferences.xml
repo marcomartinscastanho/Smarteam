@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory     android:title="@string/scores_category_title"
+                            android:key="pref_key_scores_settings">
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_win_score"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_win_score"
+            android:key="pref_key_win_score" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_draw_score"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_draw_score"
+            android:key="pref_key_draw_score" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_defeat_score"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_defeat_score"
+            android:key="pref_key_defeat_score" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_short_absence_score"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_short_absence_score"
+            android:key="pref_key_short_absence_score" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_medium_absence_score"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_medium_absence_score"
+            android:key="pref_key_medium_absence_score" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_long_absence_score"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_long_absence_score"
+            android:key="pref_key_long_absence_score" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_missed_score"
+            android:inputType="numberSigned"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_missed_score"
+            android:key="pref_key_missed_score" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory     android:title="@string/absences_title"
+                            android:key="pref_key_absence_settings">
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_medium_absence_duration"
+            android:key="pref_key_medium_absence_duration"
+            android:inputType="number"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_medium_absence_duration"
+            android:summary="@string/pref_summary_medium_absence_duration" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_long_absence_duration"
+            android:key="pref_key_long_absence_duration"
+            android:inputType="number"
+            android:maxLength="9"
+            android:defaultValue="@integer/def_long_absence_duration"
+            android:summary="@string/pref_summary_long_absence_duration" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory     android:title="@string/model_title"
+                            android:key="pref_key_model_settings">
+        <lineo.smarteam.preference.MyEditTextPreference
+            android:title="@string/pref_title_k"
+            android:key="pref_key_k"
+            android:inputType="numberDecimal"
+            android:maxLength="9"
+            android:defaultValue="@string/valueK"
+            android:summary="@string/pref_summary_k" >
+        </lineo.smarteam.preference.MyEditTextPreference>
+    </PreferenceCategory>
+    <!--
+    <PreferenceCategory     android:title="@string/default_title"
+                            android:key="pref_key_default_settings">
+        <lineo.smarteam.preference.ResetDefaultSettingsDialogPreference
+            android:dialogMessage="@string/dialogRestoreDefault"
+            android:key="resetSettingsDialog"
+            android:negativeButtonText="@android:string/no"
+            android:persistent="false"
+            android:positiveButtonText="@android:string/yes"
+            android:summary="@string/summaryRestoreDefault"
+            android:title="@string/pref_title_restore_default" >
+        </lineo.smarteam.preference.ResetDefaultSettingsDialogPreference>
+    </PreferenceCategory>
+    -->
+</PreferenceScreen>
