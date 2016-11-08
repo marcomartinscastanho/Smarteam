@@ -38,11 +38,12 @@ public class DataBaseAdapter {
     private static final String SQL_DELETE_TABLE_TEAMS = "DROP TABLE IF EXISTS " + Teams.TABLE_NAME;
     private static final String SQL_CREATE_TABLE_PLAYERS =
             "CREATE TABLE " + Players.TABLE_NAME + " (" + Players.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                    + Players.COLUMN_NAME_NAME + TEXT_TYPE + UNIQUE + COMMA_SEP + Players.COLUMN_NAME_TEAM + INTEGER_TYPE + COMMA_SEP
+                    + Players.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP + Players.COLUMN_NAME_TEAM + INTEGER_TYPE + COMMA_SEP
                     + Players.COLUMN_NAME_WINS + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_DRAWS + INTEGER_TYPE + COMMA_SEP
                     + Players.COLUMN_NAME_DEFEATS + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_MATCHES + INTEGER_TYPE + COMMA_SEP
                     + Players.COLUMN_NAME_MATCHES_AFTER_DEBUT + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_WIN_PERCENTAGE + INTEGER_TYPE + COMMA_SEP
-                    + Players.COLUMN_NAME_SCORE + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE + ")";
+                    + Players.COLUMN_NAME_SCORE + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
+                    + UNIQUE+"(" + Players.COLUMN_NAME_NAME + COMMA_SEP + Players.COLUMN_NAME_TEAM + "))";
     private static final String SQL_DELETE_TABLE_PLAYERS = "DROP TABLE IF EXISTS " + Players.TABLE_NAME;
     private static final String SQL_CREATE_TABLE_INDIVIDUAL_RESULTS =
             "CREATE TABLE " + IndividualResults.TABLE_NAME + " (" + IndividualResults.COLUMN_NAME_PLAYER_ID + INTEGER_TYPE + COMMA_SEP
