@@ -6,14 +6,14 @@ import android.widget.Toast;
 
 public class MyApplication extends Application {
     private static final String TAG = "AppGlobal";
-    private Toast toast;
+    private static Toast toast;
 
     @Override
     public void onTerminate() {
         super.onTerminate();
     }
 
-    public void showToast(Context context, String string){
+    public static void showToast(Context context, String string){
         if(toast == null){
             toast = new Toast(context);
         }

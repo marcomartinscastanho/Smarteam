@@ -23,7 +23,6 @@ import lineo.smarteam.exception.PlayerNotFoundException;
 public class TeamActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "TeamActivity";
     private Context context;
-    private MyApplication myApp;
 
     private Button addResultButton;
     private Button deleteLastResultButton;
@@ -45,7 +44,6 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         setLayout();
 
         context=this;
-        myApp = ((MyApplication) ((Activity) context).getApplication());
         Intent intent = getIntent();
         this.teamName = intent.getStringExtra("teamName");
         this.teamId = intent.getIntExtra("teamId", -1); //TODO: back to Start activity in case teamId=-1
@@ -70,7 +68,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         super.onResume();
         Log.i(TAG, "onResume()");
         if(playersDb.isEmptyByTeamId(teamId)){
-            myApp.showToast(context, getResources().getString(R.string.toastNoPlayersInit));
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayersInit));
         }
     }
 
@@ -147,7 +145,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         selectedPlayer = -1;
 
         if(playersDb.isEmptyByTeamId(teamId)){
-            myApp.showToast(context, getResources().getString(R.string.toastNoPlayersToDelete));
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayersToDelete));
             return;
         }
         ArrayList<String> playersNamesList = playersDb.getPlayersNamesByTeamId(teamId);
@@ -178,10 +176,10 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                         Log.i(TAG, "deleteButtonClick() - Deleting player " + choiceList[selectedPlayer]);
                         try {
                             playersDb.deleteTeamByNameAndTeamId(choiceList[selectedPlayer].toString(), teamId);
-                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedPlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastSuccessfullyDeletedPlayerSuffix)));
+                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedPlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastSuccessfullyDeletedPlayerSuffix)));
                         } catch (PlayerNotFoundException e) {
                             e.printStackTrace();
-                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeletePlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastFailedToDeletePlayerSuffix)));
+                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeletePlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastFailedToDeletePlayerSuffix)));
                         }
                     }
                 });
@@ -220,17 +218,17 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
         boolean validate(String name){
             if(name.length()<getResources().getInteger(R.integer.minCharsPlayerName)){
-                myApp.showToast(context, getResources().getString(R.string.toastPlayerNameTooShort));
+                MyApplication.showToast(context, getResources().getString(R.string.toastPlayerNameTooShort));
                 return false;
             }
             if(name.length()>getResources().getInteger(R.integer.maxCharsPlayerName)){
-                myApp.showToast(context, getResources().getString(R.string.toastPlayerNameTooLong));
+                MyApplication.showToast(context, getResources().getString(R.string.toastPlayerNameTooLong));
                 return false;
             }
             try {
                 playersDb.insertPlayer(name, teamId);
             } catch (PlayerAlreadyExistsException e) {
-                myApp.showToast(context, getResources().getString(R.string.toastPlayerAlreadyExists));
+                MyApplication.showToast(context, getResources().getString(R.string.toastPlayerAlreadyExists));
                 return false;
             }
             return true;

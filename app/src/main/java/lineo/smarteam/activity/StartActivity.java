@@ -22,7 +22,6 @@ import lineo.smarteam.exception.TeamNotFoundException;
 public class StartActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "StartActivity";
     private Context context;
-    private MyApplication myApp;
 
     // Buttons
     private Button loadButton;
@@ -40,7 +39,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
         setLayout();
 
         context=this;
-        myApp = ((MyApplication) ((Activity) context).getApplication());
     }
 
     @Override
@@ -62,7 +60,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         super.onResume();
         Log.i(TAG, "onResume()");
         if(teamsDb.isEmpty()){
-            myApp.showToast(context, getResources().getString(R.string.toastNoTeamsInit));
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsInit));
         }
     }
 
@@ -128,7 +126,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         selectedTeam = -1;
 
         if(teamsDb.isEmpty()){
-            myApp.showToast(context, getResources().getString(R.string.toastNoTeamsToDelete));
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsToDelete));
             return;
         }
         ArrayList<String> teamsNamesList = teamsDb.getTeamsNames();
@@ -159,10 +157,10 @@ public class StartActivity extends Activity implements View.OnClickListener {
                         Log.i(TAG, "deleteButtonClick() - Deleting team " + choiceList[selectedTeam]);
                         try {
                             teamsDb.deleteTeamByName(choiceList[selectedTeam].toString());
-                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastSuccessfullyDeletedTeamSuffix)));
+                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastSuccessfullyDeletedTeamSuffix)));
                         } catch (TeamNotFoundException e) {
                             e.printStackTrace();
-                            myApp.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeleteTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastFailedToDeleteTeamSuffix)));
+                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeleteTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastFailedToDeleteTeamSuffix)));
                         }
                     }
                 });
@@ -189,13 +187,13 @@ public class StartActivity extends Activity implements View.OnClickListener {
         selectedTeam = -1;
 
         if(teamsDb.isEmpty()){
-            myApp.showToast(context, getResources().getString(R.string.toastNoTeamsToLoad));
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsToLoad));
             return;
         }
         ArrayList<String> teamsNamesList = teamsDb.getTeamsNames();
         final CharSequence[] choiceList = teamsNamesList.toArray(new CharSequence[teamsNamesList.size()]);
         AlertDialog.Builder loadTeamBuilder = new AlertDialog.Builder(context);
-        loadTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToDelete));
+        loadTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToLoad));
         loadTeamBuilder.setSingleChoiceItems(choiceList, selectedTeam, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -242,17 +240,17 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
         boolean validate(String name){
             if(name.length()<getResources().getInteger(R.integer.minCharsTeamName)){
-                myApp.showToast(context, getResources().getString(R.string.toastTeamNameTooShort));
+                MyApplication.showToast(context, getResources().getString(R.string.toastTeamNameTooShort));
                 return false;
             }
             if(name.length()>getResources().getInteger(R.integer.maxCharsTeamName)){
-                myApp.showToast(context, getResources().getString(R.string.toastTeamNameTooLong));
+                MyApplication.showToast(context, getResources().getString(R.string.toastTeamNameTooLong));
                 return false;
             }
             try {
                 teamsDb.insertTeam(name);
             } catch (TeamAlreadyExistsException e) {
-                myApp.showToast(context, getResources().getString(R.string.toastTeamAlreadyExists));
+                MyApplication.showToast(context, getResources().getString(R.string.toastTeamAlreadyExists));
                 return false;
             }
             return true;
