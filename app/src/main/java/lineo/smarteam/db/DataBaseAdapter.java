@@ -71,10 +71,6 @@ public class DataBaseAdapter {
             values.put(Configurations.COLUMN_NAME_ATTRIBUTE, "VALUE_K");
             values.put(Configurations.COLUMN_NAME_VALUE, R.string.valueK);
             db.insert(Configurations.TABLE_NAME, null, values);
-            values = new ContentValues();
-            values.put(Configurations.COLUMN_NAME_ATTRIBUTE, "VALUE_COLOR");
-            values.put(Configurations.COLUMN_NAME_VALUE, R.integer.valueColor);
-            db.insert(Configurations.TABLE_NAME, null, values);
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
