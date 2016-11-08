@@ -26,13 +26,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="lineo.smarteam.activity.TeamActivity"
+            android:name="lineo.smarteam.activity.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lineo.smarteam.activity.StartActivity" />
         </activity>
+        <activity
+            android:name="lineo.smarteam.activity.TeamActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/MainTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lineo.smarteam.activity.StartActivity" />
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
     </application>
 
 </manifest>
