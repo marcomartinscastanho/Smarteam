@@ -40,16 +40,16 @@ public class SettingsActivity extends PreferenceActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
-        private static final String KEY_PREF_WIN_SCORE = "WIN_SCORE";
-        private static final String KEY_PREF_DRAW_SCORE = "DRAW_SCORE";
-        private static final String KEY_PREF_DEFEAT_SCORE = "DEFEAT_SCORE";
-        private static final String KEY_PREF_SHORT_ABSENCE_SCORE = "SHORT_ABSENCE_SCORE";
-        private static final String KEY_PREF_MEDIUM_ABSENCE_SCORE = "MEDIUM_ABSENCE_SCORE";
-        private static final String KEY_PREF_LONG_ABSENCE_SCORE = "LONG_ABSENCE_SCORE";
-        private static final String KEY_PREF_MISSED_SCORE = "MISSED_SCORE";
-        private static final String KEY_PREF_MEDIUM_ABSENCE_DURATION = "MEDIUM_ABSENCE_DURATION";
-        private static final String KEY_PREF_LONG_ABSENCE_DURATION = "LONG_ABSENCE_DURATION";
-        private static final String KEY_PREF_K = "K";
+        private static final String KEY_PREF_WIN_SCORE = "KEY_PREF_WIN_SCORE";
+        private static final String KEY_PREF_DRAW_SCORE = "KEY_PREF_DRAW_SCORE";
+        private static final String KEY_PREF_DEFEAT_SCORE = "KEY_PREF_DEFEAT_SCORE";
+        private static final String KEY_PREF_SHORT_ABSENCE_SCORE = "KEY_PREF_SHORT_ABSENCE_SCORE";
+        private static final String KEY_PREF_MEDIUM_ABSENCE_SCORE = "KEY_PREF_MEDIUM_ABSENCE_SCORE";
+        private static final String KEY_PREF_LONG_ABSENCE_SCORE = "KEY_PREF_LONG_ABSENCE_SCORE";
+        private static final String KEY_PREF_MISSED_SCORE = "KEY_PREF_MISSED_SCORE";
+        private static final String KEY_PREF_MEDIUM_ABSENCE_DURATION = "KEY_PREF_MEDIUM_ABSENCE_DURATION";
+        private static final String KEY_PREF_LONG_ABSENCE_DURATION = "KEY_PREF_LONG_ABSENCE_DURATION";
+        private static final String KEY_PREF_K = "KEY_PREF_K";
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
