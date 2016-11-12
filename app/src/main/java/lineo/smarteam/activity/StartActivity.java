@@ -87,7 +87,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         }
         else if(v.equals(settingsButton)){
             Log.i(TAG, "onClick() - Settings");
-            //settingsButtonClick();
+            settingsButtonClick();
         }
     }
 
@@ -219,6 +219,11 @@ public class StartActivity extends Activity implements View.OnClickListener {
         });
         AlertDialog loadDialog = loadTeamBuilder.create();
         loadDialog.show();
+    }
+
+    private void settingsButtonClick() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public class CreateTeamDialogListener implements View.OnClickListener {
