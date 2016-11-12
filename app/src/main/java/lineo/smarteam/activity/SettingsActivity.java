@@ -1,7 +1,5 @@
 package lineo.smarteam.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -22,11 +20,10 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Context context = this;
-        myApp = ((MyApplication) ((Activity) context).getApplication());
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
+
+        myApp = ((MyApplication) this.getApplication());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
 
     @Override
@@ -357,7 +354,6 @@ public class SettingsActivity extends PreferenceActivity {
                                     MyApplication.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.err_k_smaller_than_one));
                                 return false;
                             }
-                            //TODO: save the new value in Configurations
                             //TODO: throw away the coefficients matrix
                             return true;
                         }
