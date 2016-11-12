@@ -22,6 +22,24 @@
     <string name="buttonTeamStatistics">Statistics</string>
 
     <!-- Toasts -->
+    <!--- Settings -->
+    <string name="err_points_win_not_larger_than_draw">Points per Win must be larger than points per Draw</string>
+    <string name="err_points_draw_smaller_than_short_absence">Points per Draw must not be smaller than points per Short Absence</string>
+    <string name="err_points_draw_not_larger_than_defeat">Points per Draw must be larger than points per Defeat</string>
+    <string name="err_points_draw_not_larger_than_zero">Points per Draw must be larger than 0</string>
+    <string name="err_points_draw_not_smaller_than_win">Points per Draw must be smaller than points per Win</string>
+    <string name="err_k_smaller_than_one">The Weight Coefficient must not be smaller than 1.0</string>
+    <string name="err_points_defeat_not_smaller_than_draw">Points per Defeat must be smaller than points per Draw</string>
+    <string name="err_points_defeat_larger_than_zero">Points per Defeat must not be larger than 0</string>
+    <string name="err_points_short_absence_smaller_than_medium">Points per Short Absence must not be smaller than points per Medium</string>
+    <string name="err_points_short_absence_larger_than_draw">Points per Short Absence must not be larger than points per Draw</string>
+    <string name="err_points_medium_absence_smaller_than_long">Points per Medium Absence must not be smaller than points per Long</string>
+    <string name="err_points_medium_absence_larger_than_short">Points per Medium Absence must not be larger than points per Short</string>
+    <string name="err_points_long_absence_larger_than_medium">Points per Long Absence must not be larger than points per Medium</string>
+    <string name="err_points_missed_larger_than_short">Points per Missed Match must not be larger than points per Short Absence</string>
+    <string name="err_long_absence_duration_smaller_than_medium">Long Absence must not be smaller than Medium Absence</string>
+    <string name="err_medium_absence_duration_larger_than_long">Medium Absence must not be larger than Long Absence</string>
+    <string name="err_medium_absence_duration_smaller_than_zero">Medium Absence must not be smaller than 0</string>
     <!--- Teams -->
     <string name="toastNoTeamsInit">Start by creating a New team</string>
     <string name="toastNoTeamsToDelete">There are no Teams to delete</string>
@@ -76,21 +94,4 @@
     <string name="pref_summary_medium_absence_duration">Number of absence matches that sets the line between Short and Medium Absence</string>
     <string name="pref_summary_long_absence_duration">Number of absence matches that sets the line between Medium and Long Absence</string>
     <string name="pref_summary_k">The relation between the weights of 2 consecutive matches</string>
-    <string name="err_points_win_not_larger_than_draw">Points per Win must be larger than points per Draw</string>
-    <string name="err_points_draw_smaller_than_short_absence">Points per Draw must not be smaller than points per Short Absence</string>
-    <string name="err_points_draw_not_larger_than_defeat">Points per Draw must be larger than points per Defeat</string>
-    <string name="err_points_draw_not_larger_than_zero">Points per Draw must be larger than 0</string>
-    <string name="err_points_draw_not_smaller_than_win">Points per Draw must be smaller than points per Win</string>
-    <string name="err_k_smaller_than_one">The Weight Coefficient must not be smaller than 1.0</string>
-    <string name="err_points_defeat_not_smaller_than_draw">Points per Defeat must be smaller than points per Draw</string>
-    <string name="err_points_defeat_larger_than_zero">Points per Defeat must not be larger than 0</string>
-    <string name="err_points_short_absence_smaller_than_medium">Points per Short Absence must not be smaller than points per Medium</string>
-    <string name="err_points_short_absence_larger_than_draw">Points per Short Absence must not be larger than points per Draw</string>
-    <string name="err_points_medium_absence_smaller_than_long">Points per Medium Absence must not be smaller than points per Long</string>
-    <string name="err_points_medium_absence_larger_than_short">Points per Medium Absence must not be larger than points per Short</string>
-    <string name="err_points_long_absence_larger_than_medium">Points per Long Absence must not be larger than points per Medium</string>
-    <string name="err_points_missed_larger_than_short">Points per Missed Match must not be larger than points per Short Absence</string>
-    <string name="err_long_absence_duration_smaller_than_medium">Long Absence must not be smaller than Medium Absence</string>
-    <string name="err_medium_absence_duration_larger_than_long">Medium Absence must not be larger than Long Absence</string>
-    <string name="err_medium_absence_duration_smaller_than_zero">Medium Absence must not be smaller than 0</string>
 </resources>
