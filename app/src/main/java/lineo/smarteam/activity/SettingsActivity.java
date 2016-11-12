@@ -4,7 +4,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
@@ -59,6 +61,7 @@ public class SettingsActivity extends PreferenceActivity {
         public void onResume() {
             super.onResume();
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+            setAllPreferencesSummaries();
         }
 
         @Override
@@ -70,7 +73,7 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             String value = sharedPreferences.getString(key, "");
-            findPreference(key).setSummary(value);
+            setPreferenceSummary(key, value);
         }
 
         public void setListeners() {
@@ -367,6 +370,49 @@ public class SettingsActivity extends PreferenceActivity {
 
         private boolean complyBasicRulesK(String newValue) {
             return complyBasicRules(newValue) && !((newValue.length() == 1) && (newValue.startsWith(".")));   //newValue is just a dot
+        }
+
+        private void setAllPreferencesSummaries(){
+            Log.d(TAG, "setAllPreferencesSummaries()");
+            for(int i=0; i<getPreferenceScreen().getPreferenceCount(); ++i){
+                Preference pref = getPreferenceScreen().getPreference(i);
+                if(pref instanceof PreferenceCategory){
+                    PreferenceCategory prefCat = (PreferenceCategory) pref;
+                    for(int j=0; j<prefCat.getPreferenceCount(); ++j) {
+                        String key = prefCat.getPreference(j).getKey();
+                        setPreferenceSummary(key, sharedPreferences.getString(key, ""));
+                    }
+                } else{
+                    String key = getPreferenceScreen().getPreference(i).getKey();
+                    setPreferenceSummary(key, sharedPreferences.getString(key, ""));
+                }
+            }
+        }
+
+        private void setPreferenceSummary(String key, String value){
+            Log.d(TAG, "setPreferenceSummary() key: "+key+", value: "+value);
+            switch (key){
+                case KEY_PREF_WIN_SCORE:
+                case KEY_PREF_DRAW_SCORE:
+                case KEY_PREF_DEFEAT_SCORE:
+                case KEY_PREF_SHORT_ABSENCE_SCORE:
+                case KEY_PREF_MEDIUM_ABSENCE_SCORE:
+                case KEY_PREF_LONG_ABSENCE_SCORE:
+                case KEY_PREF_MISSED_SCORE:
+                    findPreference(key).setSummary(value);
+                    break;
+                case KEY_PREF_MEDIUM_ABSENCE_DURATION:
+                    findPreference(key).setSummary(getResources().getString(R.string.pref_summary_medium_absence_duration)+": "+value);
+                    break;
+                case KEY_PREF_LONG_ABSENCE_DURATION:
+                    findPreference(key).setSummary(getResources().getString(R.string.pref_summary_long_absence_duration)+": "+value);
+                    break;
+                case KEY_PREF_K:
+                    findPreference(key).setSummary(getResources().getString(R.string.pref_summary_k)+": "+value);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
