@@ -7,6 +7,23 @@ import android.widget.Toast;
 public class MyApplication extends Application {
     private static Toast toast;
 
+    public enum ResultType {
+        Win("W"),
+        Draw("D"),
+        Defeat("L");
+
+        private final String res;
+        ResultType(String r){
+            res = r;
+        }
+        public boolean equals(String otherRes){
+            return otherRes != null && res.equals(otherRes);
+        }
+        public String toString(){
+            return this.res;
+        }
+    }
+
     @Override
     public void onTerminate() {
         super.onTerminate();
