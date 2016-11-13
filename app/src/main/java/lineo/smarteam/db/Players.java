@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
 import lineo.smarteam.exception.PlayerNotFoundException;
@@ -215,6 +216,21 @@ public class Players {
         if (c.moveToFirst()){
             do{
                 list.add(c.getString(c.getColumnIndexOrThrow(COLUMN_NAME_NAME)));
+            }while(c.moveToNext());
+        }
+        c.close();
+        return list;
+    }
+
+    public ArrayList<Integer> getPlayersIdsByTeamId(Integer teamId){
+        ArrayList<Integer> list = new ArrayList<>();
+        String[] projection = {COLUMN_NAME_ID};
+        String selection = COLUMN_NAME_TEAM + " = ?";
+        String[] selectionArgs = {teamId.toString()};
+        Cursor c = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        if (c.moveToFirst()){
+            do{
+                list.add(c.getInt(c.getColumnIndexOrThrow(COLUMN_NAME_ID)));
             }while(c.moveToNext());
         }
         c.close();
