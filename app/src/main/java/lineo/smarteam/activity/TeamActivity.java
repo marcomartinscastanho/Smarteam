@@ -18,9 +18,12 @@ import java.util.ArrayList;
 
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
+import lineo.smarteam.db.IndividualResults;
 import lineo.smarteam.db.Players;
+import lineo.smarteam.db.Teams;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
 import lineo.smarteam.exception.PlayerNotFoundException;
+import lineo.smarteam.exception.TeamNotFoundException;
 
 public class TeamActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "TeamActivity";
@@ -34,9 +37,17 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     private Button rankingButton;
     private Button statisticsButton;
 
-    private Integer teamId;
+    private Teams teamsDb;
     private Players playersDb;
+    private IndividualResults resultsDb;
+
+    private Integer teamId;
     private int selectedPlayer = -1;
+
+    // player selection indexes
+    final ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
+    //final ArrayList<Integer> selectedWinnersIndexList = new ArrayList<>();
+    //final ArrayList<Integer> selectedLosersIndexList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,6 +220,87 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         deleteDialog.show();
     }
 
+    private void insertResultButtonClick() {
+        Log.i(TAG, "insertResultButtonClick()");
+        if(playersDb.getPlayersCountByTeamId(teamId) < getResources().getInteger(R.integer.minPlayersPerMatch)){
+            MyApplication.showToast(context, getResources().getString(R.string.toastNotEnoughPlayersInTeam)+getResources().getInteger(R.integer.minPlayersPerMatch));
+            return;
+        }
+        AlertDialog.Builder builderResult = new AlertDialog.Builder(context);
+        builderResult.setTitle(getResources().getString(R.string.dialogInsertResult));
+        builderResult.setCancelable(true);
+        builderResult.setPositiveButton(R.string.draw, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                insertResultDraw();
+            }
+        });
+        builderResult.setNegativeButton(R.string.winDefeat, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                insertResultWinDefeat();
+            }
+        });
+        AlertDialog dialogResult = builderResult.create();
+        dialogResult.show();
+    }
+
+    private void insertResultDraw() {
+        Log.i(TAG, "insertResultDraw()");
+        int playersCount = playersDb.getPlayersCountByTeamId(teamId);
+        final CharSequence[] choiceList = playersDb.getPlayersNamesByTeamId(teamId).toArray(new CharSequence[playersCount]);
+        boolean[] isSelectedArray = new boolean[playersCount];
+        for(int i=0; i< playersCount; ++i)
+            isSelectedArray[i] = false;
+        AlertDialog.Builder builderDraw = new AlertDialog.Builder(context);
+        builderDraw.setTitle(getResources().getString(R.string.dialogSelectPlayersDraw));
+        builderDraw.setMultiChoiceItems(choiceList, isSelectedArray, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    selectedPlayersIndexList.add(which);
+                } else if (selectedPlayersIndexList.contains(which)) {
+                    selectedPlayersIndexList.remove(Integer.valueOf(which));
+                }
+            }
+        });
+        builderDraw.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builderDraw.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedPlayersIndexList.clear();
+            }
+        });
+        AlertDialog dialogDraw = builderDraw.create();
+        dialogDraw.show();
+        Button okButton = dialogDraw.getButton(DialogInterface.BUTTON_POSITIVE);
+        okButton.setOnClickListener(new InsertResultDrawDialogListener(dialogDraw));
+    }
+
+    private void insertResultWinDefeat() {
+        Log.i(TAG, "insertResultWinDefeat()");
+    }
+
+    private void deleteLastResultButtonClick() {
+
+    }
+
+    private void generateLineupsButtonClick() {
+
+    }
+
+    private void rankingButtonClick() {
+
+    }
+
+    private void statisticsButtonClick() {
+
+    }
+
     public class AddPlayerDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         private final EditText editTextAddPlayer;
@@ -241,6 +333,73 @@ public class TeamActivity extends Activity implements View.OnClickListener {
             }
             return true;
         }
+    }
+
+    public class InsertResultDrawDialogListener implements View.OnClickListener {
+        private final Dialog dialog;
+        InsertResultDrawDialogListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+        @Override
+        public void onClick(View v) {
+            if(!isSelectionValid())
+                return;
+            AlertDialog.Builder builderAreYouSure = new AlertDialog.Builder(context);
+            builderAreYouSure.setTitle(getResources().getString(R.string.dialogSelectPlayersDrawAreYouSurePrefix)+selectedPlayersIndexList.size()+getResources().getString(R.string.dialogSelectPlayersDrawAreYouSureSuffix));
+            builderAreYouSure.setCancelable(false);
+            builderAreYouSure.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogAreYouSure, int which) {
+                    dialog.dismiss();
+                    if(insertResult(selectedPlayersIndexList, MyApplication.ResultType.Draw)){
+                        rankingButtonClick();
+                    }
+                    else{
+                        MyApplication.showToast(context, getResources().getString(R.string.toastFailedToAddResult));
+                    }
+                    selectedPlayersIndexList.clear();
+                }
+            });
+            builderAreYouSure.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialogAreYouSure = builderAreYouSure.create();
+            dialogAreYouSure.show();
+        }
+
+        private boolean isSelectionValid(){
+            if(selectedPlayersIndexList.size() < getResources().getInteger(R.integer.minPlayersPerMatch)){
+                MyApplication.showToast(context, getResources().getString(R.string.toastNotEnoughPlayersSelected)+getResources().getInteger(R.integer.minPlayersPerMatch));
+                return false;
+            }
+            if(selectedPlayersIndexList.size() > getResources().getInteger(R.integer.maxPlayersPerMatch)){
+                MyApplication.showToast(context, getResources().getString(R.string.toastTooManyPlayersSelected)+getResources().getInteger(R.integer.maxPlayersPerMatch));
+                return false;
+            }
+                return true;
+        }
+    }
+
+    private boolean insertResult(ArrayList<Integer> selectionIndexes, MyApplication.ResultType resultType){
+        Integer matchday;
+        try {
+            matchday = teamsDb.getNumMatchesById(teamId) +1;
+        } catch (TeamNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        ArrayList<Integer> playersIds =  playersDb.getPlayersIdsByTeamId(teamId);
+        for(Integer playerIndexList : selectionIndexes){
+            try {
+                resultsDb.insertIndividualResult(playersIds.get(playerIndexList), teamId, matchday, resultType);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
     }
 
     private void setLayout(){
