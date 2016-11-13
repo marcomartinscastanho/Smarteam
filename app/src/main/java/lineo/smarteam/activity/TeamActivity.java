@@ -42,20 +42,9 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate()");
-        setLayout();
-
         context=this;
-        Intent intent = getIntent();
-        String teamName = intent.getStringExtra("teamName");
-        this.teamId = intent.getIntExtra("teamId", -1);
-        if(teamId==-1){
-            Log.wtf(TAG, "onCreate() failed to pass teamId to TeamActivity");
-            MyApplication.showToast(context, getResources().getString(R.string.toastFailedToLoadTeam));
-            finish();
-        }
-        ActionBar ab = getActionBar();
-        if (ab != null)
-            ab.setTitle(String.format("\t%s", teamName));
+        setLayout();
+        setTeamNameOnActionBar();
     }
 
     @Override
@@ -270,5 +259,19 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         generateLineupsButton.setOnClickListener(this);
         rankingButton.setOnClickListener(this);
         statisticsButton.setOnClickListener(this);
+    }
+
+    private void setTeamNameOnActionBar(){
+        Intent intent = getIntent();
+        String teamName = intent.getStringExtra("teamName");
+        this.teamId = intent.getIntExtra("teamId", -1);
+        if(teamId==-1){
+            Log.wtf(TAG, "onCreate() failed to pass teamId to TeamActivity");
+            MyApplication.showToast(context, getResources().getString(R.string.toastFailedToLoadTeam));
+            finish();
+        }
+        ActionBar ab = getActionBar();
+        if (ab != null)
+            ab.setTitle(String.format("\t%s", teamName));
     }
 }
