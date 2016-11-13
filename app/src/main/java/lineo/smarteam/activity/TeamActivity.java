@@ -1,5 +1,6 @@
 package lineo.smarteam.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +35,6 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     private Button statisticsButton;
 
     private Integer teamId;
-    private String teamName;
     private Players playersDb;
     private int selectedPlayer = -1;
 
@@ -45,8 +46,16 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
         context=this;
         Intent intent = getIntent();
-        this.teamName = intent.getStringExtra("teamName");
-        this.teamId = intent.getIntExtra("teamId", -1); //TODO: back to Start activity in case teamId=-1
+        String teamName = intent.getStringExtra("teamName");
+        this.teamId = intent.getIntExtra("teamId", -1);
+        if(teamId==-1){
+            Log.wtf(TAG, "onCreate() failed to pass teamId to TeamActivity");
+            MyApplication.showToast(context, getResources().getString(R.string.toastFailedToLoadTeam));
+            finish();
+        }
+        ActionBar ab = getActionBar();
+        if (ab != null)
+            ab.setTitle(String.format("\t%s", teamName));
     }
 
     @Override
@@ -59,7 +68,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
             playersDb = playersDb.open();
         } catch (SQLException e) {
             e.printStackTrace();
-            Log.wtf(TAG, "onCreate() Players DB failed to open");
+            Log.wtf(TAG, "onStart() Players DB failed to open");
         }
     }
 
@@ -77,6 +86,16 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         super.onStop();
         Log.i(TAG, "onStop()");
         playersDb.close();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
