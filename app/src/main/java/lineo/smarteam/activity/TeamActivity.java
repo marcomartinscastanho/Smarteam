@@ -62,13 +62,13 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart()");
-
-        playersDb = new Players(context);
         try {
-            playersDb = playersDb.open();
+            startDbs();
         } catch (SQLException e) {
+            Log.wtf(TAG, "onStart() failed to load Databases");
+            MyApplication.showToast(context, getResources().getString(R.string.toastFailedToLoadTeam));
             e.printStackTrace();
-            Log.wtf(TAG, "onStart() Players DB failed to open");
+            finish();
         }
     }
 
@@ -432,5 +432,14 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         ActionBar ab = getActionBar();
         if (ab != null)
             ab.setTitle(String.format("\t%s", teamName));
+    }
+
+    private void startDbs() throws SQLException {
+        teamsDb = new Teams(context);
+        playersDb = new Players(context);
+        resultsDb = new IndividualResults(context);
+        teamsDb = teamsDb.open();
+        playersDb = playersDb.open();
+        resultsDb = resultsDb.open();
     }
 }
