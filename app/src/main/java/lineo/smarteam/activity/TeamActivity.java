@@ -100,33 +100,27 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.equals(addResultButton)){
-            Log.i(TAG, "onClick(View v) - Add Result button clicked");
-            //insertResultButtonClick();
-        }
-        else if(v.equals(deleteLastResultButton)){
-            Log.i(TAG, "onClick(View v) - Delete Last Result button clicked");
-            //deleteLastResultButtonClick();
-        }
-        else if(v.equals(addPlayerButton)){
-            Log.i(TAG, "onClick(View v) - Add Player button clicked");
+        Log.i(TAG, "onClick()");
+        if(v.equals(addPlayerButton)){
             addPlayerButtonClick();
         }
         else if(v.equals(deletePlayerButton)){
-            Log.i(TAG, "onClick(View v) - Delete Player button clicked");
             deletePlayerButtonClick();
         }
+        else if(v.equals(addResultButton)){
+            insertResultButtonClick();
+        }
+        else if(v.equals(deleteLastResultButton)) {
+            deleteLastResultButtonClick();
+        }
         else if(v.equals(generateLineupsButton)){
-            Log.i(TAG, "onClick(View v) - Generate Lineups button clicked");
-            //generateLineupsButtonClick();
+            generateLineupsButtonClick();
         }
         else if(v.equals(rankingButton)){
-            Log.i(TAG, "onClick(View v) - Ranking button clicked");
-            //rankingButtonClick();
+            rankingButtonClick();
         }
         else if(v.equals(statisticsButton)){
-            Log.i(TAG, "onClick(View v) - Statistics button clicked");
-            //statisticsButtonClick();
+            statisticsButtonClick();
         }
     }
 
