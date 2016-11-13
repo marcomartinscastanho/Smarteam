@@ -97,4 +97,14 @@
     <string name="dialogRestoreDefault">Reset all settings to their initial values\?</string>
     <string name="summaryRestoreDefault">Reset all settings to their default values.</string>
     <string name="pref_title_restore_default">Restore Default</string>
+    <string name="toastNotEnoughPlayersInTeam">Not enough Players in the Team. Minimum is&#160;</string>
+    <string name="dialogInsertResult">How was the outcome of the match?</string>
+    <string name="draw">Draw</string>
+    <string name="winDefeat">Win/Defeat</string>
+    <string name="dialogSelectPlayersDraw">Select the Players</string>
+    <string name="toastNotEnoughPlayersSelected">Not enough Players Selected. Minimum is&#160;</string>
+    <string name="toastTooManyPlayersSelected">Too many Players selected. Maximum is&#160;</string>
+    <string name="dialogSelectPlayersDrawAreYouSurePrefix">You selected&#160;</string>
+    <string name="dialogSelectPlayersDrawAreYouSureSuffix">&#160;Players. Are you sure?</string>
+    <string name="toastFailedToAddResult">Failed to Add Result</string>
 </resources>
