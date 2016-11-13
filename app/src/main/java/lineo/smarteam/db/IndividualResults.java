@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLException;
 
+import lineo.smarteam.MyApplication;
 import lineo.smarteam.exception.IndividualResultAlreadyExistsException;
 import lineo.smarteam.exception.IndividualResultNotFoundException;
 
@@ -56,7 +57,7 @@ public class IndividualResults {
         dbHelper.close();
     }
 
-    public long insertIndividualResult(Integer playerId, Integer teamId, Integer matchday, String result, Integer date) throws SQLException {
+    public long insertIndividualResult(Integer playerId, Integer teamId, Integer matchday, MyApplication.ResultType result) throws SQLException {
         if (checkIndividualResultExists(playerId, teamId, matchday)) {
             throw new IndividualResultAlreadyExistsException();
         }
@@ -64,10 +65,10 @@ public class IndividualResults {
         values.put(COLUMN_NAME_PLAYER_ID, playerId);
         values.put(COLUMN_NAME_TEAM_ID, teamId);
         values.put(COLUMN_NAME_MATCHDAY, matchday);
-        values.put(COLUMN_NAME_RESULT, result);
-        values.put(COLUMN_NAME_MATCHDAY_DATE, date);
+        values.put(COLUMN_NAME_RESULT, result.toString());
         Long tsLong = System.currentTimeMillis() / 1000;
-        values.put(COLUMN_NAME_UPDATE_DATE, tsLong.toString());
+        values.put(COLUMN_NAME_MATCHDAY_DATE, tsLong);
+        values.put(COLUMN_NAME_UPDATE_DATE, tsLong);
         return db.insertOrThrow(TABLE_NAME, null, values);
     }
 
