@@ -94,4 +94,7 @@
     <string name="pref_summary_medium_absence_duration">Number of absence matches that sets the line between Short and Medium Absence</string>
     <string name="pref_summary_long_absence_duration">Number of absence matches that sets the line between Medium and Long Absence</string>
     <string name="pref_summary_k">The relation between the weights of 2 consecutive matches</string>
+    <string name="dialogRestoreDefault">Reset all settings to their initial values\?</string>
+    <string name="summaryRestoreDefault">Reset all settings to their default values.</string>
+    <string name="pref_title_restore_default">Restore Default</string>
 </resources>

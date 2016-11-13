@@ -82,4 +82,16 @@
             android:summary="@string/pref_summary_k" >
         </lineo.smarteam.preference.MyEditTextPreference>
     </PreferenceCategory>
+    <PreferenceCategory     android:title="@string/default_title"
+                            android:key="resetSettingsDialog">
+        <lineo.smarteam.preference.ResetDefaultSettingsDialogPreference
+            android:dialogMessage="@string/dialogRestoreDefault"
+            android:key="KEY_PREF_DEFAULT"
+            android:negativeButtonText="@android:string/no"
+            android:persistent="false"
+            android:positiveButtonText="@android:string/yes"
+            android:summary="@string/summaryRestoreDefault"
+            android:title="@string/pref_title_restore_default" >
+        </lineo.smarteam.preference.ResetDefaultSettingsDialogPreference>
+    </PreferenceCategory>
 </PreferenceScreen>

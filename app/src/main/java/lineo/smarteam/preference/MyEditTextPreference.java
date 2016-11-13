@@ -9,11 +9,9 @@ public class MyEditTextPreference extends EditTextPreference {
     public MyEditTextPreference(Context context) {
         super(context);
     }
-
     public MyEditTextPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
     public MyEditTextPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }

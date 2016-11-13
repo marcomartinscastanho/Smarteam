@@ -5,7 +5,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 public class MyApplication extends Application {
-    private static final String TAG = "AppGlobal";
     private static Toast toast;
 
     @Override
