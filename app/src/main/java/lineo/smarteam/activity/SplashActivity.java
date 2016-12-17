@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import java.sql.SQLException;
-import lineo.smarteam.R;
+
 import lineo.smarteam.db.DataBaseAdapter;
 
 public class SplashActivity extends Activity {
@@ -38,7 +38,6 @@ public class SplashActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            setContentView(R.layout.activity_splash);
         }
 
         @Override
