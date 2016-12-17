@@ -265,6 +265,38 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
     private void insertResultWinDefeat() {
         Log.i(TAG, "insertResultWinDefeat()");
+        int playersCount = MyApplication.db.getPlayersCountByTeamId(teamId);
+        final CharSequence[] choiceList = MyApplication.db.getPlayersNamesByTeamId(teamId).toArray(new CharSequence[playersCount]);
+        boolean[] isSelectedArray = new boolean[playersCount];
+        for(int i=0; i< playersCount; ++i)
+            isSelectedArray[i] = false;
+        AlertDialog.Builder builderWin = new AlertDialog.Builder(context);
+        builderWin.setTitle(getResources().getString(R.string.dialogSelectPlayersWin));
+        builderWin.setMultiChoiceItems(choiceList, isSelectedArray, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    selectedWinnersIndexList.add(which);
+                } else if (selectedWinnersIndexList.contains(which)) {
+                    selectedWinnersIndexList.remove(Integer.valueOf(which));
+                }
+            }
+        });
+        builderWin.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builderWin.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedWinnersIndexList.clear();
+            }
+        });
+        AlertDialog dialogWin = builderWin.create();
+        dialogWin.show();
+        Button okButton = dialogWin.getButton(DialogInterface.BUTTON_POSITIVE);
+        okButton.setOnClickListener(new InsertResultWinDialogListener(dialogWin));
     }
 
     private void deleteLastResultButtonClick() {
@@ -364,24 +396,210 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private boolean insertResult(ArrayList<Integer> selectionIndexes, MyApplication.ResultType resultType){
-        Integer matchday;
-        try {
-            matchday = teamsDb.getNumMatchesById(teamId) +1;
-        } catch (TeamNotFoundException e) {
-            e.printStackTrace();
-            return false;
+    private class InsertResultWinDialogListener implements View.OnClickListener {
+        private final Dialog dialogWin;
+        InsertResultWinDialogListener(AlertDialog dialog) {
+            this.dialogWin = dialog;
         }
-        ArrayList<Integer> playersIds =  playersDb.getPlayersIdsByTeamId(teamId);
-        for(Integer playerIndexList : selectionIndexes){
-            try {
-                resultsDb.insertIndividualResult(playersIds.get(playerIndexList), teamId, matchday, resultType);
-            } catch (SQLException e) {
-                e.printStackTrace();
+        @Override
+        public void onClick(View v) {
+            if(!isSelectionValid())
+                return;
+            int playersCount = MyApplication.db.getPlayersCountByTeamId(teamId) - selectedWinnersIndexList.size();
+            final CharSequence[] choiceList = new CharSequence[playersCount];
+            ArrayList<String> playersList = MyApplication.db.getPlayersNamesByTeamId(teamId);
+            int j=0;
+            for(int i=0; i < playersList.size() && j<playersCount; ++i){
+                if(selectedWinnersIndexList.contains(i))
+                    continue;
+
+                choiceList[j] = playersList.get(i);
+                ++j;
+            }
+            boolean[] isSelectedArray = new boolean[playersCount];
+            for(int i=0; i< playersCount; ++i)
+                isSelectedArray[i] = false;
+            AlertDialog.Builder builderDefeat = new AlertDialog.Builder(context);
+            builderDefeat.setTitle(getResources().getString(R.string.dialogSelectPlayersDefeat));
+            builderDefeat.setMultiChoiceItems(choiceList, isSelectedArray, new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    if (isChecked) {
+                        selectedLosersIndexList.add(which);
+                    } else if (selectedLosersIndexList.contains(which)) {
+                        selectedLosersIndexList.remove(Integer.valueOf(which));
+                    }
+                }
+            });
+            builderDefeat.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            builderDefeat.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    selectedLosersIndexList.clear();
+                }
+            });
+            AlertDialog dialogDefeat = builderDefeat.create();
+            dialogDefeat.show();
+            Button okButton = dialogDefeat.getButton(DialogInterface.BUTTON_POSITIVE);
+            okButton.setOnClickListener(new InsertResultDefeatDialogListener(dialogDefeat));
+        }
+
+        private boolean isSelectionValid(){
+            if(selectedWinnersIndexList.size() < getResources().getInteger(R.integer.minPlayersPerMatch)/2){
+                MyApplication.showToast(context, getResources().getString(R.string.toastNotEnoughPlayersSelected)+getResources().getInteger(R.integer.minPlayersPerMatch));
                 return false;
             }
+            if(selectedWinnersIndexList.size() > getResources().getInteger(R.integer.maxPlayersPerMatch)/2){
+                MyApplication.showToast(context, getResources().getString(R.string.toastTooManyPlayersSelected)+getResources().getInteger(R.integer.maxPlayersPerMatch));
+                return false;
+            }
+            return true;
         }
+
+        private class InsertResultDefeatDialogListener implements View.OnClickListener {
+            private final Dialog dialogDefeat;
+            InsertResultDefeatDialogListener(AlertDialog dialog) {
+                this.dialogDefeat = dialog;
+            }
+            @Override
+            public void onClick(View v) {
+                if(!isSelectionValid())
+                    return;
+                final int winners = selectedWinnersIndexList.size();
+                final int losers = selectedLosersIndexList.size();
+                AlertDialog.Builder builderAreYouSure = new AlertDialog.Builder(context);
+                builderAreYouSure.setTitle(getResources().getString(R.string.dialogSelectPlayersWinLoseAreYouSurePrefix)+winners+" vs "+losers+getResources().getString(R.string.dialogSelectPlayersWinLoseAreYouSureSuffix));
+                builderAreYouSure.setCancelable(true);
+                builderAreYouSure.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogAreYouSure, int which) {
+                        dialogDefeat.dismiss();
+                        dialogWin.dismiss();
+                        if(insertResult(MyApplication.ResultType.Win)){
+                            rankingButtonClick();
+                        }
+                        else{
+                            MyApplication.showToast(context, getResources().getString(R.string.toastFailedToAddResult));
+                        }
+                        selectedWinnersIndexList.clear();
+                        selectedLosersIndexList.clear();
+                    }
+                });
+                builderAreYouSure.setNegativeButton(android.R.string.no,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                AlertDialog dialogAreYouSure = builderAreYouSure.create();
+                dialogAreYouSure.show();
+            }
+
+            private boolean isSelectionValid(){
+                if(selectedLosersIndexList.size() < getResources().getInteger(R.integer.minPlayersPerMatch)/2){
+                    MyApplication.showToast(context, getResources().getString(R.string.toastNotEnoughPlayersSelected)+getResources().getInteger(R.integer.minPlayersPerMatch));
+                    return false;
+                }
+                if(selectedLosersIndexList.size() > getResources().getInteger(R.integer.maxPlayersPerMatch)/2){
+                    MyApplication.showToast(context, getResources().getString(R.string.toastTooManyPlayersSelected)+getResources().getInteger(R.integer.maxPlayersPerMatch));
+                    return false;
+                }
+                if(Math.abs(selectedWinnersIndexList.size() - selectedLosersIndexList.size()) > 1){
+                    MyApplication.showToast(context, getResources().getString(R.string.toastTeamsUnbalanced));
+                    return false;
+                }
+                return true;
+            }
+        }
+    }
+
+    private boolean insertResult(MyApplication.ResultType resultType){
+        Log.d(TAG, "insertResult() - init Transaction");
+        MyApplication.db.beginTransaction();
+        try{
+            if(resultType.equals(MyApplication.ResultType.Draw)){
+                insertDraw();
+            }
+            else{
+                insertWinDefeat();
+            }
+            MyApplication.db.addTeamMatch(teamId);
+            MyApplication.db.setTransactionSuccessful();
+        } catch (TeamNotFoundException e) {
+            e.printStackTrace();
+            Log.wtf(TAG, "addResult() - team "+teamId+" not found!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.wtf(TAG, "SqlException");
+        } finally {
+            Log.d(TAG, "insertResult() - end Transaction");
+            MyApplication.db.endTransaction();
+        }
+
         return true;
+    }
+
+    private void insertWinDefeat() throws SQLException {
+        Log.i(TAG, "insertWinDefeat()");
+        ArrayList<Integer> playersIds = MyApplication.db.getPlayersIdsByTeamIdOrderByPlayerName(teamId);
+        ArrayList<Integer> normalizedLosersIndexes = normalizeSelectedLosersList(playersIds.size());
+        Integer matchday = MyApplication.db.getTeamNumMatchesById(teamId) + 1;
+        int p=0;
+        for(Integer playerId : playersIds){
+            Log.d(TAG, "insertWinDefeat() - playerId: "+playerId+"   p:"+p);
+            if(selectedWinnersIndexList.contains(p)){
+                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Win);
+                MyApplication.db.addPlayerWin(playerId);
+            }
+            else if(normalizedLosersIndexes.contains(p)){
+                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Defeat);
+                MyApplication.db.addPlayerDefeat(playerId);
+            }
+            else{
+                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Absence);
+                if(MyApplication.db.getPlayerMatchesById(playerId) > 0)
+                    MyApplication.db.addPlayerAbsence(playerId);
+            }
+            ++p;
+        }
+    }
+
+    private ArrayList<Integer> normalizeSelectedLosersList(Integer numPlayers){
+        ArrayList<Integer> nonWinners = new ArrayList<>();
+        ArrayList<Integer> normalizedLosers = new ArrayList<>();
+        for(int a=0; a<numPlayers; ++a){
+            if(!selectedWinnersIndexList.contains(a))
+                nonWinners.add(a);
+        }
+        for(int nw=0; nw<nonWinners.size(); ++nw){
+            if(selectedLosersIndexList.contains(nw))
+                normalizedLosers.add(nonWinners.get(nw));
+        }
+        return normalizedLosers;
+    }
+
+    private void insertDraw() throws SQLException {
+        Log.i(TAG, "insertDraw()");
+        ArrayList<Integer> playersIds = MyApplication.db.getPlayersIdsByTeamIdOrderByPlayerName(teamId);
+        Integer matchday = MyApplication.db.getTeamNumMatchesById(teamId) + 1;
+        int p=0;
+        for(Integer playerId : playersIds){
+            Log.d(TAG, "insertDraw() - playerId: "+playerId+"   p:"+p);
+            if(selectedPlayersIndexList.contains(p)){
+                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Draw);
+                MyApplication.db.addPlayerDraw(playerId);
+            }
+            else{
+                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Absence);
+                if(MyApplication.db.getPlayerMatchesById(playerId) > 0)
+                    MyApplication.db.addPlayerAbsence(playerId);
+            }
+            ++p;
+        }
     }
 
     private void setLayout(){
