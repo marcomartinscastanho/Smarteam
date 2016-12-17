@@ -107,4 +107,9 @@
     <string name="dialogSelectPlayersDrawAreYouSurePrefix">You selected&#160;</string>
     <string name="dialogSelectPlayersDrawAreYouSureSuffix">&#160;Players. Are you sure?</string>
     <string name="toastFailedToAddResult">Failed to Add Result</string>
+    <string name="dialogSelectPlayersWin">Select the winners</string>
+    <string name="dialogSelectPlayersDefeat">Select the losers</string>
+    <string name="toastTeamsUnbalanced">Teams are unbalanced</string>
+    <string name="dialogSelectPlayersWinLoseAreYouSurePrefix">You played a&#160;</string>
+    <string name="dialogSelectPlayersWinLoseAreYouSureSuffix">&#160;match. Are you sure?</string>
 </resources>
