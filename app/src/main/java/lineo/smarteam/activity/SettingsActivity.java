@@ -361,7 +361,7 @@ public class SettingsActivity extends PreferenceActivity {
                                     MyApplication.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.err_k_smaller_than_one));
                                 return false;
                             }
-                            //TODO: throw away the coefficients matrix
+                            MyApplication.db.updateCoefficientsWeight(Double.parseDouble(nuValue));
                             return true;
                         }
                     }
