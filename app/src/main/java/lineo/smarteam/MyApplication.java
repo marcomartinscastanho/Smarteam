@@ -4,8 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import lineo.smarteam.db.DataBase;
+
 public class MyApplication extends Application {
     private static Toast toast;
+    public static DataBase db;
 
     public enum ResultType {
         Win("W"),

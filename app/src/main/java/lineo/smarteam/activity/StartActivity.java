@@ -11,11 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
-import lineo.smarteam.db.Teams;
 import lineo.smarteam.exception.TeamAlreadyExistsException;
 import lineo.smarteam.exception.TeamNotFoundException;
 
@@ -29,7 +29,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     private Button deleteButton;
     private Button settingsButton;
 
-    private Teams teamsDb;
     private int selectedTeam = -1;
 
     @Override
@@ -45,21 +44,13 @@ public class StartActivity extends Activity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart()");
-
-        teamsDb = new Teams(context);
-        try {
-            teamsDb = teamsDb.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Log.wtf(TAG, "onCreate() Teams DB failed to open");
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume()");
-        if(teamsDb.isEmpty()){
+        if(MyApplication.db.isTeamsEmpty()){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsInit));
         }
     }
@@ -68,7 +59,13 @@ public class StartActivity extends Activity implements View.OnClickListener {
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop()");
-        teamsDb.close();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onStop()");
+        MyApplication.db.close();
     }
 
     @Override
@@ -125,11 +122,11 @@ public class StartActivity extends Activity implements View.OnClickListener {
         Log.i(TAG, "deleteButtonClick()");
         selectedTeam = -1;
 
-        if(teamsDb.isEmpty()){
+        if(MyApplication.db.isTeamsEmpty()){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsToDelete));
             return;
         }
-        ArrayList<String> teamsNamesList = teamsDb.getTeamsNames();
+        ArrayList<String> teamsNamesList = MyApplication.db.getTeamsNames();
         final CharSequence[] choiceList = teamsNamesList.toArray(new CharSequence[teamsNamesList.size()]);
         AlertDialog.Builder deleteTeamBuilder = new AlertDialog.Builder(context);
         deleteTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToDelete));
@@ -155,13 +152,18 @@ public class StartActivity extends Activity implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i(TAG, "deleteButtonClick() - Deleting team " + choiceList[selectedTeam]);
-                        try {
-                            teamsDb.deleteTeamByName(choiceList[selectedTeam].toString());
-                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastSuccessfullyDeletedTeamSuffix)));
-                        } catch (TeamNotFoundException e) {
+                        MyApplication.db.beginTransaction();
+                        try{
+                            MyApplication.db.deleteTeamByName(choiceList[selectedTeam].toString());
+                            MyApplication.db.setTransactionSuccessful();
+                        } catch (SQLException e) {
                             e.printStackTrace();
-                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeleteTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastFailedToDeleteTeamSuffix)));
+                            Log.wtf(TAG, "deleteButtonClick() - SqlException");
+                        } finally {
+                            Log.d(TAG, "deleteButtonClick() - end Transaction");
+                            MyApplication.db.endTransaction();
                         }
+                        MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedTeamPrefix), choiceList[selectedTeam], getResources().getString(R.string.toastSuccessfullyDeletedTeamSuffix)));
                     }
                 });
                 builderAreYouSure.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -186,11 +188,11 @@ public class StartActivity extends Activity implements View.OnClickListener {
         Log.i(TAG, "loadButtonClick()");
         selectedTeam = -1;
 
-        if(teamsDb.isEmpty()){
+        if(MyApplication.db.isTeamsEmpty()){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsToLoad));
             return;
         }
-        ArrayList<String> teamsNamesList = teamsDb.getTeamsNames();
+        ArrayList<String> teamsNamesList = MyApplication.db.getTeamsNames();
         final CharSequence[] choiceList = teamsNamesList.toArray(new CharSequence[teamsNamesList.size()]);
         AlertDialog.Builder loadTeamBuilder = new AlertDialog.Builder(context);
         loadTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToLoad));
@@ -253,7 +255,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
                 return false;
             }
             try {
-                teamsDb.insertTeam(name);
+                MyApplication.db.insertTeam(name);
             } catch (TeamAlreadyExistsException e) {
                 MyApplication.showToast(context, getResources().getString(R.string.toastTeamAlreadyExists));
                 return false;
@@ -265,7 +267,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
     public void callTeamActivity(String teamName){
         Integer teamId = null;
         try {
-            teamId = teamsDb.getIdByName(teamName);
+            teamId = MyApplication.db.getTeamIdByName(teamName);
         } catch (TeamNotFoundException e) {
             e.printStackTrace();
             Log.w(TAG, "callTeamActivity() - TeamNotFoundException: "+teamName);

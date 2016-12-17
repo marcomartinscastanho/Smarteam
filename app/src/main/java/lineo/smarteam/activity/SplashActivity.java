@@ -5,9 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+
 import java.sql.SQLException;
 
 import lineo.smarteam.db.DataBaseAdapter;
+import lineo.smarteam.MyApplication;
+import lineo.smarteam.db.DataBase;
 
 public class SplashActivity extends Activity {
     private static final String TAG = "SplashActivity";
@@ -29,8 +33,11 @@ public class SplashActivity extends Activity {
         protected String doInBackground(Context... params) {
             try{
                 new DataBaseAdapter(getApplicationContext()).open();
+                MyApplication.db = new DataBase(getApplicationContext());
+                MyApplication.db.open();
             } catch (SQLException e) {
                 e.printStackTrace();
+                Log.wtf(TAG, "MyApplication.db.open() - Failed to open db");
             }
             return null;
         }

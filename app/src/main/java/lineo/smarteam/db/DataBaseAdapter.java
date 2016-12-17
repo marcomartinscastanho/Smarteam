@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.SQLException;
 
@@ -17,6 +18,7 @@ public class DataBaseAdapter {
     private DbHelper dbHelper;
 
     // If you change the database schema, you must increment the database version.
+    private static final String TAG = "DataBaseAdapter";
     static final int DATABASE_VERSION = 1;
     static final String DATABASE_NAME = "Smarteam.db";
 
@@ -24,34 +26,36 @@ public class DataBaseAdapter {
     private static final String INTEGER_TYPE = " INTEGER";
     private static final String DATETIME_TYPE = " DATETIME";
     private static final String UNIQUE = " UNIQUE";
+    private static final String CONSTRAINT = " CONSTRAINT";
     private static final String COMMA_SEP = ",";
 
     // CREATE AND DELETE QUERIES
     private static final String SQL_CREATE_TABLE_CONFIGURATIONS =
-            "CREATE TABLE " + Configurations.TABLE_NAME + " (" + Configurations.COLUMN_NAME_ATTRIBUTE + " TEXT PRIMARY KEY,"
-                    + Configurations.COLUMN_NAME_VALUE + TEXT_TYPE + COMMA_SEP + Configurations.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE + ")";
-    private static final String SQL_DELETE_TABLE_CONFIGURATIONS = "DROP TABLE IF EXISTS " + Configurations.TABLE_NAME;
+            "CREATE TABLE " + DataBase.CONFIGURATIONS_TABLE + " (" + DataBase.CONFIGURATIONS_COLUMN_ATTRIBUTE + " TEXT PRIMARY KEY,"
+                    + DataBase.CONFIGURATIONS_COLUMN_VALUE + TEXT_TYPE + COMMA_SEP + DataBase.CONFIGURATIONS_COLUMN_UPDATE_DATE + DATETIME_TYPE + ")";
+    private static final String SQL_DELETE_TABLE_CONFIGURATIONS = "DROP TABLE IF EXISTS " + DataBase.CONFIGURATIONS_TABLE;
     private static final String SQL_CREATE_TABLE_TEAMS =
-            "CREATE TABLE " + Teams.TABLE_NAME + " (" + Teams.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                    + Teams.COLUMN_NAME_NAME + TEXT_TYPE + UNIQUE + COMMA_SEP + Teams.COLUMN_NAME_NUM_MATCHES + INTEGER_TYPE + COMMA_SEP
-                    + Teams.COLUMN_NAME_LAST_MATCH_DATE + DATETIME_TYPE + COMMA_SEP + Teams.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE + ")";
-    private static final String SQL_DELETE_TABLE_TEAMS = "DROP TABLE IF EXISTS " + Teams.TABLE_NAME;
+            "CREATE TABLE " + DataBase.TEAMS_TABLE + " (" + DataBase.TEAMS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                    + DataBase.TEAMS_COLUMN_NAME + TEXT_TYPE + COMMA_SEP + DataBase.TEAMS_COLUMN_NUM_MATCHES + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.TEAMS_COLUMN_LAST_MATCH_DATE + DATETIME_TYPE + COMMA_SEP + DataBase.TEAMS_COLUMN_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
+                    + CONSTRAINT + " TEAM_NAME_UNIQUE" + UNIQUE + " (" + DataBase.TEAMS_COLUMN_NAME + ")" +")";
+    private static final String SQL_DELETE_TABLE_TEAMS = "DROP TABLE IF EXISTS " + DataBase.TEAMS_TABLE;
     private static final String SQL_CREATE_TABLE_PLAYERS =
-            "CREATE TABLE " + Players.TABLE_NAME + " (" + Players.COLUMN_NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                    + Players.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP + Players.COLUMN_NAME_TEAM + INTEGER_TYPE + COMMA_SEP
-                    + Players.COLUMN_NAME_WINS + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_DRAWS + INTEGER_TYPE + COMMA_SEP
-                    + Players.COLUMN_NAME_DEFEATS + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_MATCHES + INTEGER_TYPE + COMMA_SEP
-                    + Players.COLUMN_NAME_MATCHES_AFTER_DEBUT + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_WIN_PERCENTAGE + INTEGER_TYPE + COMMA_SEP
-                    + Players.COLUMN_NAME_SCORE + INTEGER_TYPE + COMMA_SEP + Players.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
-                    + UNIQUE+"(" + Players.COLUMN_NAME_NAME + COMMA_SEP + Players.COLUMN_NAME_TEAM + "))";
-    private static final String SQL_DELETE_TABLE_PLAYERS = "DROP TABLE IF EXISTS " + Players.TABLE_NAME;
+            "CREATE TABLE " + DataBase.PLAYERS_TABLE + " (" + DataBase.PLAYERS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                    + DataBase.PLAYERS_COLUMN_NAME + TEXT_TYPE + COMMA_SEP + DataBase.PLAYERS_COLUMN_TEAM + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.PLAYERS_COLUMN_WINS + INTEGER_TYPE + COMMA_SEP + DataBase.PLAYERS_COLUMN_DRAWS + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.PLAYERS_COLUMN_DEFEATS + INTEGER_TYPE + COMMA_SEP + DataBase.PLAYERS_COLUMN_MATCHES + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.PLAYERS_COLUMN_MATCHES_AFTER_DEBUT + INTEGER_TYPE + COMMA_SEP + DataBase.PLAYERS_COLUMN_WIN_PERCENTAGE + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.PLAYERS_COLUMN_SCORE + INTEGER_TYPE + COMMA_SEP + DataBase.PLAYERS_COLUMN_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
+                    + UNIQUE+"(" + DataBase.PLAYERS_COLUMN_NAME + COMMA_SEP + DataBase.PLAYERS_COLUMN_TEAM + "))";
+    private static final String SQL_DELETE_TABLE_PLAYERS = "DROP TABLE IF EXISTS " + DataBase.PLAYERS_TABLE;
     private static final String SQL_CREATE_TABLE_INDIVIDUAL_RESULTS =
-            "CREATE TABLE " + IndividualResults.TABLE_NAME + " (" + IndividualResults.COLUMN_NAME_PLAYER_ID + INTEGER_TYPE + COMMA_SEP
-                    + IndividualResults.COLUMN_NAME_TEAM_ID + INTEGER_TYPE + COMMA_SEP + IndividualResults.COLUMN_NAME_MATCHDAY + INTEGER_TYPE + COMMA_SEP
-                    + IndividualResults.COLUMN_NAME_RESULT + TEXT_TYPE + COMMA_SEP + IndividualResults.COLUMN_NAME_MATCHDAY_DATE + DATETIME_TYPE + COMMA_SEP
-                    + IndividualResults.COLUMN_NAME_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
-                    + " PRIMARY KEY (" + IndividualResults.COLUMN_NAME_PLAYER_ID + COMMA_SEP + IndividualResults.COLUMN_NAME_MATCHDAY + ")" + ")";
-    private static final String SQL_DELETE_TABLE_INDIVIDUAL_RESULTS = "DROP TABLE IF EXISTS " + IndividualResults.TABLE_NAME;
+            "CREATE TABLE " + DataBase.INDIVIDUAL_RESULTS_TABLE + " (" + DataBase.INDIVIDUAL_RESULTS_COLUMN_PLAYER_ID + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.INDIVIDUAL_RESULTS_COLUMN_TEAM_ID + INTEGER_TYPE + COMMA_SEP + DataBase.INDIVIDUAL_RESULTS_COLUMN_MATCHDAY + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.INDIVIDUAL_RESULTS_COLUMN_RESULT + TEXT_TYPE + COMMA_SEP + DataBase.INDIVIDUAL_RESULTS_COLUMN_MATCHDAY_DATE + DATETIME_TYPE + COMMA_SEP
+                    + DataBase.INDIVIDUAL_RESULTS_COLUMN_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
+                    + " PRIMARY KEY (" + DataBase.INDIVIDUAL_RESULTS_COLUMN_PLAYER_ID + COMMA_SEP + DataBase.INDIVIDUAL_RESULTS_COLUMN_MATCHDAY + ")" + ")";
+    private static final String SQL_DELETE_TABLE_INDIVIDUAL_RESULTS = "DROP TABLE IF EXISTS " + DataBase.INDIVIDUAL_RESULTS_TABLE;
 
     public DataBaseAdapter(Context context) {
         dbHelper = new DbHelper(context);
@@ -90,9 +94,5 @@ public class DataBaseAdapter {
     public DataBaseAdapter open() throws SQLException {
         dbHelper.getWritableDatabase();
         return this;
-    }
-
-    public void close() {
-        dbHelper.close();
     }
 }

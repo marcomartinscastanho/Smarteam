@@ -18,11 +18,7 @@ import java.util.ArrayList;
 
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
-import lineo.smarteam.db.IndividualResults;
-import lineo.smarteam.db.Players;
-import lineo.smarteam.db.Teams;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
-import lineo.smarteam.exception.PlayerNotFoundException;
 import lineo.smarteam.exception.TeamNotFoundException;
 
 public class TeamActivity extends Activity implements View.OnClickListener {
@@ -37,17 +33,13 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     private Button rankingButton;
     private Button statisticsButton;
 
-    private Teams teamsDb;
-    private Players playersDb;
-    private IndividualResults resultsDb;
-
     private Integer teamId;
     private int selectedPlayer = -1;
 
     // player selection indexes
     final ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
-    //final ArrayList<Integer> selectedWinnersIndexList = new ArrayList<>();
-    //final ArrayList<Integer> selectedLosersIndexList = new ArrayList<>();
+    final ArrayList<Integer> selectedWinnersIndexList = new ArrayList<>();
+    final ArrayList<Integer> selectedLosersIndexList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +54,13 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart()");
-        try {
-            startDbs();
-        } catch (SQLException e) {
-            Log.wtf(TAG, "onStart() failed to load Databases");
-            MyApplication.showToast(context, getResources().getString(R.string.toastFailedToLoadTeam));
-            e.printStackTrace();
-            finish();
-        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume()");
-        if(playersDb.isEmptyByTeamId(teamId)){
+        if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayersInit));
         }
     }
@@ -85,7 +69,6 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop()");
-        playersDb.close();
     }
 
     @Override
@@ -157,11 +140,11 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         Log.i(TAG, "deletePlayerButtonClick()");
         selectedPlayer = -1;
 
-        if(playersDb.isEmptyByTeamId(teamId)){
+        if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayersToDelete));
             return;
         }
-        ArrayList<String> playersNamesList = playersDb.getPlayersNamesByTeamId(teamId);
+        ArrayList<String> playersNamesList = MyApplication.db.getPlayersNamesByTeamId(teamId);
         final CharSequence[] choiceList = playersNamesList.toArray(new CharSequence[playersNamesList.size()]);
         AlertDialog.Builder deletePlayerBuilder = new AlertDialog.Builder(context);
         deletePlayerBuilder.setTitle(getResources().getString(R.string.dialogPlayerToDelete));
@@ -187,13 +170,18 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i(TAG, "deleteButtonClick() - Deleting player " + choiceList[selectedPlayer]);
-                        try {
-                            playersDb.deleteTeamByNameAndTeamId(choiceList[selectedPlayer].toString(), teamId);
-                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedPlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastSuccessfullyDeletedPlayerSuffix)));
-                        } catch (PlayerNotFoundException e) {
+                        MyApplication.db.beginTransaction();
+                        try{
+                            MyApplication.db.deletePlayerByNameAndTeamId(choiceList[selectedPlayer].toString(), teamId);
+                            MyApplication.db.setTransactionSuccessful();
+                        } catch (SQLException e) {
                             e.printStackTrace();
-                            MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastFailedToDeletePlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastFailedToDeletePlayerSuffix)));
+                            Log.wtf(TAG, "SqlException");
+                        } finally {
+                            Log.d(TAG, "deleteButtonClick() - end Transaction");
+                            MyApplication.db.endTransaction();
                         }
+                        MyApplication.showToast(context, String.format("%s%s%s", getResources().getString(R.string.toastSuccessfullyDeletedPlayerPrefix), choiceList[selectedPlayer], getResources().getString(R.string.toastSuccessfullyDeletedPlayerSuffix)));
                     }
                 });
                 builderAreYouSure.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -216,7 +204,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
     private void insertResultButtonClick() {
         Log.i(TAG, "insertResultButtonClick()");
-        if(playersDb.getPlayersCountByTeamId(teamId) < getResources().getInteger(R.integer.minPlayersPerMatch)){
+        if(MyApplication.db.getPlayersCountByTeamId(teamId) < getResources().getInteger(R.integer.minPlayersPerMatch)){
             MyApplication.showToast(context, getResources().getString(R.string.toastNotEnoughPlayersInTeam)+getResources().getInteger(R.integer.minPlayersPerMatch));
             return;
         }
@@ -241,8 +229,8 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
     private void insertResultDraw() {
         Log.i(TAG, "insertResultDraw()");
-        int playersCount = playersDb.getPlayersCountByTeamId(teamId);
-        final CharSequence[] choiceList = playersDb.getPlayersNamesByTeamId(teamId).toArray(new CharSequence[playersCount]);
+        int playersCount = MyApplication.db.getPlayersCountByTeamId(teamId);
+        final CharSequence[] choiceList = MyApplication.db.getPlayersNamesByTeamId(teamId).toArray(new CharSequence[playersCount]);
         boolean[] isSelectedArray = new boolean[playersCount];
         for(int i=0; i< playersCount; ++i)
             isSelectedArray[i] = false;
@@ -320,7 +308,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                 return false;
             }
             try {
-                playersDb.insertPlayer(name, teamId);
+                MyApplication.db.insertPlayer(name, teamId);
             } catch (PlayerAlreadyExistsException e) {
                 MyApplication.showToast(context, getResources().getString(R.string.toastPlayerAlreadyExists));
                 return false;
@@ -345,7 +333,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialogAreYouSure, int which) {
                     dialog.dismiss();
-                    if(insertResult(selectedPlayersIndexList, MyApplication.ResultType.Draw)){
+                    if(insertResult(MyApplication.ResultType.Draw)){
                         rankingButtonClick();
                     }
                     else{
@@ -426,14 +414,5 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         ActionBar ab = getActionBar();
         if (ab != null)
             ab.setTitle(String.format("\t%s", teamName));
-    }
-
-    private void startDbs() throws SQLException {
-        teamsDb = new Teams(context);
-        playersDb = new Players(context);
-        resultsDb = new IndividualResults(context);
-        teamsDb = teamsDb.open();
-        playersDb = playersDb.open();
-        resultsDb = resultsDb.open();
     }
 }
