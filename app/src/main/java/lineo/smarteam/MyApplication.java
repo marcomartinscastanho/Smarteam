@@ -13,7 +13,10 @@ public class MyApplication extends Application {
     public enum ResultType {
         Win("W"),
         Draw("D"),
-        Defeat("L");
+        Defeat("L"),
+        Absence("-"),   //short or any
+        MediumAbsence("+"),
+        LongAbsence("*");
 
         private final String res;
         ResultType(String r){
