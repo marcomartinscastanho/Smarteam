@@ -353,7 +353,7 @@ public class DataBase {
     }
 
     public ArrayList<String> getPlayersNamesByTeamId(Integer teamId){
-        Log.i(TAG, "getPlayersNamesByTeamId()");
+        //Log.i(TAG, "getPlayersNamesByTeamId()");
         ArrayList<String> list = new ArrayList<>();
         String[] projection = {PLAYERS_COLUMN_NAME};
         String selection = PLAYERS_COLUMN_TEAM + " = ?";
@@ -370,7 +370,7 @@ public class DataBase {
     }
 
     private Integer getPlayerIdByNameAndTeamId(String playerName, Integer teamId) throws PlayerNotFoundException {
-        Log.i(TAG, "getPlayerIdByNameAndTeamId()");
+        //Log.i(TAG, "getPlayerIdByNameAndTeamId()");
         String[] projection = {PLAYERS_COLUMN_ID};
         String selection = PLAYERS_COLUMN_NAME + " = ? AND " + PLAYERS_COLUMN_TEAM + " = ?";
         String[] selectionArgs = {playerName, teamId.toString()};
@@ -671,7 +671,7 @@ public class DataBase {
         ArrayList<Integer> results = getIntegerIndividualResultsByPlayerId(playerId);
         Integer c=0;
         for(Integer res : results){
-            Log.d(TAG, "calculatePlayerScore() playerId: "+playerId+": "+res.doubleValue()+"*"+matchCoefficients.get(c));
+            //Log.d(TAG, "calculatePlayerScore() playerId: "+playerId+": "+res.doubleValue()+"*"+matchCoefficients.get(c));
             score += res.doubleValue()*matchCoefficients.get(c);
             ++c;
         }
@@ -797,7 +797,6 @@ public class DataBase {
     }
 
     private Integer getAbsenceStreak(Integer playerId) throws SQLException {
-        Log.i(TAG, "getStringIndividualResultsByPlayerId()");
         ArrayList<String> resString = getStringIndividualResultsByPlayerId(playerId);
         String[] projection = {INDIVIDUAL_RESULTS_COLUMN_RESULT};
         String selection = INDIVIDUAL_RESULTS_COLUMN_PLAYER_ID + " = ?";

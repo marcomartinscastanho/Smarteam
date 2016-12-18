@@ -110,7 +110,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerWinScore() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -136,7 +136,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerDrawScore() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -175,7 +175,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerDefeatScore() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -204,7 +204,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerShortAbsenceScore() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -233,7 +233,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerMediumAbsenceScore() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -261,7 +261,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerLongAbsenceScore() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -285,7 +285,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerMissedScore() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -309,7 +309,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerMediumAbsenceDuration() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -337,7 +337,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerLongAbsenceDuration() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRules(nuValue))
                                 return false;
@@ -361,7 +361,7 @@ public class SettingsActivity extends PreferenceActivity {
                     new Preference.OnPreferenceChangeListener() {
                         @Override
                         public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "onPreferenceChange() - newValue=" + newValue.toString());
+                            Log.i(TAG, "setListenerK() - newValue=" + newValue.toString());
                             String nuValue = newValue.toString();
                             if(!complyBasicRulesK(nuValue))
                                 return false;
@@ -403,7 +403,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
 
         private void setPreferenceSummary(String key, String value){
-            Log.d(TAG, "setPreferenceSummary() key: "+key+", value: "+value);
+            //Log.d(TAG, "setPreferenceSummary() key: "+key+", value: "+value);
             switch (key){
                 case KEY_PREF_WIN_SCORE:
                 case KEY_PREF_DRAW_SCORE:
