@@ -321,8 +321,8 @@ public class DataBase {
         values.put(PLAYERS_COLUMN_DEFEATS, 0);
         values.put(PLAYERS_COLUMN_MATCHES, 0);
         values.put(PLAYERS_COLUMN_MATCHES_AFTER_DEBUT, 0);
-        values.put(PLAYERS_COLUMN_WIN_PERCENTAGE, R.integer.defInitialWinPercentage);
-        values.put(PLAYERS_COLUMN_SCORE, R.integer.defInitialScore);
+        values.put(PLAYERS_COLUMN_WIN_PERCENTAGE, context.getResources().getString(R.string.defInitialWinPercentage));
+        values.put(PLAYERS_COLUMN_SCORE, context.getResources().getString(R.string.defInitialScore));
         Long tsLong = System.currentTimeMillis() / 1000;
         values.put(PLAYERS_COLUMN_UPDATE_DATE, tsLong.toString());
         return db.insertOrThrow(PLAYERS_TABLE, null, values);

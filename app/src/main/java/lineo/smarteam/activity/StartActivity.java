@@ -36,7 +36,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate()");
         setLayout();
-
         context=this;
     }
 
