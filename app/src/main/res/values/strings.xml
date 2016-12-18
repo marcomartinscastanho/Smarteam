@@ -100,7 +100,7 @@
     <string name="toastNotEnoughPlayersInTeam">Not enough Players in the Team. Minimum is&#160;</string>
     <string name="dialogInsertResult">How was the outcome of the match?</string>
     <string name="draw">Draw</string>
-    <string name="winDefeat">Win/Defeat</string>
+    <string name="winDefeat">Win:Defeat</string>
     <string name="dialogSelectPlayersDraw">Select the Players</string>
     <string name="toastNotEnoughPlayersSelected">Not enough Players Selected. Minimum is&#160;</string>
     <string name="toastTooManyPlayersSelected">Too many Players selected. Maximum is&#160;</string>
