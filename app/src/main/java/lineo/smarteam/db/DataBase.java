@@ -623,6 +623,21 @@ public class DataBase {
             throw new SQLException();
     }
 
+    private void setPlayerUpdateDateNowById(Integer playerId) throws SQLException {
+        Long tsLong = System.currentTimeMillis() / 1000;
+        setPlayerUpdateDateById(playerId, tsLong);
+    }
+
+    private void setPlayerUpdateDateById(Integer playerId, Long date) throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(PLAYERS_COLUMN_UPDATE_DATE, date);
+        String selection = PLAYERS_COLUMN_ID + " = ?";
+        String[] selectionArgs = { playerId.toString() };
+        int count = db.update(PLAYERS_TABLE, values, selection, selectionArgs);
+        if(count <= 0)
+            throw new SQLException();
+    }
+
     private void incrementPlayerWins(Integer playerId) throws SQLException {
         Integer numWins = getPlayerWinsById(playerId);
         setPlayerWinsById(playerId, numWins+1);
@@ -687,7 +702,7 @@ public class DataBase {
         incrementPlayerMatchesAfterDebut(playerId);
         calculatePlayerWinPercentage(playerId);
         calculatePlayerScore(playerId);
-        //TODO: Update Date
+        setPlayerUpdateDateNowById(playerId);
     }
 
     private void addPlayerDraw(Integer playerId) throws SQLException {
@@ -696,7 +711,7 @@ public class DataBase {
         incrementPlayerMatchesAfterDebut(playerId);
         calculatePlayerWinPercentage(playerId);
         calculatePlayerScore(playerId);
-        //TODO: Update Date
+        setPlayerUpdateDateNowById(playerId);
     }
 
     private void addPlayerDefeat(Integer playerId) throws SQLException {
@@ -705,7 +720,7 @@ public class DataBase {
         incrementPlayerMatchesAfterDebut(playerId);
         calculatePlayerWinPercentage(playerId);
         calculatePlayerScore(playerId);
-        //TODO: Update Date
+        setPlayerUpdateDateNowById(playerId);
     }
 
     private void addPlayerAbsence(Integer playerId) throws SQLException {
@@ -713,7 +728,7 @@ public class DataBase {
             return;
         incrementPlayerMatchesAfterDebut(playerId);
         calculatePlayerScore(playerId);
-        //TODO: Update Date
+        setPlayerUpdateDateNowById(playerId);
     }
 
     /*

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.sql.SQLException;
 
@@ -18,7 +17,6 @@ public class DataBaseAdapter {
     private DbHelper dbHelper;
 
     // If you change the database schema, you must increment the database version.
-    private static final String TAG = "DataBaseAdapter";
     static final int DATABASE_VERSION = 3;
     static final String DATABASE_NAME = "Smarteam.db";
 
