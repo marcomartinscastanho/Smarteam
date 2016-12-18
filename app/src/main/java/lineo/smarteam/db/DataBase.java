@@ -186,7 +186,7 @@ public class DataBase {
         }
     }
 
-    public Integer getTeamNumMatchesById(Integer id) throws TeamNotFoundException {
+    private Integer getTeamNumMatchesById(Integer id) throws TeamNotFoundException {
         String[] projection = {TEAMS_COLUMN_NUM_MATCHES};
         String selection = TEAMS_COLUMN_ID + " = ?";
         String[] selectionArgs = {id.toString()};
@@ -227,9 +227,91 @@ public class DataBase {
         setTeamNumMatchesById(teamId, matches+1);
     }
 
-    public void addTeamMatch(Integer teamId) throws SQLException {
-        incrementTeamMatches(teamId);
-        setTeamLastMatchDateById(teamId);
+    public boolean insertResult(Integer teamId, ArrayList<Integer> indexSelectedWinners, ArrayList<Integer> indexSelectedLosers, MyApplication.ResultType resultType){
+        Log.d(TAG, "insertResult() - init Transaction");
+        beginTransaction();
+        try{
+            if(resultType.equals(MyApplication.ResultType.Draw)){
+                insertDraw(teamId, indexSelectedWinners);
+            }
+            else{
+                insertTeamWinDefeat(teamId, indexSelectedWinners, indexSelectedLosers);
+            }
+            incrementTeamMatches(teamId);
+            setTeamLastMatchDateById(teamId);
+            setTeamScoresUpdated(teamId, true);
+            setTransactionSuccessful();
+        } catch (TeamNotFoundException e) {
+            e.printStackTrace();
+            Log.wtf(TAG, "addResult() - team "+teamId+" not found!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Log.wtf(TAG, "SqlException");
+        } finally {
+            Log.d(TAG, "insertResult() - end Transaction");
+            endTransaction();
+        }
+
+        return true;
+    }
+
+    private void insertTeamWinDefeat(Integer teamId, ArrayList<Integer> indexSelectedWinners, ArrayList<Integer> indexSelectedLosers) throws SQLException {
+        Log.i(TAG, "insertTeamWinDefeat()");
+        ArrayList<Integer> playersIds = getPlayersIdsByTeamIdOrderByPlayerName(teamId);
+        ArrayList<Integer> normalizedLosersIndexes = normalizeSelectedLosersList(indexSelectedWinners, indexSelectedLosers, playersIds.size());
+        Integer matchday = getTeamNumMatchesById(teamId) + 1;
+        int p=0;
+        for(Integer playerId : playersIds){
+            Log.d(TAG, "insertTeamWinDefeat() - playerId: "+playerId+"   p:"+p);
+            if(indexSelectedWinners.contains(p)){
+                insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Win);
+                addPlayerWin(playerId);
+            }
+            else if(normalizedLosersIndexes.contains(p)){
+                insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Defeat);
+                addPlayerDefeat(playerId);
+            }
+            else{
+                insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Absence);
+                if(getPlayerMatchesById(playerId) > 0)
+                    addPlayerAbsence(playerId);
+            }
+            ++p;
+        }
+    }
+
+    private void insertDraw(Integer teamId, ArrayList<Integer> indexSelectedPlayers) throws SQLException {
+        Log.i(TAG, "insertDraw()");
+        ArrayList<Integer> playersIds = getPlayersIdsByTeamIdOrderByPlayerName(teamId);
+        Integer matchday = getTeamNumMatchesById(teamId) + 1;
+        int p=0;
+        for(Integer playerId : playersIds){
+            Log.d(TAG, "insertDraw() - playerId: "+playerId+"   p:"+p);
+            if(indexSelectedPlayers.contains(p)){
+                insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Draw);
+                addPlayerDraw(playerId);
+            }
+            else{
+                insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Absence);
+                if(getPlayerMatchesById(playerId) > 0)
+                    addPlayerAbsence(playerId);
+            }
+            ++p;
+        }
+    }
+
+    private ArrayList<Integer> normalizeSelectedLosersList(ArrayList<Integer> indexSelectedWinners, ArrayList<Integer> indexSelectedLosers, Integer numPlayers){
+        ArrayList<Integer> nonWinners = new ArrayList<>();
+        ArrayList<Integer> normalizedLosers = new ArrayList<>();
+        for(int a=0; a<numPlayers; ++a){
+            if(!indexSelectedWinners.contains(a))
+                nonWinners.add(a);
+        }
+        for(int nw=0; nw<nonWinners.size(); ++nw){
+            if(indexSelectedLosers.contains(nw))
+                normalizedLosers.add(nonWinners.get(nw));
+        }
+        return normalizedLosers;
     }
 
     /*
@@ -327,8 +409,8 @@ public class DataBase {
         return db.insertOrThrow(PLAYERS_TABLE, null, values);
     }
 
-    public ArrayList<Integer> getPlayersIdsByTeamIdOrderByPlayerName(Integer teamId){
-        Log.i(TAG, "getPlayersIdsByTeamIdOrderByPlayerName()");
+    private ArrayList<Integer> getPlayersIdsByTeamIdOrderByPlayerName(Integer teamId){
+        //Log.i(TAG, "getPlayersIdsByTeamIdOrderByPlayerName()");
         ArrayList<Integer> list = new ArrayList<>();
         String[] projection = {PLAYERS_COLUMN_ID};
         String selection = PLAYERS_COLUMN_TEAM + " = ?";
@@ -419,7 +501,7 @@ public class DataBase {
             throw new SQLException();
     }
 
-    public Integer getPlayerMatchesById(Integer playerId) throws PlayerNotFoundException {
+    private Integer getPlayerMatchesById(Integer playerId) throws PlayerNotFoundException {
         String[] projection = {PLAYERS_COLUMN_MATCHES};
         String selection = PLAYERS_COLUMN_ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
@@ -577,7 +659,7 @@ public class DataBase {
         setPlayerScoreById(playerId, score);
     }
 
-    public void addPlayerWin(Integer playerId) throws SQLException {
+    private void addPlayerWin(Integer playerId) throws SQLException {
         incrementPlayerWins(playerId);
         incrementPlayerMatches(playerId);
         incrementPlayerMatchesAfterDebut(playerId);
@@ -586,7 +668,7 @@ public class DataBase {
         //TODO: Update Date
     }
 
-    public void addPlayerDraw(Integer playerId) throws SQLException {
+    private void addPlayerDraw(Integer playerId) throws SQLException {
         incrementPlayerDraws(playerId);
         incrementPlayerMatches(playerId);
         incrementPlayerMatchesAfterDebut(playerId);
@@ -595,7 +677,7 @@ public class DataBase {
         //TODO: Update Date
     }
 
-    public void addPlayerDefeat(Integer playerId) throws SQLException {
+    private void addPlayerDefeat(Integer playerId) throws SQLException {
         incrementPlayerDefeats(playerId);
         incrementPlayerMatches(playerId);
         incrementPlayerMatchesAfterDebut(playerId);
@@ -604,7 +686,7 @@ public class DataBase {
         //TODO: Update Date
     }
 
-    public void addPlayerAbsence(Integer playerId) throws SQLException {
+    private void addPlayerAbsence(Integer playerId) throws SQLException {
         if(getPlayerMatchesById(playerId) == 0)
             return;
         incrementPlayerMatchesAfterDebut(playerId);
@@ -615,13 +697,12 @@ public class DataBase {
     /*
      *   INDIVIDUAL RESULTS
      */
-    public long insertIndividualResult(Integer playerId, Integer teamId, Integer matchday, MyApplication.ResultType result) throws SQLException {
+    private long insertIndividualResult(Integer playerId, Integer teamId, Integer matchday, MyApplication.ResultType result) throws SQLException {
         if(getPlayerMatchesById(playerId) == 0 && result.equals(MyApplication.ResultType.Absence))  // if player hasn't debuted yet and this is another absence, do not add it
             return 0;
         String res = result.toString();
         if(result.equals(MyApplication.ResultType.Absence)){
             Integer absenceStreak = getAbsenceStreak(playerId)+1;   //+1 because this result is not yet in the DB
-            Log.d(TAG, "insertIndividualResult() streak: "+absenceStreak);
             if(absenceStreak > Integer.parseInt(sharedPreferences.getString("KEY_PREF_MEDIUM_ABSENCE_DURATION", "3")))
                 res = MyApplication.ResultType.MediumAbsence.toString();
             if(absenceStreak > Integer.parseInt(sharedPreferences.getString("KEY_PREF_LONG_ABSENCE_DURATION", "10")))

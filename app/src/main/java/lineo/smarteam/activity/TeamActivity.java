@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
-import lineo.smarteam.exception.TeamNotFoundException;
 
 public class TeamActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "TeamActivity";
@@ -365,7 +364,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialogAreYouSure, int which) {
                     dialog.dismiss();
-                    if(insertResult(MyApplication.ResultType.Draw)){
+                    if(MyApplication.db.insertResult(teamId, selectedWinnersIndexList, selectedLosersIndexList, MyApplication.ResultType.Draw)){
                         rankingButtonClick();
                     }
                     else{
@@ -479,7 +478,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                     public void onClick(DialogInterface dialogAreYouSure, int which) {
                         dialogDefeat.dismiss();
                         dialogWin.dismiss();
-                        if(insertResult(MyApplication.ResultType.Win)){
+                        if(MyApplication.db.insertResult(teamId, selectedWinnersIndexList, selectedLosersIndexList, MyApplication.ResultType.Win)){
                             rankingButtonClick();
                         }
                         else{
@@ -514,91 +513,6 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                 }
                 return true;
             }
-        }
-    }
-
-    private boolean insertResult(MyApplication.ResultType resultType){
-        Log.d(TAG, "insertResult() - init Transaction");
-        MyApplication.db.beginTransaction();
-        try{
-            if(resultType.equals(MyApplication.ResultType.Draw)){
-                insertDraw();
-            }
-            else{
-                insertWinDefeat();
-            }
-            MyApplication.db.addTeamMatch(teamId);
-            MyApplication.db.setTransactionSuccessful();
-        } catch (TeamNotFoundException e) {
-            e.printStackTrace();
-            Log.wtf(TAG, "addResult() - team "+teamId+" not found!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Log.wtf(TAG, "SqlException");
-        } finally {
-            Log.d(TAG, "insertResult() - end Transaction");
-            MyApplication.db.endTransaction();
-        }
-
-        return true;
-    }
-
-    private void insertWinDefeat() throws SQLException {
-        Log.i(TAG, "insertWinDefeat()");
-        ArrayList<Integer> playersIds = MyApplication.db.getPlayersIdsByTeamIdOrderByPlayerName(teamId);
-        ArrayList<Integer> normalizedLosersIndexes = normalizeSelectedLosersList(playersIds.size());
-        Integer matchday = MyApplication.db.getTeamNumMatchesById(teamId) + 1;
-        int p=0;
-        for(Integer playerId : playersIds){
-            Log.d(TAG, "insertWinDefeat() - playerId: "+playerId+"   p:"+p);
-            if(selectedWinnersIndexList.contains(p)){
-                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Win);
-                MyApplication.db.addPlayerWin(playerId);
-            }
-            else if(normalizedLosersIndexes.contains(p)){
-                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Defeat);
-                MyApplication.db.addPlayerDefeat(playerId);
-            }
-            else{
-                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Absence);
-                if(MyApplication.db.getPlayerMatchesById(playerId) > 0)
-                    MyApplication.db.addPlayerAbsence(playerId);
-            }
-            ++p;
-        }
-    }
-
-    private ArrayList<Integer> normalizeSelectedLosersList(Integer numPlayers){
-        ArrayList<Integer> nonWinners = new ArrayList<>();
-        ArrayList<Integer> normalizedLosers = new ArrayList<>();
-        for(int a=0; a<numPlayers; ++a){
-            if(!selectedWinnersIndexList.contains(a))
-                nonWinners.add(a);
-        }
-        for(int nw=0; nw<nonWinners.size(); ++nw){
-            if(selectedLosersIndexList.contains(nw))
-                normalizedLosers.add(nonWinners.get(nw));
-        }
-        return normalizedLosers;
-    }
-
-    private void insertDraw() throws SQLException {
-        Log.i(TAG, "insertDraw()");
-        ArrayList<Integer> playersIds = MyApplication.db.getPlayersIdsByTeamIdOrderByPlayerName(teamId);
-        Integer matchday = MyApplication.db.getTeamNumMatchesById(teamId) + 1;
-        int p=0;
-        for(Integer playerId : playersIds){
-            Log.d(TAG, "insertDraw() - playerId: "+playerId+"   p:"+p);
-            if(selectedPlayersIndexList.contains(p)){
-                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Draw);
-                MyApplication.db.addPlayerDraw(playerId);
-            }
-            else{
-                MyApplication.db.insertIndividualResult(playerId, teamId, matchday, MyApplication.ResultType.Absence);
-                if(MyApplication.db.getPlayerMatchesById(playerId) > 0)
-                    MyApplication.db.addPlayerAbsence(playerId);
-            }
-            ++p;
         }
     }
 
