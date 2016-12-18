@@ -109,7 +109,9 @@ public class DataBase {
     /*
      *   COEFFICIENTS
      */
-    public void updateCoefficientsWeight(Double newWeight){
+    public void updateCoefficientsWeight(Double newWeight) {
+        if(newWeight == null)
+            newWeight = Double.parseDouble(context.getResources().getString(R.string.valueK));
         coefficients = new Coefficients(newWeight);
     }
 

@@ -11,6 +11,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 
+import java.sql.SQLException;
+
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
 
@@ -75,8 +77,15 @@ public class SettingsActivity extends PreferenceActivity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            Log.d(TAG, "onSharedPreferenceChanged() - key: "+key);
             String value = sharedPreferences.getString(key, "");
             setPreferenceSummary(key, value);
+            try {
+                MyApplication.db.setAllTeamScoresUpdated(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Log.wtf(TAG, "setListenerWinScore() - failed to Un-Update Scores");
+            }
         }
 
         public void setListeners() {
@@ -425,6 +434,13 @@ public class SettingsActivity extends PreferenceActivity {
             resetDialogPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    MyApplication.db.updateCoefficientsWeight(null);
+                    try {
+                        MyApplication.db.setAllTeamScoresUpdated(false);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        Log.wtf(TAG, "setListenerWinScore() - failed to Un-Update Scores");
+                    }
                     getActivity().overridePendingTransition(0, 0);
                     settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     getActivity().finish();
