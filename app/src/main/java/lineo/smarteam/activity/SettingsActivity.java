@@ -40,7 +40,7 @@ public class SettingsActivity extends PreferenceActivity {
 
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         private Preference resetDialogPreference;
-        private Intent startIntent;
+        private Intent settingsIntent;
         private static final String KEY_PREF_WIN_SCORE = "KEY_PREF_WIN_SCORE";
         private static final String KEY_PREF_DRAW_SCORE = "KEY_PREF_DRAW_SCORE";
         private static final String KEY_PREF_DEFEAT_SCORE = "KEY_PREF_DEFEAT_SCORE";
@@ -420,16 +420,16 @@ public class SettingsActivity extends PreferenceActivity {
         }
 
         private void setResetDefaultPreference(){
-            startIntent = getActivity().getIntent();
+            settingsIntent = getActivity().getIntent();
             resetDialogPreference = findPreference(KEY_PREF_DEFAULT);
             resetDialogPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     getActivity().overridePendingTransition(0, 0);
-                    startIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     getActivity().finish();
                     getActivity().overridePendingTransition(0, 0);
-                    getActivity().startActivity(startIntent);
+                    getActivity().startActivity(settingsIntent);
                     return false;
                 }
             });
