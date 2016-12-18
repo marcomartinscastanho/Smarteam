@@ -19,7 +19,7 @@ public class DataBaseAdapter {
 
     // If you change the database schema, you must increment the database version.
     private static final String TAG = "DataBaseAdapter";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 3;
     static final String DATABASE_NAME = "Smarteam.db";
 
     private static final String TEXT_TYPE = " TEXT";
@@ -37,7 +37,8 @@ public class DataBaseAdapter {
     private static final String SQL_CREATE_TABLE_TEAMS =
             "CREATE TABLE " + DataBase.TEAMS_TABLE + " (" + DataBase.TEAMS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + DataBase.TEAMS_COLUMN_NAME + TEXT_TYPE + COMMA_SEP + DataBase.TEAMS_COLUMN_NUM_MATCHES + INTEGER_TYPE + COMMA_SEP
-                    + DataBase.TEAMS_COLUMN_LAST_MATCH_DATE + DATETIME_TYPE + COMMA_SEP + DataBase.TEAMS_COLUMN_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
+                    + DataBase.TEAMS_COLUMN_LAST_MATCH_DATE + DATETIME_TYPE + COMMA_SEP + DataBase.TEAMS_COLUMN_IS_SCORE_UPDATED + INTEGER_TYPE + COMMA_SEP
+                    + DataBase.TEAMS_COLUMN_UPDATE_DATE + DATETIME_TYPE + COMMA_SEP
                     + CONSTRAINT + " TEAM_NAME_UNIQUE" + UNIQUE + " (" + DataBase.TEAMS_COLUMN_NAME + ")" +")";
     private static final String SQL_DELETE_TABLE_TEAMS = "DROP TABLE IF EXISTS " + DataBase.TEAMS_TABLE;
     private static final String SQL_CREATE_TABLE_PLAYERS =

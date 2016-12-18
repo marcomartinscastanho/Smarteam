@@ -36,6 +36,7 @@ public class DataBase {
     static final String TEAMS_COLUMN_NAME = "NAME";
     static final String TEAMS_COLUMN_NUM_MATCHES = "NUM_MATCHES";
     static final String TEAMS_COLUMN_LAST_MATCH_DATE = "LAST_MATCH";
+    static final String TEAMS_COLUMN_IS_SCORE_UPDATED = "IS_SCORE_UPDATED";
     static final String TEAMS_COLUMN_UPDATE_DATE = "UPDATE_DATE";
     static final String PLAYERS_TABLE = "PLAYERS";
     static final String PLAYERS_COLUMN_ID = "PLAYER_ID";
@@ -168,6 +169,7 @@ public class DataBase {
         values.put(TEAMS_COLUMN_NUM_MATCHES, 0);
         Long tsLong = System.currentTimeMillis() / 1000;
         values.put(TEAMS_COLUMN_UPDATE_DATE, tsLong.toString());
+        values.put(TEAMS_COLUMN_IS_SCORE_UPDATED, "1");
         return db.insertOrThrow(TEAMS_TABLE, null, values);
     }
 
@@ -207,6 +209,24 @@ public class DataBase {
         String selection = TEAMS_COLUMN_ID + " = ?";
         String[] selectionArgs = { teamId.toString() };
         int count = db.update(TEAMS_TABLE, values, selection, selectionArgs);
+        if(count <= 0)
+            throw new SQLException();
+    }
+
+    private void setTeamScoresUpdated(Integer teamId, Boolean areTeamScoresUpdated) throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(TEAMS_COLUMN_IS_SCORE_UPDATED, (areTeamScoresUpdated)? 1 : 0);
+        String selection = TEAMS_COLUMN_ID + " = ?";
+        String[] selectionArgs = { teamId.toString() };
+        int count = db.update(TEAMS_TABLE, values, selection, selectionArgs);
+        if(count <= 0)
+            throw new SQLException();
+    }
+
+    public void setAllTeamScoresUpdated(Boolean areTeamScoresUpdated) throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(TEAMS_COLUMN_IS_SCORE_UPDATED, ((areTeamScoresUpdated) ? "1" : "0"));
+        int count = db.update(TEAMS_TABLE, values, null, null);
         if(count <= 0)
             throw new SQLException();
     }
