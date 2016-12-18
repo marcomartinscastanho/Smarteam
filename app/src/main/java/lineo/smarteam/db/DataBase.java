@@ -55,7 +55,6 @@ public class DataBase {
     static final String INDIVIDUAL_RESULTS_COLUMN_MATCHDAY = "MATCHDAY";
     static final String INDIVIDUAL_RESULTS_COLUMN_RESULT = "RESULT";
     static final String INDIVIDUAL_RESULTS_COLUMN_MATCHDAY_DATE = "MATCHDAY_DATE";
-    static final String INDIVIDUAL_RESULTS_COLUMN_UPDATE_DATE = "UPDATE_DATE";
 
     private DbHelper dbHelper;
     private SQLiteDatabase db;
@@ -635,7 +634,6 @@ public class DataBase {
         values.put(INDIVIDUAL_RESULTS_COLUMN_RESULT, res);
         Long tsLong = System.currentTimeMillis() / 1000;
         values.put(INDIVIDUAL_RESULTS_COLUMN_MATCHDAY_DATE, tsLong);
-        values.put(INDIVIDUAL_RESULTS_COLUMN_UPDATE_DATE, tsLong);
         return db.insertOrThrow(INDIVIDUAL_RESULTS_TABLE, null, values);
     }
 
