@@ -36,13 +36,21 @@ public class MyApplication extends Application {
     }
 
     public static void showToast(Context context, String string){
+        showToast(context, string, Toast.LENGTH_SHORT);
+    }
+
+    public static void showLongToast(Context context, String string){
+        showToast(context, string, Toast.LENGTH_LONG);
+    }
+
+    private static void showToast(Context context, String string, int length){
         if(toast == null){
             toast = new Toast(context);
         }
         else{
             toast.cancel();
         }
-        toast = Toast.makeText(context, string, Toast.LENGTH_SHORT);
+        toast = Toast.makeText(context, string, length);
         toast.show();
     }
 }
