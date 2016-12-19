@@ -37,6 +37,26 @@ public class StartActivity extends Activity implements View.OnClickListener {
         Log.i(TAG, "onCreate()");
         setLayout();
         context=this;
+        checkTeamsExist();
+    }
+
+    private void setLayout(){
+        setContentView(R.layout.activity_start);
+        loadButton = (Button) findViewById(R.id.start_button_load);
+        createButton = (Button) findViewById(R.id.start_button_create);
+        deleteButton = (Button) findViewById(R.id.start_button_delete);
+        settingsButton = (Button) findViewById(R.id.start_button_settings);
+        loadButton.setOnClickListener(this);
+        createButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
+        settingsButton.setOnClickListener(this);
+    }
+
+    private void checkTeamsExist(){
+        if(MyApplication.db.isTeamsEmpty()){
+            MyApplication.showLongToast(context, getResources().getString(R.string.toastNoTeamsInit));
+            createButtonClick();
+        }
     }
 
     @Override
@@ -49,9 +69,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume()");
-        if(MyApplication.db.isTeamsEmpty()){
-            MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsInit));
-        }
     }
 
     @Override
@@ -248,17 +265,5 @@ public class StartActivity extends Activity implements View.OnClickListener {
         intent.putExtra("teamId", teamId);
         intent.putExtra("teamName", teamName);
         startActivity(intent);
-    }
-
-    private void setLayout(){
-        setContentView(R.layout.activity_start);
-        loadButton = (Button) findViewById(R.id.start_button_load);
-        createButton = (Button) findViewById(R.id.start_button_create);
-        deleteButton = (Button) findViewById(R.id.start_button_delete);
-        settingsButton = (Button) findViewById(R.id.start_button_settings);
-        loadButton.setOnClickListener(this);
-        createButton.setOnClickListener(this);
-        deleteButton.setOnClickListener(this);
-        settingsButton.setOnClickListener(this);
     }
 }

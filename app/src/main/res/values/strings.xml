@@ -71,7 +71,7 @@
 
     <!-- Dialogs -->
     <!--- Teams -->
-    <string name="dialogCreateTeamTitle">Add a New Team</string>
+    <string name="dialogCreateTeamTitle">Choose a name for your Team</string>
     <string name="dialogTeamToDelete">Select a Team to delete</string>
     <string name="dialogAreYouSureDeleteTeamPrefix">Are you sure you want to delete Team&#160;</string>
     <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
