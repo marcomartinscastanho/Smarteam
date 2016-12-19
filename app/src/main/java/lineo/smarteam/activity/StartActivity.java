@@ -29,7 +29,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
     private Button deleteButton;
     private Button settingsButton;
 
-    private int selectedTeam = -1;
+    private Integer selectedTeam = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +120,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     private void deleteButtonClick(){
         Log.i(TAG, "deleteButtonClick()");
         selectedTeam = -1;
-
         if(MyApplication.db.isTeamsEmpty()){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsToDelete));
             return;
@@ -129,18 +128,11 @@ public class StartActivity extends Activity implements View.OnClickListener {
         final CharSequence[] choiceList = teamsNamesList.toArray(new CharSequence[teamsNamesList.size()]);
         AlertDialog.Builder deleteTeamBuilder = new AlertDialog.Builder(context);
         deleteTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToDelete));
-        deleteTeamBuilder.setSingleChoiceItems(choiceList, selectedTeam, new DialogInterface.OnClickListener() {
+        deleteTeamBuilder.setItems(choiceList, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 selectedTeam = which;
-            }
-        });
-        deleteTeamBuilder.setCancelable(true);
-        deleteTeamBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, "Which value=" + which);
-                Log.d(TAG, "Selected value=" + selectedTeam);
+                Log.d(TAG, "selectedTeam value=" + selectedTeam);
                 if(selectedTeam<0)
                     return;
                 // Are you sure you want to delete selectedTeamName?
@@ -174,19 +166,12 @@ public class StartActivity extends Activity implements View.OnClickListener {
                 areYouSureDialog.show();
             }
         });
-        deleteTeamBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+        deleteTeamBuilder.setCancelable(true);
         AlertDialog deleteDialog = deleteTeamBuilder.create();
         deleteDialog.show();
     }
 
     private void loadButtonClick(){
-        Log.i(TAG, "loadButtonClick()");
-        selectedTeam = -1;
-
         if(MyApplication.db.isTeamsEmpty()){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsToLoad));
             return;
@@ -195,29 +180,17 @@ public class StartActivity extends Activity implements View.OnClickListener {
         final CharSequence[] choiceList = teamsNamesList.toArray(new CharSequence[teamsNamesList.size()]);
         AlertDialog.Builder loadTeamBuilder = new AlertDialog.Builder(context);
         loadTeamBuilder.setTitle(getResources().getString(R.string.dialogTeamToLoad));
-        loadTeamBuilder.setSingleChoiceItems(choiceList, selectedTeam, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                selectedTeam = which;
-            }
-        });
-        loadTeamBuilder.setCancelable(true);
-        loadTeamBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+        loadTeamBuilder.setItems(choiceList, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.d(TAG, "Which value=" + which);
-                Log.d(TAG, "Selected value=" + selectedTeam);
-                if(selectedTeam<0)
+                if(which<0)
                     return;
-                Log.i(TAG, "loadButtonClick() - Loading team " + choiceList[selectedTeam]);
-                callTeamActivity(choiceList[selectedTeam].toString());
+                Log.i(TAG, "loadButtonClick() - Loading team " + choiceList[which]);
+                callTeamActivity(choiceList[which].toString());
             }
         });
-        loadTeamBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+        loadTeamBuilder.setCancelable(true);
         AlertDialog loadDialog = loadTeamBuilder.create();
         loadDialog.show();
     }

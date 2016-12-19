@@ -75,7 +75,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         if (ab != null)
             ab.setTitle(String.format("\tEdit: %s", teamName));
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -174,9 +174,8 @@ public class EditActivity extends Activity implements View.OnClickListener {
     }
 
     private void deletePlayerButtonClick() {
-        Log.i(TAG, "deletePlayerButtonClick()");
+        //Log.i(TAG, "deletePlayerButtonClick()");
         selectedPlayer = -1;
-
         if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayersToDelete));
             return;
@@ -185,18 +184,11 @@ public class EditActivity extends Activity implements View.OnClickListener {
         final CharSequence[] choiceList = playersNamesList.toArray(new CharSequence[playersNamesList.size()]);
         AlertDialog.Builder deletePlayerBuilder = new AlertDialog.Builder(context);
         deletePlayerBuilder.setTitle(getResources().getString(R.string.dialogPlayerToDelete));
-        deletePlayerBuilder.setSingleChoiceItems(choiceList, selectedPlayer, new DialogInterface.OnClickListener() {
+        deletePlayerBuilder.setItems(choiceList, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 selectedPlayer = which;
-            }
-        });
-        deletePlayerBuilder.setCancelable(true);
-        deletePlayerBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, "Which value=" + which);
-                Log.d(TAG, "Selected value=" + selectedPlayer);
+                Log.d(TAG, "selectedPlayer value=" + selectedPlayer);
                 if(selectedPlayer<0)
                     return;
                 // Are you sure you want to delete?
@@ -230,11 +222,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
                 areYouSureDialog.show();
             }
         });
-        deletePlayerBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+        deletePlayerBuilder.setCancelable(true);
         AlertDialog deleteDialog = deletePlayerBuilder.create();
         deleteDialog.show();
     }
