@@ -190,6 +190,21 @@ public class DataBase {
         }
     }
 
+    public String getTeamNameById(Integer teamId) throws TeamNotFoundException {
+        String[] projection = {TEAMS_COLUMN_NAME};
+        String selection = TEAMS_COLUMN_ID + " = ?";
+        String[] selectionArgs = {teamId.toString()};
+        Cursor c = db.query(TEAMS_TABLE, projection, selection, selectionArgs, null, null, null);
+        if (c.moveToFirst()) {
+            String value = c.getString(c.getColumnIndexOrThrow(TEAMS_COLUMN_NAME));
+            c.close();
+            return value;
+        } else {
+            c.close();
+            throw new TeamNotFoundException();
+        }
+    }
+
     private Integer getTeamNumMatchesById(Integer id) throws TeamNotFoundException {
         String[] projection = {TEAMS_COLUMN_NUM_MATCHES};
         String selection = TEAMS_COLUMN_ID + " = ?";
