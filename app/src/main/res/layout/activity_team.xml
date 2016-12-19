@@ -6,111 +6,58 @@
                android:orientation="vertical"
                android:gravity="center_vertical"
                tools:context=".activity.StartActivity">
-
-    <LinearLayout
+    <Button
+        android:id="@+id/team_buttonResults"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:orientation="horizontal"
+        android:layout_height="@dimen/start_activity_button_height"
+        android:layout_marginStart="@dimen/start_activity_left_right_margin"
+        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:layout_weight="1" >
-        <Button
-            android:id="@+id/team_buttonInsertPlayer"
-            android:layout_height="match_parent"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:elevation="2dp"
-            android:layout_marginEnd="@dimen/start_activity_inter_button_margin"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonTeamInsertPlayer"
-            android:textSize="@dimen/team_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"/>
-        <Button
-            android:id="@+id/team_buttonDeletePlayer"
-            android:layout_height="match_parent"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:elevation="2dp"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonTeamDeletePlayer"
-            android:textSize="@dimen/team_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"/>
-    </LinearLayout>
-    <LinearLayout
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonTeamResults"
+        android:textSize="@dimen/start_activity_text_size"/>
+    <Button
+        android:id="@+id/team_buttonRanking"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:orientation="horizontal"
+        android:layout_height="@dimen/start_activity_button_height"
+        android:layout_marginStart="@dimen/start_activity_left_right_margin"
+        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:layout_weight="1" >
-        <Button
-            android:id="@+id/team_buttonInsertResult"
-            android:layout_height="match_parent"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:elevation="2dp"
-            android:layout_marginEnd="@dimen/start_activity_inter_button_margin"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonTeamInsertResult"
-            android:textSize="@dimen/team_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"/>
-        <Button
-            android:id="@+id/team_buttonDeleteLastResult"
-            android:layout_height="match_parent"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:elevation="2dp"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonTeamDeleteLastResult"
-            android:textSize="@dimen/team_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"/>
-    </LinearLayout>
-    <LinearLayout
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonTeamRanking"
+        android:textSize="@dimen/start_activity_text_size"/>
+    <Button
+        android:id="@+id/team_buttonLineups"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:orientation="horizontal"
+        android:layout_height="@dimen/start_activity_button_height"
+        android:layout_marginStart="@dimen/start_activity_left_right_margin"
+        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:layout_weight="1" >
-        <Button
-            android:id="@+id/team_buttonGenerateLineups"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="2dp"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonTeamGenerateLineups"
-            android:textSize="@dimen/team_activity_lineups_text_size"
-            />
-    </LinearLayout>
-    <LinearLayout
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonTeamLineups"
+        android:textSize="@dimen/start_activity_text_size"/>
+    <Button
+        android:id="@+id/team_buttonStatistics"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:orientation="horizontal"
-        android:layout_weight="1" >
-        <Button
-            android:id="@+id/team_buttonRanking"
-            android:layout_height="match_parent"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:elevation="2dp"
-            android:layout_marginEnd="@dimen/start_activity_inter_button_margin"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonTeamRanking"
-            android:textSize="@dimen/team_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"/>
-        <Button
-            android:id="@+id/team_buttonStatistics"
-            android:layout_height="match_parent"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:elevation="2dp"
-            android:background="@color/colorGreen"
-            android:textColor="@color/colorWhite"
-            android:text="@string/buttonTeamStatistics"
-            android:textSize="@dimen/team_activity_text_size"
-            style="?android:attr/borderlessButtonStyle"/>
-    </LinearLayout>
+        android:layout_height="@dimen/start_activity_button_height"
+        android:layout_marginStart="@dimen/start_activity_left_right_margin"
+        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
+        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonTeamStatistics"
+        android:textSize="@dimen/start_activity_text_size"/>
+    <Button
+        android:id="@+id/team_buttonEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/start_activity_button_height"
+        android:layout_marginStart="@dimen/start_activity_left_right_margin"
+        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
+        android:background="@color/colorGreen"
+        android:textColor="@color/colorWhite"
+        android:text="@string/buttonTeamEdit"
+        android:textSize="@dimen/start_activity_text_size"/>
 </LinearLayout >

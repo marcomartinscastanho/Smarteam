@@ -13,13 +13,19 @@
     <string name="buttonStartMenuCreate">New</string>
     <string name="buttonStartMenuDelete">Delete</string>
     <string name="buttonStartMenuSettings">Settings</string>
-    <string name="buttonTeamInsertPlayer">Add Player</string>
-    <string name="buttonTeamDeletePlayer">Remove Player</string>
-    <string name="buttonTeamInsertResult">New Result</string>
-    <string name="buttonTeamDeleteLastResult">Delete Last Result</string>
-    <string name="buttonTeamGenerateLineups">Generate Lineups</string>
+    <string name="buttonTeamResults">Results</string>
     <string name="buttonTeamRanking">Ranking</string>
+    <string name="buttonTeamLineups">Lineups</string>
     <string name="buttonTeamStatistics">Statistics</string>
+    <string name="buttonTeamEdit">Edit</string>
+    <string name="buttonEditRenameTeam">Rename Team</string>
+    <string name="buttonEditAddPlayer">Add Player</string>
+    <string name="buttonEditRenamePlayer">Rename Player</string>
+    <string name="buttonEditDeletePlayer">Delete Player</string>
+    <string name="buttonResultsAdd">Add</string>
+    <string name="buttonResultsView">View</string>
+    <string name="buttonResultsEdit">Edit</string>
+    <string name="buttonResultsDelete">Delete</string>
 
     <!-- Toasts -->
     <!--- Settings -->
@@ -69,7 +75,7 @@
     <string name="dialogTeamToDelete">Select a Team to delete</string>
     <string name="dialogAreYouSureDeleteTeamPrefix">Are you sure you want to delete Team&#160;</string>
     <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
-    <string name="dialogTeamToLoad">Select a Team to open</string>
+    <string name="dialogTeamToLoad">Open a Team</string>
     <!--- Players -->
     <string name="dialogAddPlayerTitle">Add a new Player</string>
     <string name="dialogPlayerToDelete">Select a Player to delete</string>
@@ -112,4 +118,6 @@
     <string name="toastTeamsUnbalanced">Teams are unbalanced</string>
     <string name="dialogSelectPlayersWinLoseAreYouSurePrefix">You played a&#160;</string>
     <string name="dialogSelectPlayersWinLoseAreYouSureSuffix">&#160;match. Are you sure?</string>
+
+
 </resources>

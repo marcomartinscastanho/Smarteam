@@ -8,7 +8,7 @@
                android:background="@color/default_background"
                tools:context=".activity.StartActivity">
     <Button
-        android:id="@+id/start_button_load"
+        android:id="@+id/results_button_add"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
@@ -16,10 +16,10 @@
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuLoad"
+        android:text="@string/buttonResultsAdd"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
-        android:id="@+id/start_button_create"
+        android:id="@+id/results_button_View"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
@@ -27,10 +27,10 @@
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuCreate"
+        android:text="@string/buttonResultsView"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
-        android:id="@+id/start_button_delete"
+        android:id="@+id/results_button_Edit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
@@ -38,16 +38,16 @@
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuDelete"
+        android:text="@string/buttonResultsEdit"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
-        android:id="@+id/start_button_settings"
+        android:id="@+id/results_button_delete"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuSettings"
+        android:text="@string/buttonResultsDelete"
         android:textSize="@dimen/start_activity_text_size"/>
 </LinearLayout >

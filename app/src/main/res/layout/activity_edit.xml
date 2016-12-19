@@ -8,7 +8,7 @@
                android:background="@color/default_background"
                tools:context=".activity.StartActivity">
     <Button
-        android:id="@+id/start_button_load"
+        android:id="@+id/edit_button_rename_team"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
@@ -16,10 +16,10 @@
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuLoad"
+        android:text="@string/buttonEditRenameTeam"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
-        android:id="@+id/start_button_create"
+        android:id="@+id/edit_button_add_player"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
@@ -27,10 +27,10 @@
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuCreate"
+        android:text="@string/buttonEditAddPlayer"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
-        android:id="@+id/start_button_delete"
+        android:id="@+id/edit_button_rename_player"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
@@ -38,16 +38,16 @@
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuDelete"
+        android:text="@string/buttonEditRenamePlayer"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
-        android:id="@+id/start_button_settings"
+        android:id="@+id/edit_button_delete_player"
         android:layout_width="match_parent"
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:background="@color/colorGreen"
         android:textColor="@color/colorWhite"
-        android:text="@string/buttonStartMenuSettings"
+        android:text="@string/buttonEditDeletePlayer"
         android:textSize="@dimen/start_activity_text_size"/>
 </LinearLayout >

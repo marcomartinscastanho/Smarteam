@@ -97,5 +97,5 @@
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="default_background">#F3F3F3</color>
+    <color name="default_background">#FAFAFA</color>
 </resources>
