@@ -42,6 +42,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         context=this;
         setLayout();
         setActionBarTitle();
+        checkMinPlayers();
     }
 
     private void setLayout(){
@@ -74,6 +75,15 @@ public class EditActivity extends Activity implements View.OnClickListener {
         ActionBar ab = getActionBar();
         if (ab != null)
             ab.setTitle(String.format("\tEdit: %s", teamName));
+    }
+
+    private void checkMinPlayers(){
+        Integer minPlayers = getResources().getInteger(R.integer.minPlayersPerMatch);
+        Integer numPlayers = MyApplication.db.getPlayersCountByTeamId(teamId);
+        if(numPlayers < minPlayers){
+            MyApplication.showLongToast(context, getResources().getString(R.string.toastNoPlayersInitPrefix)+(minPlayers-numPlayers)+getResources().getString(R.string.toastNoPlayersInitSuffix));
+            addPlayerButtonClick();
+        }
     }
 
     @Override

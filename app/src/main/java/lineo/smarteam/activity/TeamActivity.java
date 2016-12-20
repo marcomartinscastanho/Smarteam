@@ -32,6 +32,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         context=this;
         setLayout();
         setTeamNameOnActionBar();
+        checkMinPlayers();
     }
 
     private void setLayout(){
@@ -62,6 +63,11 @@ public class TeamActivity extends Activity implements View.OnClickListener {
             ab.setTitle(String.format("\t%s", teamName));
     }
 
+    private void checkMinPlayers(){
+        if(MyApplication.db.getPlayersCountByTeamId(teamId) < getResources().getInteger(R.integer.minPlayersPerMatch))
+            callEditActivity();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -72,9 +78,6 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume()");
-        if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
-            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayersInit));
-        }
     }
 
     @Override

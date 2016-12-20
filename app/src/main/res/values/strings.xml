@@ -59,7 +59,8 @@
     <string name="toastNoTeamsToLoad">There are no Teams to open</string>
     <string name="toastFailedToLoadTeam">Failed to Open team</string>
     <!--- Players -->
-    <string name="toastNoPlayersInit">There are no players in this team yet</string>
+    <string name="toastNoPlayersInitPrefix">Add at least&#160;</string>
+    <string name="toastNoPlayersInitSuffix">&#160;Players to your Team</string>
     <string name="toastPlayerAlreadyExists">There is already a player with that name in this team</string>
     <string name="toastPlayerNameTooShort">That Player name is too short</string>
     <string name="toastPlayerNameTooLong">That Player name is too long</string>
