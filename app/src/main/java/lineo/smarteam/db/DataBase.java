@@ -397,7 +397,20 @@ public class DataBase {
         return list;
     }
 
-    private Integer getPlayerIdByNameAndTeamId(String playerName, Integer teamId) throws PlayerNotFoundException {
+    public void setPlayerNameById(Integer playerId, Integer teamId, String name) throws PlayerAlreadyExistsException, PlayerNotFoundException {
+        if (checkPlayerExistsByName(name, teamId)) {
+            throw new PlayerAlreadyExistsException();
+        }
+        ContentValues values = new ContentValues();
+        values.put(PLAYERS_COLUMN_NAME, name);
+        String selection = PLAYERS_COLUMN_ID + " = ?";
+        String[] selectionArgs = { playerId.toString() };
+        int count = db.update(PLAYERS_TABLE, values, selection, selectionArgs);
+        if(count <= 0)
+            throw new PlayerNotFoundException();
+    }
+
+    public Integer getPlayerIdByNameAndTeamId(String playerName, Integer teamId) throws PlayerNotFoundException {
         //Log.i(TAG, "getPlayerIdByNameAndTeamId()");
         String[] projection = {PLAYERS_COLUMN_ID};
         String selection = PLAYERS_COLUMN_NAME + " = ? AND " + PLAYERS_COLUMN_TEAM + " = ?";
