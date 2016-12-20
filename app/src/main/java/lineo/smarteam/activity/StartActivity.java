@@ -106,7 +106,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
     private void createButtonClick() {
         Log.i(TAG, "createButtonClick()");
-
         AlertDialog.Builder createBuilder = new AlertDialog.Builder(context);
         createBuilder.setTitle(getResources().getString(R.string.dialogCreateTeamTitle));
         createBuilder.setCancelable(false);
@@ -135,7 +134,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
     }
 
     private void deleteButtonClick(){
-        Log.i(TAG, "deleteButtonClick()");
+        //Log.i(TAG, "deleteButtonClick()");
         selectedTeam = -1;
         if(MyApplication.db.isTeamsEmpty()){
             MyApplication.showToast(context, getResources().getString(R.string.toastNoTeamsToDelete));

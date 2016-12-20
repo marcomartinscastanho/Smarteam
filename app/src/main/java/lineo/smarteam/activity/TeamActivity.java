@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
+import lineo.smarteam.exception.TeamNotFoundException;
 
 public class TeamActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "TeamActivity";
@@ -24,6 +25,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     private Button editButton;
 
     private Integer teamId;
+    private String teamName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         Log.i(TAG, "onCreate()");
         context=this;
         setLayout();
-        setTeamNameOnActionBar();
+        getTeamIdFromIntent();
         checkMinPlayers();
     }
 
@@ -49,18 +51,21 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         editButton.setOnClickListener(this);
     }
 
-    private void setTeamNameOnActionBar(){
+    private void getTeamIdFromIntent(){
         Intent intent = getIntent();
-        String teamName = intent.getStringExtra("teamName");
+        teamName = intent.getStringExtra("teamName");
         this.teamId = intent.getIntExtra("teamId", -1);
         if(teamId==-1){
             Log.wtf(TAG, "onCreate() failed to pass teamId to TeamActivity");
             MyApplication.showToast(context, getResources().getString(R.string.toastFailedToLoadTeam));
             finish();
         }
+    }
+
+    private void setTeamNameOnActionBar(String name){
         ActionBar ab = getActionBar();
         if (ab != null)
-            ab.setTitle(String.format("\t%s", teamName));
+            ab.setTitle(String.format("\t%s", name));
     }
 
     private void checkMinPlayers(){
@@ -69,9 +74,22 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart()");
+        try {
+            teamName=MyApplication.db.getTeamNameById(teamId);
+        } catch (TeamNotFoundException e) {
+            e.printStackTrace();
+            Log.wtf(TAG, "onRestart() did not find team "+teamId);
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart()");
+        setTeamNameOnActionBar(teamName);
     }
 
     @Override
