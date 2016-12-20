@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
+import lineo.smarteam.exception.PlayerNotFoundException;
 import lineo.smarteam.exception.TeamAlreadyExistsException;
 import lineo.smarteam.exception.TeamNotFoundException;
 
@@ -77,7 +78,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private void setTeamNameOnActionBar(String name){
         ActionBar ab = getActionBar();
         if (ab != null)
-            ab.setTitle(String.format("\tEdit : %s", teamName));
+            ab.setTitle(String.format("\tEdit : %s", name));
     }
 
     @Override
@@ -177,16 +178,6 @@ public class EditActivity extends Activity implements View.OnClickListener {
                 return false;
             }
             try {
-                if(name.equals(MyApplication.db.getTeamNameById(teamId))){     // validate current name
-                    MyApplication.showToast(context, getResources().getString(R.string.toastTeamNameTooLong));
-                    return false;
-                }
-            } catch (TeamNotFoundException e) {
-                e.printStackTrace();
-                Log.wtf(TAG, "RenameTeamDialogListener.validate() did not find team "+teamId);
-                return false;
-            }
-            try {
                 MyApplication.db.setTeamNameById(teamId, name);
             } catch (TeamAlreadyExistsException e) {
                 MyApplication.showToast(context, getResources().getString(R.string.toastTeamAlreadyExists));
@@ -266,14 +257,106 @@ public class EditActivity extends Activity implements View.OnClickListener {
     }
 
     private void renamePlayerButtonClick() {
+    //Log.i(TAG, "deleteButtonClick()");
+        selectedPlayer = -1;
+        if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayers));
+            return;
+        }
+        ArrayList<String> playersNamesList = MyApplication.db.getPlayersNamesByTeamId(teamId);
+        final CharSequence[] choiceList = playersNamesList.toArray(new CharSequence[playersNamesList.size()]);
+        AlertDialog.Builder renamePlayerBuilder = new AlertDialog.Builder(context);
+        renamePlayerBuilder.setTitle(getResources().getString(R.string.dialogPlayerToRename));
+        renamePlayerBuilder.setItems(choiceList, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedPlayer = which;
+                Log.d(TAG, "selectedPlayer value=" + selectedPlayer);
+                if(selectedPlayer<0)
+                    return;
+                Integer playerId = null;
+                try {
+                    playerId = MyApplication.db.getPlayerIdByNameAndTeamId(choiceList[selectedPlayer].toString(), teamId);
+                } catch (PlayerNotFoundException e) {
+                    e.printStackTrace();
+                    Log.wtf(TAG, "RenamePlayerDialogListener.validate() did not find player "+choiceList[selectedPlayer].toString());
+                }
+                AlertDialog.Builder renamePlayerBuilder = new AlertDialog.Builder(context);
+                renamePlayerBuilder.setTitle(getResources().getString(R.string.dialogAddPlayerTitle));
+                renamePlayerBuilder.setCancelable(false);
 
+                EditText editTextRenamePlayer = new EditText(context);
+                renamePlayerBuilder.setView(editTextRenamePlayer);
+                renamePlayerBuilder.setCancelable(true);
+                renamePlayerBuilder.setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }
+                );
+                renamePlayerBuilder.setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }
+                );
+                AlertDialog createDialog = renamePlayerBuilder.create();
+                createDialog.show();
+                Button okButton = createDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                okButton.setOnClickListener(new EditActivity.RenamePlayerDialogListener(createDialog, editTextRenamePlayer, playerId));
+            }
+        });
+        renamePlayerBuilder.setCancelable(true);
+        AlertDialog deleteDialog = renamePlayerBuilder.create();
+        deleteDialog.show();
+    }
+
+    public class RenamePlayerDialogListener implements View.OnClickListener {
+        private final Dialog dialog;
+        private final EditText editTextRenamePlayer;
+        private final Integer playerId;
+        RenamePlayerDialogListener(Dialog dialog, EditText editText, Integer playerId) {
+            this.dialog = dialog;
+            this.editTextRenamePlayer = editText;
+            this.playerId = playerId;
+        }
+        @Override
+        public void onClick(View v) {
+            CharSequence selectedPlayerName = editTextRenamePlayer.getText();
+            if(validate(selectedPlayerName.toString())){
+                dialog.dismiss();
+            }
+        }
+
+        boolean validate(String name){
+            if(name.length()<getResources().getInteger(R.integer.minCharsPlayerName)){
+                MyApplication.showToast(context, getResources().getString(R.string.toastPlayerNameTooShort));
+                return false;
+            }
+            if(name.length()>getResources().getInteger(R.integer.maxCharsPlayerName)){
+                MyApplication.showToast(context, getResources().getString(R.string.toastPlayerNameTooLong));
+                return false;
+            }
+            try {
+                MyApplication.db.setPlayerNameById(playerId, teamId, name);
+            } catch (PlayerAlreadyExistsException e) {
+                MyApplication.showToast(context, getResources().getString(R.string.toastPlayerAlreadyExists));
+                return false;
+            } catch (PlayerNotFoundException e) {
+                e.printStackTrace();
+                Log.wtf(TAG, "RenamePlayerDialogListener.validate() did not find player "+playerId);
+            }
+            return true;
+        }
     }
 
     private void deletePlayerButtonClick() {
         //Log.i(TAG, "deletePlayerButtonClick()");
         selectedPlayer = -1;
         if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
-            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayersToDelete));
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayers));
             return;
         }
         ArrayList<String> playersNamesList = MyApplication.db.getPlayersNamesByTeamId(teamId);

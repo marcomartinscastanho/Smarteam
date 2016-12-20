@@ -79,8 +79,9 @@
     <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
     <string name="dialogTeamToLoad">Open a Team</string>
     <!--- Players -->
-    <string name="dialogAddPlayerTitle">Add a new Player</string>
-    <string name="dialogPlayerToDelete">Select a Player to delete</string>
+    <string name="dialogAddPlayerTitle">Choose a name for the Player</string>
+    <string name="dialogPlayerToDelete">Which Player do you want to delete?</string>
+    <string name="dialogPlayerToRename">Which Player do you want to rename?</string>
     <string name="dialogAreYouSureDeletePlayerPrefix">Are you sure you want to delete Player&#160;</string>
     <string name="dialogAreYouSureDeletePlayerSuffix">\?</string>
 
