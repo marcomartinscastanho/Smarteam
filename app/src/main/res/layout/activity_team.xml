@@ -13,8 +13,8 @@
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamResults"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
@@ -24,8 +24,8 @@
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamRanking"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
@@ -35,8 +35,8 @@
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamLineups"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
@@ -46,8 +46,8 @@
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamStatistics"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
@@ -56,8 +56,8 @@
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamEdit"
         android:textSize="@dimen/start_activity_text_size"/>
 </LinearLayout >

@@ -14,8 +14,8 @@
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsAdd"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
@@ -25,8 +25,8 @@
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsView"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
@@ -36,8 +36,8 @@
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
         android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsEdit"
         android:textSize="@dimen/start_activity_text_size"/>
     <Button
@@ -46,8 +46,8 @@
         android:layout_height="@dimen/start_activity_button_height"
         android:layout_marginStart="@dimen/start_activity_left_right_margin"
         android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:background="@color/colorGreen"
-        android:textColor="@color/colorWhite"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsDelete"
         android:textSize="@dimen/start_activity_text_size"/>
 </LinearLayout >
