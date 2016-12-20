@@ -5,6 +5,7 @@
                android:layout_height="match_parent"
                android:orientation="vertical"
                android:gravity="center_vertical"
+               android:background="@color/default_background"
                tools:context=".activity.StartActivity">
     <Button
         android:id="@+id/team_buttonResults"
