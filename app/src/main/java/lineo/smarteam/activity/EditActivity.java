@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
 import lineo.smarteam.exception.PlayerAlreadyExistsException;
+import lineo.smarteam.exception.TeamAlreadyExistsException;
 import lineo.smarteam.exception.TeamNotFoundException;
 
 
@@ -33,6 +34,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private Button deletePlayerButton;
 
     private Integer teamId;
+    private String teamName;
     private Integer selectedPlayer = -1;
 
     @Override
@@ -41,8 +43,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         Log.i(TAG, "onCreate()");
         context=this;
         setLayout();
-        setActionBarTitle();
-        checkMinPlayers();
+        getTeamIdFromIntent();
     }
 
     private void setLayout(){
@@ -57,24 +58,34 @@ public class EditActivity extends Activity implements View.OnClickListener {
         deletePlayerButton.setOnClickListener(this);
     }
 
-    private void setActionBarTitle(){
+    private void getTeamIdFromIntent(){
         Intent intent = getIntent();
         this.teamId = intent.getIntExtra("teamId", -1);
         if(teamId==-1){
-            Log.wtf(TAG, "onCreate() failed to pass teamId to "+TAG);
+            Log.wtf(TAG, "onCreate() failed to pass teamId to TeamActivity");
             MyApplication.showToast(context, getResources().getString(R.string.toastFailedToLoadTeam));
             finish();
         }
-        String teamName = null;
         try {
             teamName = MyApplication.db.getTeamNameById(teamId);
         } catch (TeamNotFoundException e) {
             e.printStackTrace();
             Log.wtf(TAG, "onCreate() did not find team "+teamId);
         }
+    }
+
+    private void setTeamNameOnActionBar(String name){
         ActionBar ab = getActionBar();
         if (ab != null)
-            ab.setTitle(String.format("\tEdit: %s", teamName));
+            ab.setTitle(String.format("\tEdit : %s", teamName));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart()");
+        setTeamNameOnActionBar(teamName);
+        checkMinPlayers();
     }
 
     private void checkMinPlayers(){
@@ -113,7 +124,82 @@ public class EditActivity extends Activity implements View.OnClickListener {
     }
 
     private void renameTeamButtonClick() {
+        Log.i(TAG, "renameTeamButtonClick()");
+        AlertDialog.Builder renameTeamBuilder = new AlertDialog.Builder(context);
+        renameTeamBuilder.setTitle(getResources().getString(R.string.dialogCreateTeamTitle));
+        renameTeamBuilder.setCancelable(false);
 
+        EditText editTextRenameTeam = new EditText(this);
+        renameTeamBuilder.setView(editTextRenameTeam);
+        renameTeamBuilder.setCancelable(true);
+        renameTeamBuilder.setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }
+        );
+        renameTeamBuilder.setNegativeButton(android.R.string.cancel,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }
+        );
+        AlertDialog createDialog = renameTeamBuilder.create();
+        createDialog.show();
+        Button okButton = createDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        okButton.setOnClickListener(new EditActivity.RenameTeamDialogListener(createDialog, editTextRenameTeam));
+    }
+
+    public class RenameTeamDialogListener implements View.OnClickListener {
+        private final Dialog dialog;
+        private final EditText editTextRenameTeam;
+        RenameTeamDialogListener(Dialog dialog, EditText editText) {
+            this.dialog = dialog;
+            this.editTextRenameTeam = editText;
+        }
+        @Override
+        public void onClick(View v) {
+            CharSequence selectedTeamName = editTextRenameTeam.getText();
+            if(validate(selectedTeamName.toString())){
+                dialog.dismiss();
+            }
+        }
+
+        boolean validate(String name){
+            if(name.length()<getResources().getInteger(R.integer.minCharsTeamName)){    // validate min length
+                MyApplication.showToast(context, getResources().getString(R.string.toastTeamNameTooShort));
+                return false;
+            }
+            if(name.length()>getResources().getInteger(R.integer.maxCharsTeamName)){    // validate max length
+                MyApplication.showToast(context, getResources().getString(R.string.toastTeamNameTooLong));
+                return false;
+            }
+            try {
+                if(name.equals(MyApplication.db.getTeamNameById(teamId))){     // validate current name
+                    MyApplication.showToast(context, getResources().getString(R.string.toastTeamNameTooLong));
+                    return false;
+                }
+            } catch (TeamNotFoundException e) {
+                e.printStackTrace();
+                Log.wtf(TAG, "RenameTeamDialogListener.validate() did not find team "+teamId);
+                return false;
+            }
+            try {
+                MyApplication.db.setTeamNameById(teamId, name);
+            } catch (TeamAlreadyExistsException e) {
+                MyApplication.showToast(context, getResources().getString(R.string.toastTeamAlreadyExists));
+                return false;
+            } catch (TeamNotFoundException e) {
+                e.printStackTrace();
+                Log.wtf(TAG, "RenameTeamDialogListener.validate() did not find team "+teamId);
+                return false;
+            }
+            teamName=name;
+            setTeamNameOnActionBar(teamName);
+            return true;
+        }
     }
 
     private void addPlayerButtonClick() {
