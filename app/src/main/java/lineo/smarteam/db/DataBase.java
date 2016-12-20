@@ -205,6 +205,19 @@ public class DataBase {
         }
     }
 
+    public void setTeamNameById(Integer teamId, String name) throws TeamNotFoundException, TeamAlreadyExistsException {
+        if (checkTeamExistsByName(name)) {
+            throw new TeamAlreadyExistsException();
+        }
+        ContentValues values = new ContentValues();
+        values.put(TEAMS_COLUMN_NAME, name);
+        String selection = TEAMS_COLUMN_ID + " = ?";
+        String[] selectionArgs = { teamId.toString() };
+        int count = db.update(TEAMS_TABLE, values, selection, selectionArgs);
+        if(count <= 0)
+            throw new TeamNotFoundException();
+    }
+
     private Integer getTeamNumMatchesById(Integer id) throws TeamNotFoundException {
         String[] projection = {TEAMS_COLUMN_NUM_MATCHES};
         String selection = TEAMS_COLUMN_ID + " = ?";
