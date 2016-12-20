@@ -14,6 +14,10 @@
         <item name="android:buttonStyle">@style/MainTheme.Button</item>
     </style>
 
+    <style name="SettingsTheme" parent="MainTheme">
+        <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
+    </style>
+
     <style name="MainTheme" parent="android:style/Theme.DeviceDefault.Light">
         <item name="android:statusBarColor">@color/colorGreenDarker</item>
         <item name="android:actionBarStyle">@style/MainTheme.ActionBar</item>
@@ -27,6 +31,10 @@
         <item name="android:title">@string/app_name</item>
         <item name="android:elevation">4dp</item>
         <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+    </style>
+
+    <style name="SettingsTheme.ActionBar" parent="MainTheme.ActionBar">
+        <item name="android:title">@string/buttonStartMenuSettings</item>
     </style>
 
     <style name="MainTheme.ActionBar" parent="android:Theme.DeviceDefault.Light.DarkActionBar">
