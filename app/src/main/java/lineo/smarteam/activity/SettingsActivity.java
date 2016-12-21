@@ -49,7 +49,6 @@ public class SettingsActivity extends PreferenceActivity {
         private static final String KEY_PREF_SHORT_ABSENCE_SCORE = "KEY_PREF_SHORT_ABSENCE_SCORE";
         private static final String KEY_PREF_MEDIUM_ABSENCE_SCORE = "KEY_PREF_MEDIUM_ABSENCE_SCORE";
         private static final String KEY_PREF_LONG_ABSENCE_SCORE = "KEY_PREF_LONG_ABSENCE_SCORE";
-        private static final String KEY_PREF_MISSED_SCORE = "KEY_PREF_MISSED_SCORE";
         private static final String KEY_PREF_MEDIUM_ABSENCE_DURATION = "KEY_PREF_MEDIUM_ABSENCE_DURATION";
         private static final String KEY_PREF_LONG_ABSENCE_DURATION = "KEY_PREF_LONG_ABSENCE_DURATION";
         private static final String KEY_PREF_K = "KEY_PREF_K";
@@ -95,7 +94,6 @@ public class SettingsActivity extends PreferenceActivity {
             setListenerShortAbsenceScore();
             setListenerMediumAbsenceScore();
             setListenerLongAbsenceScore();
-            setListenerMissedScore();
             setListenerMediumAbsenceDuration();
             setListenerLongAbsenceDuration();
             setListenerK();
@@ -276,30 +274,6 @@ public class SettingsActivity extends PreferenceActivity {
             );
         }
 
-        //
-        /* Rules:
-         * MISSED_SCORE <= SHORT_ABSENCE_SCORE
-         */
-        private void setListenerMissedScore() {
-            findPreference(KEY_PREF_MISSED_SCORE).setOnPreferenceChangeListener(
-                    new Preference.OnPreferenceChangeListener() {
-                        @Override
-                        public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            Log.i(TAG, "setListenerMissedScore() - newValue=" + newValue.toString());
-                            String nuValue = newValue.toString();
-                            if(!complyBasicRules(nuValue))
-                                return false;
-                            if(!((Integer.parseInt(nuValue) <= Integer.parseInt(sharedPreferences.getString(KEY_PREF_SHORT_ABSENCE_SCORE, "0"))))){ //MISSED_SCORE <= SHORT_ABSENCE_SCORE
-                                if(getActivity() != null)
-                                    MyApplication.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.err_points_missed_larger_than_short));
-                                return false;
-                            }
-                            return true;
-                        }
-                    }
-            );
-        }
-
         /* Rules:
          * MEDIUM_ABSENCE_DURATION >= 0
          * MEDIUM_ABSENCE_DURATION <= LONG_ABSENCE_DURATION
@@ -411,9 +385,6 @@ public class SettingsActivity extends PreferenceActivity {
                 case KEY_PREF_SHORT_ABSENCE_SCORE:
                 case KEY_PREF_MEDIUM_ABSENCE_SCORE:
                 case KEY_PREF_LONG_ABSENCE_SCORE:
-                case KEY_PREF_MISSED_SCORE:
-                    findPreference(key).setSummary(value);
-                    break;
                 case KEY_PREF_MEDIUM_ABSENCE_DURATION:
                     findPreference(key).setSummary(getResources().getString(R.string.pref_summary_medium_absence_duration)+": "+value);
                     break;

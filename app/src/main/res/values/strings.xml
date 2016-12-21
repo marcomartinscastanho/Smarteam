@@ -43,7 +43,6 @@
     <string name="err_points_medium_absence_smaller_than_long">Points per Medium Absence must not be smaller than points per Long</string>
     <string name="err_points_medium_absence_larger_than_short">Points per Medium Absence must not be larger than points per Short</string>
     <string name="err_points_long_absence_larger_than_medium">Points per Long Absence must not be larger than points per Medium</string>
-    <string name="err_points_missed_larger_than_short">Points per Missed Match must not be larger than points per Short Absence</string>
     <string name="err_long_absence_duration_smaller_than_medium">Long Absence must not be smaller than Medium Absence</string>
     <string name="err_medium_absence_duration_larger_than_long">Medium Absence must not be larger than Long Absence</string>
     <string name="err_medium_absence_duration_smaller_than_zero">Medium Absence must not be smaller than 0</string>
@@ -116,7 +115,6 @@
     <string name="pref_title_short_absence_score">Short Absence</string>
     <string name="pref_title_medium_absence_score">Medium Absence</string>
     <string name="pref_title_long_absence_score">Long Absence</string>
-    <string name="pref_title_missed_score">Missed</string>
     <string name="pref_title_medium_absence_duration">Medium Absence</string>
     <string name="pref_title_long_absence_duration">Long Absence</string>
     <string name="pref_title_k">Weight Coefficient</string>

@@ -44,13 +44,6 @@
             android:defaultValue="@integer/def_long_absence_score"
             android:key="KEY_PREF_LONG_ABSENCE_SCORE" >
         </lineo.smarteam.preference.MyEditTextPreference>
-        <lineo.smarteam.preference.MyEditTextPreference
-            android:title="@string/pref_title_missed_score"
-            android:inputType="numberSigned"
-            android:maxLength="9"
-            android:defaultValue="@integer/def_missed_score"
-            android:key="KEY_PREF_MISSED_SCORE" >
-        </lineo.smarteam.preference.MyEditTextPreference>
     </PreferenceCategory>
     <PreferenceCategory     android:title="@string/pref_category_absences_title"
                             android:key="pref_key_absence_settings">

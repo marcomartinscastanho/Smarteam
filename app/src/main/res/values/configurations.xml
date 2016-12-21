@@ -14,7 +14,6 @@
     <item name="def_short_absence_score" type="integer">0</item>
     <item name="def_medium_absence_score" type="integer">-1</item>
     <item name="def_long_absence_score" type="integer">-2</item>
-    <item name="def_missed_score" type="integer">-3</item>
     <item name="def_medium_absence_duration" type="integer">3</item>
     <item name="def_long_absence_duration" type="integer">10</item>
     <item name="valueK" format="float" type="string">1.1</item>
