@@ -65,7 +65,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     private void setTeamNameOnActionBar(String name){
         ActionBar ab = getActionBar();
         if (ab != null)
-            ab.setTitle(String.format("\t%s", name));
+            ab.setTitle(String.format("%s", name));
     }
 
     private void checkMinPlayers(){
