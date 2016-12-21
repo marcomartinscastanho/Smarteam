@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory     android:title="@string/scores_category_title"
+    <PreferenceCategory     android:title="@string/pref_category_scores_title"
                             android:key="pref_key_scores_settings">
         <lineo.smarteam.preference.MyEditTextPreference
             android:title="@string/pref_title_win_score"
@@ -52,7 +52,7 @@
             android:key="KEY_PREF_MISSED_SCORE" >
         </lineo.smarteam.preference.MyEditTextPreference>
     </PreferenceCategory>
-    <PreferenceCategory     android:title="@string/absences_title"
+    <PreferenceCategory     android:title="@string/pref_category_absences_title"
                             android:key="pref_key_absence_settings">
         <lineo.smarteam.preference.MyEditTextPreference
             android:title="@string/pref_title_medium_absence_duration"
@@ -71,7 +71,7 @@
             android:summary="@string/pref_summary_long_absence_duration" >
         </lineo.smarteam.preference.MyEditTextPreference>
     </PreferenceCategory>
-    <PreferenceCategory     android:title="@string/model_title"
+    <PreferenceCategory     android:title="@string/pref_category_model_title"
                             android:key="pref_key_model_settings">
         <lineo.smarteam.preference.MyEditTextPreference
             android:title="@string/pref_title_k"
@@ -82,7 +82,7 @@
             android:summary="@string/pref_summary_k" >
         </lineo.smarteam.preference.MyEditTextPreference>
     </PreferenceCategory>
-    <PreferenceCategory     android:title="@string/default_title"
+    <PreferenceCategory     android:title="@string/pref_category_default_title"
                             android:key="resetSettingsDialog">
         <lineo.smarteam.preference.ResetDefaultSettingsDialogPreference
             android:dialogMessage="@string/dialogRestoreDefault"
@@ -90,7 +90,7 @@
             android:negativeButtonText="@android:string/no"
             android:persistent="false"
             android:positiveButtonText="@android:string/yes"
-            android:summary="@string/summaryRestoreDefault"
+            android:summary="@string/pref_summary_default"
             android:title="@string/pref_title_restore_default" >
         </lineo.smarteam.preference.ResetDefaultSettingsDialogPreference>
     </PreferenceCategory>

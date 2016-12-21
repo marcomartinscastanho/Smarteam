@@ -111,13 +111,13 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
         AlertDialog.Builder builderResult = new AlertDialog.Builder(context);
         builderResult.setTitle(getResources().getString(R.string.dialogInsertResult));
         builderResult.setCancelable(true);
-        builderResult.setPositiveButton(R.string.draw, new DialogInterface.OnClickListener() {
+        builderResult.setPositiveButton(R.string.dialogOptionDraw, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 insertResultDraw();
             }
         });
-        builderResult.setNegativeButton(R.string.winDefeat, new DialogInterface.OnClickListener() {
+        builderResult.setNegativeButton(R.string.dialogOptionWinDefeat, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 insertResultWinDefeat();

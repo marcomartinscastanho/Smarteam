@@ -5,7 +5,8 @@
     <string name="title_activity_splash">ActivitySplash</string>
     <string name="title_activity_start">ActivityStart</string>
     <string name="title_activity_team">ActivityTeam</string>
-
+    <string name="title_activity_edit">Edit</string>
+    <string name="title_activity_results">Results</string>
     <string name="splash_loading">Loading</string>
 
     <!-- Buttons text -->
@@ -58,6 +59,7 @@
     <string name="toastFailedToDeleteTeamSuffix"/>
     <string name="toastNoTeamsToLoad">There are no Teams to open</string>
     <string name="toastFailedToLoadTeam">Failed to Open team</string>
+    <string name="toastNotEnoughPlayersInTeam">Not enough Players in the Team. Minimum is&#160;</string>
     <!--- Players -->
     <string name="toastNoPlayersInitPrefix">Add at least&#160;</string>
     <string name="toastNoPlayersInitSuffix">&#160;Players to your Team</string>
@@ -69,8 +71,15 @@
     <string name="toastSuccessfullyDeletedPlayerSuffix"/>
     <string name="toastFailedToDeletePlayerPrefix">Failed to delete Player&#160;</string>
     <string name="toastFailedToDeletePlayerSuffix"/>
+    <string name="toastNotEnoughPlayersSelected">Not enough Players Selected. Minimum is&#160;</string>
+    <string name="toastTooManyPlayersSelected">Too many Players selected. Maximum is&#160;</string>
+    <!--- Results -->
+    <string name="toastFailedToAddResult">Failed to Add Result</string>
+    <string name="toastTeamsUnbalanced">Teams are unbalanced</string>
 
     <!-- Dialogs -->
+    <!-- Preferences -->
+    <string name="dialogRestoreDefault">Reset all settings to their initial values\?</string>
     <!--- Teams -->
     <string name="dialogCreateTeamTitle">Choose a name for your Team</string>
     <string name="dialogTeamToDelete">Which Team do you want to delete?</string>
@@ -84,9 +93,23 @@
     <string name="dialogPlayerToRename">Which Player do you want to rename?</string>
     <string name="dialogAreYouSureDeletePlayerPrefix">Are you sure you want to delete Player&#160;</string>
     <string name="dialogAreYouSureDeletePlayerSuffix">\?</string>
+    <string name="dialogSelectPlayersDrawAreYouSurePrefix">You selected&#160;</string>
+    <string name="dialogSelectPlayersDrawAreYouSureSuffix">&#160;Players. Are you sure?</string>
+    <!--- Results -->
+    <string name="dialogInsertResult">How was the outcome of the match?</string>
+    <string name="dialogOptionDraw">Draw</string>
+    <string name="dialogOptionWinDefeat">Win:Defeat</string>
+    <string name="dialogSelectPlayersDraw">Select the Players</string>
+    <string name="dialogSelectPlayersWin">Select the winners</string>
+    <string name="dialogSelectPlayersDefeat">Select the losers</string>
+    <string name="dialogSelectPlayersWinLoseAreYouSurePrefix">You played a&#160;</string>
+    <string name="dialogSelectPlayersWinLoseAreYouSureSuffix">&#160;match. Are you sure?</string>
 
     <!-- Preferences -->
-    <string name="scores_category_title">Scores</string>
+    <string name="pref_category_scores_title">Scores</string>
+    <string name="pref_category_absences_title">Absences Duration</string>
+    <string name="pref_category_model_title">Model</string>
+    <string name="pref_category_default_title">Default</string>
     <string name="pref_title_win_score">Win</string>
     <string name="pref_title_draw_score">Draw</string>
     <string name="pref_title_defeat_score">Defeat</string>
@@ -94,33 +117,12 @@
     <string name="pref_title_medium_absence_score">Medium Absence</string>
     <string name="pref_title_long_absence_score">Long Absence</string>
     <string name="pref_title_missed_score">Missed</string>
-    <string name="absences_title">Absences Duration</string>
     <string name="pref_title_medium_absence_duration">Medium Absence</string>
     <string name="pref_title_long_absence_duration">Long Absence</string>
-    <string name="model_title">Model</string>
     <string name="pref_title_k">Weight Coefficient</string>
-    <string name="default_title">Default</string>
+    <string name="pref_title_restore_default">Restore Default</string>
     <string name="pref_summary_medium_absence_duration">Number of absence matches that sets the line between Short and Medium Absence</string>
     <string name="pref_summary_long_absence_duration">Number of absence matches that sets the line between Medium and Long Absence</string>
     <string name="pref_summary_k">The relation between the weights of 2 consecutive matches</string>
-    <string name="dialogRestoreDefault">Reset all settings to their initial values\?</string>
-    <string name="summaryRestoreDefault">Reset all settings to their default values.</string>
-    <string name="pref_title_restore_default">Restore Default</string>
-    <string name="toastNotEnoughPlayersInTeam">Not enough Players in the Team. Minimum is&#160;</string>
-    <string name="dialogInsertResult">How was the outcome of the match?</string>
-    <string name="draw">Draw</string>
-    <string name="winDefeat">Win:Defeat</string>
-    <string name="dialogSelectPlayersDraw">Select the Players</string>
-    <string name="toastNotEnoughPlayersSelected">Not enough Players Selected. Minimum is&#160;</string>
-    <string name="toastTooManyPlayersSelected">Too many Players selected. Maximum is&#160;</string>
-    <string name="dialogSelectPlayersDrawAreYouSurePrefix">You selected&#160;</string>
-    <string name="dialogSelectPlayersDrawAreYouSureSuffix">&#160;Players. Are you sure?</string>
-    <string name="toastFailedToAddResult">Failed to Add Result</string>
-    <string name="dialogSelectPlayersWin">Select the winners</string>
-    <string name="dialogSelectPlayersDefeat">Select the losers</string>
-    <string name="toastTeamsUnbalanced">Teams are unbalanced</string>
-    <string name="dialogSelectPlayersWinLoseAreYouSurePrefix">You played a&#160;</string>
-    <string name="dialogSelectPlayersWinLoseAreYouSureSuffix">&#160;match. Are you sure?</string>
-
-
+    <string name="pref_summary_default">Reset all settings to their default values.</string>
 </resources>
