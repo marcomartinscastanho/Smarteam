@@ -73,7 +73,7 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
         }
         ActionBar ab = getActionBar();
         if (ab != null)
-            ab.setTitle(String.format("Results : %s", teamName));
+            ab.setTitle(String.format(getResources().getString(R.string.title_activity_results)+" : %s", teamName));
     }
 
     @Override
