@@ -69,10 +69,6 @@ public class DataBaseAdapter {
             db.execSQL(SQL_CREATE_TABLE_TEAMS);
             db.execSQL(SQL_CREATE_TABLE_PLAYERS);
             db.execSQL(SQL_CREATE_TABLE_INDIVIDUAL_RESULTS);
-            ContentValues values = new ContentValues();
-            values.put(Configurations.COLUMN_NAME_ATTRIBUTE, "VALUE_K");
-            values.put(Configurations.COLUMN_NAME_VALUE, R.string.valueK);
-            db.insert(Configurations.TABLE_NAME, null, values);
         }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
