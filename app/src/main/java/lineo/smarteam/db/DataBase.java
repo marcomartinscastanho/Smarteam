@@ -40,7 +40,7 @@ public class DataBase {
     static final String TEAMS_COLUMN_UPDATE_DATE = "UPDATE_DATE";
     static final String PLAYERS_TABLE = "PLAYERS";
     static final String PLAYERS_COLUMN_ID = "PLAYER_ID";
-    static final String PLAYERS_COLUMN_NAME = "NAME";
+    public static final String PLAYERS_COLUMN_NAME = "NAME";
     static final String PLAYERS_COLUMN_TEAM = "TEAM_ID";
     static final String PLAYERS_COLUMN_WINS = "WINS";
     static final String PLAYERS_COLUMN_DRAWS = "DRAWS";
@@ -48,8 +48,9 @@ public class DataBase {
     static final String PLAYERS_COLUMN_MATCHES = "MATCHES";
     static final String PLAYERS_COLUMN_MATCHES_AFTER_DEBUT = "MATCHES_AFTER_DEBUT";
     static final String PLAYERS_COLUMN_WIN_PERCENTAGE = "WIN_PERCENTAGE";
-    static final String PLAYERS_COLUMN_SCORE = "SCORE";
+    public static final String PLAYERS_COLUMN_SCORE = "SCORE";
     static final String PLAYERS_COLUMN_UPDATE_DATE = "UPDATE_DATE";
+    public static final String PLAYERS_RANKING_POSITION = "_id";
     static final String INDIVIDUAL_RESULTS_TABLE = "INDIVIDUAL_RESULTS";
     static final String INDIVIDUAL_RESULTS_COLUMN_PLAYER_ID = "PLAYER_ID";
     static final String INDIVIDUAL_RESULTS_COLUMN_TEAM_ID = "TEAM_ID";
@@ -770,6 +771,15 @@ public class DataBase {
         incrementPlayerMatchesAfterDebut(playerId);
         calculatePlayerScore(playerId);
         setPlayerUpdateDateNowById(playerId);
+    }
+
+    public Cursor getRankingByTeamId(Integer teamId){
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", CAST(100*" + PLAYERS_COLUMN_SCORE + " AS INTEGER) AS "+ PLAYERS_COLUMN_SCORE +", "
+                + " 1+(SELECT COUNT(*) FROM " + PLAYERS_TABLE + " B WHERE A." + PLAYERS_COLUMN_SCORE + " < B." + PLAYERS_COLUMN_SCORE + " AND B." + PLAYERS_COLUMN_TEAM + " = ?) AS _id "
+                + " FROM " + PLAYERS_TABLE + " A WHERE A." + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + PLAYERS_COLUMN_SCORE + " DESC ";
+        Log.d(TAG, "getRankingByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString(), teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
     }
 
     /*

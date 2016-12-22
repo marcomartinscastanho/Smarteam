@@ -139,7 +139,11 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     }
 
     private void rankingButtonClick() {
-
+        if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayers));
+            return;
+        }
+        callRankingActivity();
     }
 
     private void lineupsButtonClick() {
@@ -162,6 +166,12 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
     public void callEditActivity(){
         Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("teamId", teamId);
+        startActivity(intent);
+    }
+
+    public void callRankingActivity(){
+        Intent intent = new Intent(this, RankingActivity.class);
         intent.putExtra("teamId", teamId);
         startActivity(intent);
     }
