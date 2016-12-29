@@ -39,7 +39,7 @@ public class DataBase {
     static final String TEAMS_COLUMN_IS_SCORE_UPDATED = "IS_SCORE_UPDATED";
     static final String TEAMS_COLUMN_UPDATE_DATE = "UPDATE_DATE";
     static final String PLAYERS_TABLE = "PLAYERS";
-    static final String PLAYERS_COLUMN_ID = "PLAYER_ID";
+    public static final String PLAYERS_COLUMN_ID = "PLAYER_ID";
     public static final String PLAYERS_COLUMN_NAME = "NAME";
     static final String PLAYERS_COLUMN_TEAM = "TEAM_ID";
     static final String PLAYERS_COLUMN_WINS = "WINS";
@@ -780,6 +780,15 @@ public class DataBase {
         Log.d(TAG, "getRankingByTeamId() - query:"+query);
         String[] selectionArgs = {teamId.toString(), teamId.toString()};
         return db.rawQuery(query, selectionArgs);
+    }
+
+    public Cursor getLineupInfoByTeamId(Integer teamId){
+        //Log.i(TAG, "getPlayersIdsByTeamIdOrderByPlayerName()");
+        String[] projection = {PLAYERS_COLUMN_ID, PLAYERS_COLUMN_NAME, PLAYERS_COLUMN_SCORE};
+        String selection = PLAYERS_COLUMN_TEAM + " = ?";
+        String[] selectionArgs = {teamId.toString()};
+        String sortOrder = PLAYERS_COLUMN_NAME + " ASC";
+        return db.query(PLAYERS_TABLE, projection, selection, selectionArgs, null, null, sortOrder);
     }
 
     /*

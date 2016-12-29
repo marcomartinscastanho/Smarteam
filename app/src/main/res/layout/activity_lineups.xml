@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="@dimen/inter_button_margin"
+              android:background="@color/default_background"
+              tools:context=".activity.LineupsActivity">
+
+    <ListView
+        android:id="@+id/listViewTeamHome"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorGreenDark"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/inter_button_margin">
+    </ListView>
+
+    <ListView
+        android:id="@+id/listViewTeamAway"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:background="@color/colorGreenDark"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center_horizontal">
+    </ListView>
+
+</LinearLayout>
