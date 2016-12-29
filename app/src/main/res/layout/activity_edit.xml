@@ -10,44 +10,44 @@
     <Button
         android:id="@+id/edit_button_rename_team"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonEditRenameTeam"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
         android:id="@+id/edit_button_add_player"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonEditAddPlayer"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
         android:id="@+id/edit_button_rename_player"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonEditRenamePlayer"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
         android:id="@+id/edit_button_delete_player"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonEditDeletePlayer"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
 </LinearLayout >

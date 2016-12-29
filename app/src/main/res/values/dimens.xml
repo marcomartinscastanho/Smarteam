@@ -1,16 +1,13 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="start_activity_inter_button_margin">15dp</dimen>
-    <dimen name="start_activity_button_height">80dp</dimen>
-    <dimen name="start_activity_text_size">25sp</dimen>
-    <dimen name="start_activity_left_right_margin">25dp</dimen>
+    <dimen name="app_bar_text_size">20sp</dimen>
+    <dimen name="menus_inter_button_margin">15dp</dimen>
+    <dimen name="menus_button_height">80dp</dimen>
+    <dimen name="menus_buttons_text_size">20sp</dimen>
+    <dimen name="menus_left_right_margin">25dp</dimen>
 
-
-
-
-
-
-
+    <dimen name="ranking_line_text_size">14sp</dimen>
+    <dimen name="ranking_margins">4dp</dimen>
 
 
 
@@ -25,8 +22,7 @@
 
     <dimen name="inter_button_margin">10dp</dimen>
 
-    <dimen name="ranking_line_text_size">24sp</dimen>
-    <dimen name="ranking_margins">4dp</dimen>
+
 
     <dimen name="lineups_horizontal_margin">10dp</dimen>
     <dimen name="lineups_vertical_margin">10dp</dimen>

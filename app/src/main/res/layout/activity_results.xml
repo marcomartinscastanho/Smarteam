@@ -10,44 +10,44 @@
     <Button
         android:id="@+id/results_button_add"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsAdd"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
         android:id="@+id/results_button_View"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsView"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
         android:id="@+id/results_button_Edit"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsEdit"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
         android:id="@+id/results_button_delete"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/start_activity_button_height"
-        android:layout_marginStart="@dimen/start_activity_left_right_margin"
-        android:layout_marginEnd="@dimen/start_activity_left_right_margin"
+        android:layout_height="@dimen/menus_button_height"
+        android:layout_marginStart="@dimen/menus_left_right_margin"
+        android:layout_marginEnd="@dimen/menus_left_right_margin"
         android:background="@color/colorWhite"
         android:textColor="@color/colorGreenDark"
         android:text="@string/buttonResultsDelete"
-        android:textSize="@dimen/start_activity_text_size"/>
+        android:textSize="@dimen/menus_buttons_text_size"/>
 </LinearLayout >

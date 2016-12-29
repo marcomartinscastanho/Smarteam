@@ -12,9 +12,9 @@
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/start_activity_inter_button_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:layout_marginLeft="@dimen/start_activity_left_right_margin"
+        android:layout_marginTop="@dimen/menus_inter_button_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
+        android:layout_marginLeft="@dimen/menus_left_right_margin"
         android:layout_weight="1"
         tools:ignore="RtlHardcoded">
         <Button
@@ -22,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:layout_margin="@dimen/menus_inter_button_margin"
             android:background="@color/colorGreen"
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuLoad"
-            android:textSize="@dimen/start_activity_text_size"
+            android:textSize="@dimen/menus_buttons_text_size"
             style="?android:attr/borderlessButtonStyle"
             tools:ignore="NestedWeights"/>
         <Button
@@ -34,20 +34,20 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:layout_margin="@dimen/menus_inter_button_margin"
             android:background="@color/colorGreen"
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuDelete"
-            android:textSize="@dimen/start_activity_text_size"
+            android:textSize="@dimen/menus_buttons_text_size"
             style="?android:attr/borderlessButtonStyle" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/start_activity_inter_button_margin"
-        android:layout_marginBottom="@dimen/start_activity_inter_button_margin"
-        android:layout_marginRight="@dimen/start_activity_left_right_margin"
+        android:layout_marginTop="@dimen/menus_inter_button_margin"
+        android:layout_marginBottom="@dimen/menus_inter_button_margin"
+        android:layout_marginRight="@dimen/menus_left_right_margin"
         android:layout_weight="1"
         tools:ignore="RtlHardcoded">
         <Button
@@ -55,11 +55,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:layout_margin="@dimen/menus_inter_button_margin"
             android:background="@color/colorGreen"
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuCreate"
-            android:textSize="@dimen/start_activity_text_size"
+            android:textSize="@dimen/menus_buttons_text_size"
             style="?android:attr/borderlessButtonStyle"
             tools:ignore="NestedWeights"/>
         <Button
@@ -67,11 +67,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:layout_margin="@dimen/start_activity_inter_button_margin"
+            android:layout_margin="@dimen/menus_inter_button_margin"
             android:background="@color/colorGreen"
             android:textColor="@color/colorWhite"
             android:text="@string/buttonStartMenuSettings"
-            android:textSize="@dimen/start_activity_text_size"
+            android:textSize="@dimen/menus_buttons_text_size"
             style="?android:attr/borderlessButtonStyle" />
     </LinearLayout>
 </LinearLayout >
