@@ -1,7 +1,7 @@
 # Smarteam #
 # Table of Contents
 1. [Motivation](#motivation)
-2. [Objectives and Structure](#bbjectives-and-structure)
+2. [Objectives and Structure](#objectives-and-structure)
 3. [What's left?](#whats-left)
 4. [Future ideas](#future-ideas)
 
