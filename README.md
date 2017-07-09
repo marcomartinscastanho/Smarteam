@@ -1,9 +1,9 @@
 # Smarteam #
 # Table of Contents
-1. [Motivation](#Motivation)
-2. [Objectives and Structure](#Objectives-and-Structure)
-3. [What's left?](#What's-left?)
-4. [Future ideas](#Future-ideas)
+1. [Motivation](#motivation)
+2. [Objectives and Structure](#bbjectives-and-structure)
+3. [What's left?](#whats-left)
+4. [Future ideas](#future-ideas)
 
 ## Motivation ##
 A while ago I used to play 5-a-side football weekly with my college friends. Every week we had the same problem: we had no established teams, so someone had to decide who faced who. No one wanted to have the task of drawing their friends into teams because in the end everyone would complain that the teams were unbalanced and the game was not even. This really bothered me since it would delay the start of the game and make for games to often be very one-sided.
