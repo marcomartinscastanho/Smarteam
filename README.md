@@ -1,4 +1,6 @@
 # Smarteam #
+Android app to manage Sunday league games with your friends
+
 ## Table of Contents ##
 1. [Motivation](#motivation)
 2. [Objectives and Structure](#objectives-and-structure)
