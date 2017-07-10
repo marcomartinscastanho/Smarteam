@@ -1,5 +1,5 @@
 # Smarteam #
-# Table of Contents
+## Table of Contents ##
 1. [Motivation](#motivation)
 2. [Objectives and Structure](#objectives-and-structure)
 3. [What's left?](#whats-left)
@@ -56,7 +56,7 @@ The **Lineups** button is where the magic happens. It shows a dialog asking the 
 
 The **Statistics** button opens a **Statistics Menu** Activity showing statistics that I haven't quite decided about. It will be something like "Player with most games", "Player with most win", "Player with most defeats in a row", etc.
 
-The **Edit** button opnes an **Edit Menu** Activity that allows the user to manage the Team. It has 4 buttons:
+The **Edit** button opens an **Edit Menu** Activity that allows the user to manage the Team. It has 4 buttons:
 * Rename Team
 * Add Player
 * Rename Player
