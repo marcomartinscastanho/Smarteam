@@ -14,7 +14,7 @@ In order to solve this, I came up with an idea for automating the teams drawing 
 
 Over time, I adjusted the score formula in order to get a more reliable estimate of a players recent form and its expected performance, which consisted in attributing points to results (ex: 3 per win, 1 for draw, 0 for absence, -2 for defeat) and making a weighted average giving a higher weight to latest results.
 
-Eventually, our weekly games became very even and competitive, since no one wanted to see their names on the bottom half of the weekly ranking. My friends who initially joked on my method know praised it for making games more interesting.
+Eventually, our weekly games became very even and competitive, since no one wanted to see their names on the bottom half of the weekly ranking. My friends who initially joked on my method now praised it for making games more interesting.
 
 The first version on this tool was made in Excel, in a very user-unfriendly way that only I could use. When I start playing with my IT-work colleagues, I thought about using the tool here too, but I could not show them such an ugly thing. Therefore I decided to migrate it to a more presentable platform. I had been thinking about learning Android Development for a while, and I decided to learn on the job while re-factoring the teams allocation tool.
 
