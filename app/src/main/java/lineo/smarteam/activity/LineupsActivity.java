@@ -6,26 +6,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.ShareActionProvider;
 
 import java.util.ArrayList;
 
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
+import lineo.smarteam.ShareAction;
 import lineo.smarteam.db.DataBase;
 import lineo.smarteam.exception.TeamNotFoundException;
 
 public class LineupsActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "LineupsActivity";
     private Context context;
+    ShareAction shareAction;
 
     private Integer teamId;
     private ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
@@ -80,23 +80,38 @@ public class LineupsActivity extends Activity implements View.OnClickListener {
             Log.wtf(TAG, "onCreate() did not find team "+teamId);
         }
         ActionBar ab = getActionBar();
-        if (ab != null)
-            ab.setTitle(String.format(getResources().getString(R.string.title_activity_lineups)+" : %s", teamName));
+        if (ab != null) {
+            ab.setTitle(String.format(getResources().getString(R.string.title_activity_lineups) + " : %s", teamName));
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.item_share: {
+                Log.i(TAG, "Share Button clicked!");
+                shareAction.share();
+                return true;
+            }
             case android.R.id.home:
                 finish();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.share, menu);
+        MenuItem item = menu.findItem(R.id.item_share);
+        shareAction = new ShareAction((ShareActionProvider) item.getActionProvider(), this);
+        return true;
     }
 
     private void generateLineups() {

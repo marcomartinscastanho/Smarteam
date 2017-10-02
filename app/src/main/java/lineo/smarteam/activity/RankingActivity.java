@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
+import android.widget.ShareActionProvider;
 import android.widget.SimpleCursorAdapter;
 
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.R;
+import lineo.smarteam.ShareAction;
 import lineo.smarteam.db.DataBase;
 import lineo.smarteam.exception.TeamNotFoundException;
 
@@ -23,6 +26,7 @@ public class RankingActivity extends ListActivity {
     Integer teamId;
     String teamName;
     Cursor mCursor;
+    ShareAction shareAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,26 @@ public class RankingActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.item_share: {
+                Log.i(TAG, "Share Button clicked!");
+                shareAction.share();
+                return true;
+            }
             case android.R.id.home:
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.share, menu);
+        MenuItem item = menu.findItem(R.id.item_share);
+        shareAction = new ShareAction((ShareActionProvider) item.getActionProvider(), this);
+        return true;
+    }
+
 
     private void getTeamIdFromIntent(){
         Intent intent = getIntent();

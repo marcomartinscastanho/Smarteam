@@ -28,6 +28,7 @@
     <string name="buttonResultsView">View</string>
     <string name="buttonResultsEdit">Edit</string>
     <string name="buttonResultsDelete">Delete</string>
+    <string name="buttonMenuShare">Share</string>
 
     <!-- Toasts -->
     <!--- Settings -->
@@ -126,4 +127,15 @@
     <string name="pref_summary_long_absence_duration">Number of absence matches that sets the line between Medium and Long Absence</string>
     <string name="pref_summary_k">The relation between the weights of 2 consecutive matches</string>
     <string name="pref_summary_default">Reset all settings to their default values.</string>
+
+    <!-- Statistics -->
+    <string name="statistics_most_games">Most Games:</string>
+    <string name="statistics_most_wins">Most Wins:</string>
+    <string name="statistics_most_draws">Most Draws:</string>
+    <string name="statistics_most_defeats">Most Defeats:</string>
+    <string name="statistics_highest_win_percentage">Highest Win Percentage:</string>
+    <string name="statistics_most_wins_row">Current Most Wins in a row:</string>
+    <string name="statistics_current_most_wins_row">Current Most Wins in a row:</string>
+    <string name="statistics_most_defeats_row">Current Most Defeats in a row:</string>
+    <string name="statistics_current_most_defeats_row">Current Most Defeats in a row:</string>
 </resources>
