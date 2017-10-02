@@ -52,11 +52,11 @@ The Results button opens another a **Team->Results Menu** Activity which allows 
 * Edit, to edit a result (I haven't decided yet if I will keep this)
 * Delete, to delete a result (same as before)
 
-The **Ranking** button just shows an Activity with the ranking of the Team's players, with each line of the table containing the Player's position, its name and its Score. Currently this Activity has no action at all, but I intend to have an Share Button on the Action Bar, allowing the user to share a snapshot of the Ranking on several platforms such as Facebook, Whatsapp, Twitter or e-mail.
+The **Ranking** button just shows an Activity with the ranking of the Team's players, with each line of the table containing the Player's position, its name and its Score. This Activity has a Share Button on the Action Bar, allowing the user to share a snapshot of the Ranking on several platforms such as Facebook, Whatsapp, Twitter or e-mail.
 
-The **Lineups** button is where the magic happens. It shows a dialog asking the user to select the players who will play on the next game, upon confirmation, opens a new activity showing the allocation of those players into 2 groups with average scores the closest possible. Like in the Ranking activity, I intend to make this shareable.
+The **Lineups** button is where the magic happens. It shows a dialog asking the user to select the players who will play on the next game, upon confirmation, opens a new activity showing the allocation of those players into 2 groups with average scores the closest possible. Like in the Ranking activity, this is also shareable.
 
-The **Statistics** button opens a **Statistics Menu** Activity showing statistics that I haven't quite decided about. It will be something like "Player with most games", "Player with most win", "Player with most defeats in a row", etc.
+The **Statistics** button opens a **Statistics Menu** Activity showing statistics that I haven't quite decided about. It will be something like "Player with most games", "Player with most win", "Player with most defeats in a row", etc. Also shareable.
 
 The **Edit** button opens an **Edit Menu** Activity that allows the user to manage the Team. It has 4 buttons:
 * Rename Team
@@ -70,7 +70,6 @@ All are self-explanatory
 ## What's left? ##
 * The basic functions are mostly working properly, except for some likely not yet identified bugs;
 * As mentioned, the Statistics Menu is not done yet, not even started. I have done however a set of methods with queries that may be useful.
-* Also as mentioned, the Share action buttons on menus such as Ranking and Lineups are not implemented yet.
 * I thaught about replacing the structure of the Results Menu with a Card List, with each game result (the date, result and players involved) presented in a card, and the options to Edit or Delete a result being prompted upon tapping on the corresponding card. The Add button would be a floating round button. I actually begin implementing this idea, but it is only half done and not working, so I haven't commited it yet.
 
 I have a few more ideas for this, which are listed below, but right know I just want to finish a first fully working version of this App.
