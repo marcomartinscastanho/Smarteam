@@ -9,3 +9,11 @@
 app/build.gradle
 build.gradle
 gradle/*
+testing.xlsx
+settings.gradle
+gradlew.bat
+gradlew
+gradle.properties
+app/proguard-rules.pro
+app/src/androidTest/java/lineo/smarteam/ApplicationTest.java
+app/src/test/java/lineo/smarteam/ExampleUnitTest.java
