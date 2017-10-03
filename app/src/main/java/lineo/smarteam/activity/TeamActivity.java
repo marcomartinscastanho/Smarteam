@@ -193,7 +193,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         okButton.setOnClickListener(new LineupsDialogListener(dialogLineup));
     }
 
-    public class LineupsDialogListener implements View.OnClickListener {
+    private class LineupsDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         LineupsDialogListener(Dialog dialog) {
             this.dialog = dialog;
@@ -236,7 +236,15 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     }
 
     private void statisticsButtonClick() {
-
+        if(MyApplication.db.isPlayersEmptyByTeamId(teamId)){
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoPlayers));
+            return;
+        }
+        if(!MyApplication.db.hasTeamPlayedAnyMatch(teamId)){
+            MyApplication.showToast(context, getResources().getString(R.string.toastNoMatches));
+            return;
+        }
+        callStatisticsActivity();
     }
 
     private void editButtonClick() {
@@ -265,6 +273,12 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         Intent intent = new Intent(this, LineupsActivity.class);
         intent.putExtra("teamId", teamId);
         intent.putExtra("selectedPlayersIndexList", selectedPlayersIndexList);
+        startActivity(intent);
+    }
+
+    public void callStatisticsActivity(){
+        Intent intent = new Intent(this, StatisticsActivity.class);
+        intent.putExtra("teamId", teamId);
         startActivity(intent);
     }
 }

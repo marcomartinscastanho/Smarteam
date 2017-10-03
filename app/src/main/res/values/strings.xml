@@ -9,6 +9,7 @@
     <string name="title_activity_results">Results</string>
     <string name="title_activity_ranking">Ranking</string>
     <string name="title_activity_lineups">Lineup</string>
+    <string name="title_activity_statistics">Statistics</string>
     <string name="splash_loading">Loading</string>
 
     <!-- Buttons text -->
@@ -73,6 +74,7 @@
     <string name="toastPlayerNameTooShort">That Player name is too short</string>
     <string name="toastPlayerNameTooLong">That Player name is too long</string>
     <string name="toastNoPlayers">This Team has no Players!</string>
+    <string name="toastNoMatches">This Team has no Games played!</string>
     <string name="toastSuccessfullyDeletedPlayerPrefix">Deleted Player&#160;</string>
     <string name="toastSuccessfullyDeletedPlayerSuffix"/>
     <string name="toastFailedToDeletePlayerPrefix">Failed to delete Player&#160;</string>
@@ -138,9 +140,11 @@
     <string name="statistics_most_wins">Most Wins:</string>
     <string name="statistics_most_draws">Most Draws:</string>
     <string name="statistics_most_defeats">Most Defeats:</string>
+    <string name="statistics_most_absences">Most Absences:</string>
     <string name="statistics_highest_win_percentage">Highest Win Percentage:</string>
     <string name="statistics_most_wins_row">Current Most Wins in a row:</string>
     <string name="statistics_current_most_wins_row">Current Most Wins in a row:</string>
     <string name="statistics_most_defeats_row">Current Most Defeats in a row:</string>
     <string name="statistics_current_most_defeats_row">Current Most Defeats in a row:</string>
+    <string name="statistics_current_most_absences_row">Current Most Absences in a row:</string>
 </resources>

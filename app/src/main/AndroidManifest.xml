@@ -61,7 +61,7 @@
         <activity
             android:name="lineo.smarteam.activity.RankingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/MainTheme">
+            android:theme="@style/ShareableTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lineo.smarteam.activity.TeamActivity" />
@@ -69,7 +69,15 @@
         <activity
             android:name="lineo.smarteam.activity.LineupsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/MainTheme">
+            android:theme="@style/ShareableTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="lineo.smarteam.activity.TeamActivity" />
+        </activity>
+        <activity
+            android:name="lineo.smarteam.activity.StatisticsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/ShareableTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lineo.smarteam.activity.TeamActivity" />

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
@@ -45,12 +46,14 @@ public class DataBase {
     static final String PLAYERS_COLUMN_WINS = "WINS";
     static final String PLAYERS_COLUMN_DRAWS = "DRAWS";
     static final String PLAYERS_COLUMN_DEFEATS = "DEFEATS";
-    static final String PLAYERS_COLUMN_MATCHES = "MATCHES";
+    public static final String PLAYERS_COLUMN_MATCHES = "MATCHES";
     static final String PLAYERS_COLUMN_MATCHES_AFTER_DEBUT = "MATCHES_AFTER_DEBUT";
     static final String PLAYERS_COLUMN_WIN_PERCENTAGE = "WIN_PERCENTAGE";
     public static final String PLAYERS_COLUMN_SCORE = "SCORE";
     static final String PLAYERS_COLUMN_UPDATE_DATE = "UPDATE_DATE";
     public static final String PLAYERS_RANKING_POSITION = "_id";
+    public static final String STATISTICS_HEADER = "STAT_HEADER";
+    public static final String STATISTICS_VALUE = "STAT_VALUE";
     static final String INDIVIDUAL_RESULTS_TABLE = "INDIVIDUAL_RESULTS";
     static final String INDIVIDUAL_RESULTS_COLUMN_PLAYER_ID = "PLAYER_ID";
     static final String INDIVIDUAL_RESULTS_COLUMN_TEAM_ID = "TEAM_ID";
@@ -217,6 +220,15 @@ public class DataBase {
         int count = db.update(TEAMS_TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new TeamNotFoundException();
+    }
+
+    public boolean hasTeamPlayedAnyMatch(Integer id){
+        try {
+            return getTeamNumMatchesById(id) > 0;
+        } catch (TeamNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private Integer getTeamNumMatchesById(Integer id) throws TeamNotFoundException {
@@ -779,6 +791,42 @@ public class DataBase {
                 + " FROM " + PLAYERS_TABLE + " A WHERE A." + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + PLAYERS_COLUMN_SCORE + " DESC ";
         Log.d(TAG, "getRankingByTeamId() - query:"+query);
         String[] selectionArgs = {teamId.toString(), teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    public Cursor getStatisticsByTeamId(Integer teamId){
+        return new MergeCursor(new Cursor[] {getPlayerWithMostGamesByTeamId(teamId), getPlayerWithMostWinsByTeamId(teamId), getPlayerWithMostDrawsByTeamId(teamId), getPlayerWithMostDefeatsByTeamId(teamId)});
+    }
+
+    private Cursor getPlayerWithMostGamesByTeamId(Integer teamId){
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", " + PLAYERS_COLUMN_MATCHES + " AS " + STATISTICS_VALUE +" , \'" + context.getResources().getString(R.string.statistics_most_games) + "\' AS " + STATISTICS_HEADER + ", " + " 1 AS _id "
+                + " FROM " + PLAYERS_TABLE + " WHERE " + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + STATISTICS_VALUE + " DESC LIMIT 1";
+        Log.d(TAG, "getRankingByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getPlayerWithMostWinsByTeamId(Integer teamId){
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", " + PLAYERS_COLUMN_WINS + " AS " + STATISTICS_VALUE +" , \'" + context.getResources().getString(R.string.statistics_most_wins) + "\' AS " + STATISTICS_HEADER + ", " + " 2 AS _id "
+                + " FROM " + PLAYERS_TABLE + " WHERE " + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + STATISTICS_VALUE + " DESC LIMIT 1";
+        Log.d(TAG, "getRankingByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getPlayerWithMostDrawsByTeamId(Integer teamId){
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", " + PLAYERS_COLUMN_DRAWS + " AS " + STATISTICS_VALUE +" , \'" + context.getResources().getString(R.string.statistics_most_draws) + "\' AS " + STATISTICS_HEADER + ", " + " 3 AS _id "
+                + " FROM " + PLAYERS_TABLE + " WHERE " + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + STATISTICS_VALUE + " DESC LIMIT 1";
+        Log.d(TAG, "getRankingByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getPlayerWithMostDefeatsByTeamId(Integer teamId){
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", " + PLAYERS_COLUMN_DEFEATS + " AS " + STATISTICS_VALUE +" , \'" + context.getResources().getString(R.string.statistics_most_defeats) + "\' AS " + STATISTICS_HEADER + ", " + " 4 AS _id "
+                + " FROM " + PLAYERS_TABLE + " WHERE " + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + STATISTICS_VALUE + " DESC LIMIT 1";
+        Log.d(TAG, "getRankingByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
