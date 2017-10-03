@@ -37,7 +37,7 @@ public class RankingActivity extends ListActivity {
         getTeamIdFromIntent();
         setActionBarTitle();
         mCursor= MyApplication.db.getRankingByTeamId(teamId);
-        ListAdapter listAdapter = new SimpleCursorAdapter(context, R.layout.ranking_line, mCursor, new String[] {DataBase.PLAYERS_RANKING_POSITION, DataBase.PLAYERS_COLUMN_NAME, DataBase.PLAYERS_COLUMN_SCORE}, new int[]{R.id.ranking_position, R.id.ranking_name, R.id.ranking_score}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListAdapter listAdapter = new SimpleCursorAdapter(context, R.layout.ranking_line, mCursor, new String[] {DataBase.PLAYERS_RANKING_POSITION, DataBase.PLAYERS_COLUMN_NAME, DataBase.PLAYERS_COLUMN_SCORE, DataBase.PLAYERS_COLUMN_MATCHES}, new int[]{R.id.ranking_position, R.id.ranking_name, R.id.ranking_score, R.id.ranking_games}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(listAdapter);
     }
 

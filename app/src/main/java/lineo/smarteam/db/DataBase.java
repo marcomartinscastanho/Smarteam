@@ -774,8 +774,8 @@ public class DataBase {
     }
 
     public Cursor getRankingByTeamId(Integer teamId){
-        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", CAST(100*" + PLAYERS_COLUMN_SCORE + " AS INTEGER) AS "+ PLAYERS_COLUMN_SCORE +", "
-                + " 1+(SELECT COUNT(*) FROM " + PLAYERS_TABLE + " B WHERE A." + PLAYERS_COLUMN_SCORE + " < B." + PLAYERS_COLUMN_SCORE + " AND B." + PLAYERS_COLUMN_TEAM + " = ?) AS _id "
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", CAST(100*" + PLAYERS_COLUMN_SCORE + " AS INTEGER) AS "+ PLAYERS_COLUMN_SCORE +", " + PLAYERS_COLUMN_MATCHES + " ,"
+                + " 1+(SELECT COUNT(*) FROM " + PLAYERS_TABLE + " B WHERE A." + PLAYERS_COLUMN_SCORE + " < B." + PLAYERS_COLUMN_SCORE + " AND B." + PLAYERS_COLUMN_TEAM + " = ?) AS " + PLAYERS_RANKING_POSITION
                 + " FROM " + PLAYERS_TABLE + " A WHERE A." + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + PLAYERS_COLUMN_SCORE + " DESC ";
         Log.d(TAG, "getRankingByTeamId() - query:"+query);
         String[] selectionArgs = {teamId.toString(), teamId.toString()};

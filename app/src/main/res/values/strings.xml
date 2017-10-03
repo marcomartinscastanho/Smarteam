@@ -7,6 +7,7 @@
     <string name="title_activity_team">ActivityTeam</string>
     <string name="title_activity_edit">Edit</string>
     <string name="title_activity_results">Results</string>
+    <string name="title_activity_ranking">Ranking</string>
     <string name="title_activity_lineups">Lineup</string>
     <string name="splash_loading">Loading</string>
 
@@ -29,6 +30,10 @@
     <string name="buttonResultsEdit">Edit</string>
     <string name="buttonResultsDelete">Delete</string>
     <string name="buttonMenuShare">Share</string>
+    <string name="rankingHeaderRank">RANK</string>
+    <string name="rankingHeaderName">PLAYER</string>
+    <string name="rankingHeaderGames">GAMES</string>
+    <string name="rankingHeaderScore">SCORE</string>
 
     <!-- Toasts -->
     <!--- Settings -->
