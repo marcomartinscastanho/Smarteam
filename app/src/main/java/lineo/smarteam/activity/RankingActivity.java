@@ -1,5 +1,6 @@
 package lineo.smarteam.activity;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,9 +35,24 @@ public class RankingActivity extends ListActivity {
         setContentView(R.layout.activity_ranking);
         context=this;
         getTeamIdFromIntent();
+        setActionBarTitle();
         mCursor= MyApplication.db.getRankingByTeamId(teamId);
         ListAdapter listAdapter = new SimpleCursorAdapter(context, R.layout.ranking_line, mCursor, new String[] {DataBase.PLAYERS_RANKING_POSITION, DataBase.PLAYERS_COLUMN_NAME, DataBase.PLAYERS_COLUMN_SCORE}, new int[]{R.id.ranking_position, R.id.ranking_name, R.id.ranking_score}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(listAdapter);
+    }
+
+    private void setActionBarTitle(){
+        String teamName = null;
+        try {
+            teamName = MyApplication.db.getTeamNameById(teamId);
+        } catch (TeamNotFoundException e) {
+            e.printStackTrace();
+            Log.wtf(TAG, "onCreate() did not find team "+teamId);
+        }
+        ActionBar ab = getActionBar();
+        if (ab != null) {
+            ab.setTitle(String.format(getResources().getString(R.string.title_activity_ranking) + " : %s", teamName));
+        }
     }
 
     @Override
