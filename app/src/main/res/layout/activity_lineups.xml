@@ -15,11 +15,18 @@
         android:layout_weight="1"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:background="@color/colorWhite"
-        android:layout_gravity="center_horizontal"
+        android:background="@color/primaryLightColor"
         android:layout_marginBottom="@dimen/inter_button_margin">
     </ListView>
-
+    <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal|center_vertical"
+          android:text="vs"
+          android:textColor="@color/colorBlack"
+          android:maxLines="1"
+          android:textSize="@dimen/ranking_line_text_size"
+          android:layout_marginBottom="@dimen/inter_button_margin"/>
     <ListView
         android:id="@+id/listViewTeamAway"
         android:layout_width="match_parent"
@@ -27,8 +34,7 @@
         android:layout_weight="1"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:background="@color/colorGreenDark"
-        android:layout_gravity="center_horizontal">
+        android:background="@color/primaryColor">
     </ListView>
 
 </LinearLayout>

@@ -14,8 +14,6 @@
         android:layout_marginStart="@dimen/menus_left_right_margin"
         android:layout_marginEnd="@dimen/menus_left_right_margin"
         android:layout_marginBottom="@dimen/menus_inter_button_margin"
-        android:background="@color/colorWhite"
-        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamResults"
         android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
@@ -25,8 +23,6 @@
         android:layout_marginStart="@dimen/menus_left_right_margin"
         android:layout_marginEnd="@dimen/menus_left_right_margin"
         android:layout_marginBottom="@dimen/menus_inter_button_margin"
-        android:background="@color/colorWhite"
-        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamRanking"
         android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
@@ -36,8 +32,6 @@
         android:layout_marginStart="@dimen/menus_left_right_margin"
         android:layout_marginEnd="@dimen/menus_left_right_margin"
         android:layout_marginBottom="@dimen/menus_inter_button_margin"
-        android:background="@color/colorWhite"
-        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamLineups"
         android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
@@ -47,8 +41,6 @@
         android:layout_marginStart="@dimen/menus_left_right_margin"
         android:layout_marginEnd="@dimen/menus_left_right_margin"
         android:layout_marginBottom="@dimen/menus_inter_button_margin"
-        android:background="@color/colorWhite"
-        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamStatistics"
         android:textSize="@dimen/menus_buttons_text_size"/>
     <Button
@@ -57,8 +49,6 @@
         android:layout_height="@dimen/menus_button_height"
         android:layout_marginStart="@dimen/menus_left_right_margin"
         android:layout_marginEnd="@dimen/menus_left_right_margin"
-        android:background="@color/colorWhite"
-        android:textColor="@color/colorGreenDark"
         android:text="@string/buttonTeamEdit"
         android:textSize="@dimen/menus_buttons_text_size"/>
 </LinearLayout >

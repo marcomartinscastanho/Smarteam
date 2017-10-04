@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              android:layout_height="fill_parent"
+              android:background="@color/default_background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,8 +15,8 @@
                   android:layout_height="wrap_content"
                   android:layout_weight="1"
                   android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/colorWhite"
-                  android:textColor="@color/colorGreenDarker"
+                  android:background="@color/primaryColor"
+                  android:textColor="@color/colorWhite"
                   android:maxLines="1"
                   android:text="@string/rankingHeaderRank"
                   android:textSize="@dimen/ranking_header_text_size"/>
@@ -25,8 +26,8 @@
                   android:layout_weight="5"
                   android:layout_marginStart="@dimen/ranking_margins"
                   android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/colorWhite"
-                  android:textColor="@color/colorGreenDarker"
+                  android:background="@color/primaryColor"
+                  android:textColor="@color/colorWhite"
                   android:maxLines="1"
                   android:text="@string/rankingHeaderName"
                   android:textSize="@dimen/ranking_header_text_size"/>
@@ -36,8 +37,8 @@
                   android:layout_weight="1"
                   android:layout_marginStart="@dimen/ranking_margins"
                   android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/colorWhite"
-                  android:textColor="@color/colorGreenDarker"
+                  android:background="@color/primaryColor"
+                  android:textColor="@color/colorWhite"
                   android:maxLines="1"
                   android:text="@string/rankingHeaderGames"
                   android:textSize="@dimen/ranking_header_text_size"/>
@@ -47,8 +48,8 @@
                   android:layout_weight="1"
                   android:layout_marginStart="@dimen/ranking_margins"
                   android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/colorWhite"
-                  android:textColor="@color/colorGreenDarker"
+                  android:background="@color/primaryColor"
+                  android:textColor="@color/colorWhite"
                   android:maxLines="1"
                   android:text="@string/rankingHeaderScore"
                   android:textSize="@dimen/ranking_header_text_size"/>
@@ -57,7 +58,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_margin="@dimen/ranking_margins"
-        android:dividerHeight="0dp"
+        android:dividerHeight="1dp"
         android:divider="@null"
         android:id="@android:id/list" />
 </LinearLayout>
