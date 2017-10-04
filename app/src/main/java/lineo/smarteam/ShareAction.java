@@ -41,7 +41,7 @@ public class ShareAction {
         send(sendFile);
     }
 
-    private Bitmap takeScreenshot(){
+    private Bitmap takeScreenshot(){    //TODO: take shot of everything in the activity, not only what's visible
         View screenView = activity.getWindow().getDecorView().findViewById(android.R.id.content).getRootView();
         screenView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(screenView.getDrawingCache());

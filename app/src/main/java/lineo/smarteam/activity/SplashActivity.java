@@ -13,7 +13,7 @@ import lineo.smarteam.db.DataBaseAdapter;
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.db.DataBase;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends Activity {  //TODO: make splash logo larger
     private static final String TAG = "SplashActivity";
 
     @Override
