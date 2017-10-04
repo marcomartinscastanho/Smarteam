@@ -11,6 +11,7 @@
     <dimen name="statistics_line_text_size">20sp</dimen>
     <dimen name="ranking_header_text_size">22sp</dimen>
     <dimen name="ranking_margins">4dp</dimen>
+    <dimen name="statistics_margins">10dp</dimen>
 
 
 

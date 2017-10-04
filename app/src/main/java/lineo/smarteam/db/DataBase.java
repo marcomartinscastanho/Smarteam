@@ -795,7 +795,13 @@ public class DataBase {
     }
 
     public Cursor getStatisticsByTeamId(Integer teamId){
-        return new MergeCursor(new Cursor[] {getPlayerWithMostGamesByTeamId(teamId), getPlayerWithMostWinsByTeamId(teamId), getPlayerWithMostDrawsByTeamId(teamId), getPlayerWithMostDefeatsByTeamId(teamId)});
+        return new MergeCursor(new Cursor[] {
+                getPlayerWithMostGamesByTeamId(teamId),
+                getPlayerWithMostWinsByTeamId(teamId),
+                getPlayerWithMostDrawsByTeamId(teamId),
+                getPlayerWithMostDefeatsByTeamId(teamId),
+                getPlayerWithMostAbsencesByTeamId(teamId),
+                getPlayerWithHighestWinPercentageByTeamId(teamId)});
     }
 
     private Cursor getPlayerWithMostGamesByTeamId(Integer teamId){
@@ -824,6 +830,22 @@ public class DataBase {
 
     private Cursor getPlayerWithMostDefeatsByTeamId(Integer teamId){
         String query = "SELECT " + PLAYERS_COLUMN_NAME + ", " + PLAYERS_COLUMN_DEFEATS + " AS " + STATISTICS_VALUE +" , \'" + context.getResources().getString(R.string.statistics_most_defeats) + "\' AS " + STATISTICS_HEADER + ", " + " 4 AS _id "
+                + " FROM " + PLAYERS_TABLE + " WHERE " + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + STATISTICS_VALUE + " DESC LIMIT 1";
+        Log.d(TAG, "getRankingByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getPlayerWithMostAbsencesByTeamId(Integer teamId){
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", (" + PLAYERS_COLUMN_MATCHES_AFTER_DEBUT + " - " + PLAYERS_COLUMN_MATCHES + ") AS " + STATISTICS_VALUE +" , \'" + context.getResources().getString(R.string.statistics_most_absences) + "\' AS " + STATISTICS_HEADER + ", " + " 5 AS _id "
+                + " FROM " + PLAYERS_TABLE + " WHERE " + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + STATISTICS_VALUE + " DESC LIMIT 1";
+        Log.d(TAG, "getRankingByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getPlayerWithHighestWinPercentageByTeamId(Integer teamId){
+        String query = "SELECT " + PLAYERS_COLUMN_NAME + ", (100*" + PLAYERS_COLUMN_WIN_PERCENTAGE + ") AS " + STATISTICS_VALUE +" , \'" + context.getResources().getString(R.string.statistics_highest_win_percentage) + "\' AS " + STATISTICS_HEADER + ", " + " 5 AS _id "
                 + " FROM " + PLAYERS_TABLE + " WHERE " + PLAYERS_COLUMN_TEAM + " = ? ORDER BY " + STATISTICS_VALUE + " DESC LIMIT 1";
         Log.d(TAG, "getRankingByTeamId() - query:"+query);
         String[] selectionArgs = {teamId.toString()};

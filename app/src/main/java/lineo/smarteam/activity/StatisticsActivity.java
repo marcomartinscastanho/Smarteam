@@ -36,7 +36,9 @@ public class StatisticsActivity extends ListActivity {
         getTeamIdFromIntent();
         setActionBarTitle();
         mCursor= MyApplication.db.getStatisticsByTeamId(teamId);
-        ListAdapter listAdapter = new SimpleCursorAdapter(context, R.layout.statistics_line, mCursor, new String[] {DataBase.STATISTICS_HEADER, DataBase.PLAYERS_COLUMN_NAME, DataBase.STATISTICS_VALUE}, new int[]{R.id.statistics_line_header, R.id.statistics_line_player, R.id.statistics_line_value}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListAdapter listAdapter = new SimpleCursorAdapter(context, R.layout.statistics_line, mCursor,
+                new String[] {DataBase.STATISTICS_HEADER, DataBase.PLAYERS_COLUMN_NAME, DataBase.STATISTICS_VALUE},
+                new int[]{R.id.statistics_line_header, R.id.statistics_line_player, R.id.statistics_line_value}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(listAdapter);
     }
 

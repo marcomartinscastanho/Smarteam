@@ -14,7 +14,7 @@
                   android:orientation="horizontal"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:padding="@dimen/ranking_margins">
+                  android:padding="@dimen/statistics_margins">
         <TextView android:id="@+id/statistics_line_player"
                   android:layout_width="0dp"
                   android:layout_height="wrap_content"
