@@ -18,7 +18,6 @@ import lineo.smarteam.R;
 
 public class SettingsActivity extends PreferenceActivity {
     private static final String TAG = "SettingsActivity";
-    private static MyApplication myApp;
     private static SharedPreferences sharedPreferences;
 
     @Override
@@ -26,7 +25,6 @@ public class SettingsActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
 
-        myApp = ((MyApplication) this.getApplication());
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
     }
 

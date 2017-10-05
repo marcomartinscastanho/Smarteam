@@ -25,7 +25,6 @@ public class StatisticsActivity extends ListActivity {
     private Context context;
     private Integer teamId;
     private String teamName;
-    private Cursor mCursor;
     private ShareAction shareAction;
 
     @Override
@@ -35,7 +34,7 @@ public class StatisticsActivity extends ListActivity {
         context=this;
         getTeamIdFromIntent();
         setActionBarTitle();
-        mCursor= MyApplication.db.getStatisticsByTeamId(teamId);
+        Cursor mCursor = MyApplication.db.getStatisticsByTeamId(teamId);
         ListAdapter listAdapter = new SimpleCursorAdapter(context, R.layout.statistics_line, mCursor,
                 new String[] {DataBase.STATISTICS_HEADER, DataBase.PLAYERS_COLUMN_NAME, DataBase.STATISTICS_VALUE},
                 new int[]{R.id.statistics_line_header, R.id.statistics_line_player, R.id.statistics_line_value}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -43,13 +42,6 @@ public class StatisticsActivity extends ListActivity {
     }
 
     private void setActionBarTitle(){
-        String teamName = null;
-        try {
-            teamName = MyApplication.db.getTeamNameById(teamId);
-        } catch (TeamNotFoundException e) {
-            e.printStackTrace();
-            Log.wtf(TAG, "onCreate() did not find team "+teamId);
-        }
         ActionBar ab = getActionBar();
         if (ab != null) {
             ab.setTitle(String.format(getResources().getString(R.string.title_activity_statistics) + " : %s", teamName));

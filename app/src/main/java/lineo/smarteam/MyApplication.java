@@ -22,9 +22,6 @@ public class MyApplication extends Application {
         ResultType(String r){
             res = r;
         }
-        public boolean equals(String otherRes){
-            return otherRes != null && res.equals(otherRes);
-        }
         public String toString(){
             return this.res;
         }

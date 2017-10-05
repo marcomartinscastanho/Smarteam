@@ -26,7 +26,6 @@ public class RankingActivity extends ListActivity {
     private Context context;
     private Integer teamId;
     private String teamName;
-    private Cursor mCursor;
     private ShareAction shareAction;
 
     @Override
@@ -36,19 +35,12 @@ public class RankingActivity extends ListActivity {
         context=this;
         getTeamIdFromIntent();
         setActionBarTitle();
-        mCursor= MyApplication.db.getRankingByTeamId(teamId);
+        Cursor mCursor = MyApplication.db.getRankingByTeamId(teamId);
         ListAdapter listAdapter = new SimpleCursorAdapter(context, R.layout.ranking_line, mCursor, new String[] {DataBase.PLAYERS_RANKING_POSITION, DataBase.PLAYERS_COLUMN_NAME, DataBase.PLAYERS_COLUMN_SCORE, DataBase.PLAYERS_COLUMN_MATCHES}, new int[]{R.id.ranking_position, R.id.ranking_name, R.id.ranking_score, R.id.ranking_games}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(listAdapter);
     }
 
     private void setActionBarTitle(){
-        String teamName = null;
-        try {
-            teamName = MyApplication.db.getTeamNameById(teamId);
-        } catch (TeamNotFoundException e) {
-            e.printStackTrace();
-            Log.wtf(TAG, "onCreate() did not find team "+teamId);
-        }
         ActionBar ab = getActionBar();
         if (ab != null) {
             ab.setTitle(String.format(getResources().getString(R.string.title_activity_ranking) + " : %s", teamName));
