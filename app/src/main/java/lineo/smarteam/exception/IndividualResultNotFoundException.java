@@ -6,8 +6,8 @@ import java.sql.SQLException;
  * Created by marco on 25/10/2016.
  * IndividualResultNotFoundException
  */
-public class IndividualResultNotFoundException extends SQLException {
-    public IndividualResultNotFoundException(String theReason) {
+class IndividualResultNotFoundException extends SQLException {
+    private IndividualResultNotFoundException(String theReason) {
         super(theReason);
     }
 

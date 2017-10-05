@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * PlayerAlreadyExistsException
  */
 public class PlayerAlreadyExistsException extends SQLException {
-    public PlayerAlreadyExistsException(String theReason) {
+    private PlayerAlreadyExistsException(String theReason) {
         super(theReason);
     }
 

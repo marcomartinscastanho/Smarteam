@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * PlayerNotFoundException
  */
 public class PlayerNotFoundException extends SQLException {
-    public PlayerNotFoundException(String theReason) {
+    private PlayerNotFoundException(String theReason) {
         super(theReason);
     }
 

@@ -6,8 +6,8 @@ import java.sql.SQLException;
  * Created by marco on 25/10/2016.
  * IndividualResultAlreadyExistsException
  */
-public class IndividualResultAlreadyExistsException extends SQLException {
-    public IndividualResultAlreadyExistsException(String theReason) {
+class IndividualResultAlreadyExistsException extends SQLException {
+    private IndividualResultAlreadyExistsException(String theReason) {
         super(theReason);
     }
 
