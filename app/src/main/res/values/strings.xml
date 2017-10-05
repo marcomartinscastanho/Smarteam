@@ -95,8 +95,11 @@
     <string name="dialogAreYouSureDeleteTeamPrefix">Are you sure you want to delete Team&#160;</string>
     <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
     <string name="dialogTeamToLoad">Open a Team</string>
+    <string name="dialogNotEnoughPlayersInTeamPrefix">Now, go to Edit and add at least&#160;</string>
+    <string name="dialogNotEnoughPlayersInTeamSuffix">&#160;Players to your Team!</string>
+    <string name="dialogNewTeamCreatedAddPlayersTitle">New Team created!</string>
     <!--- Players -->
-    <string name="dialogAddPlayerTitle">Choose a name for the Player</string>
+    <string name="dialogAddPlayerTitle">Choose a name for the new Player</string>
     <string name="dialogPlayerToDelete">Which Player do you want to delete?</string>
     <string name="dialogPlayerToRename">Which Player do you want to rename?</string>
     <string name="dialogAreYouSureDeletePlayerPrefix">Are you sure you want to delete Player&#160;</string>

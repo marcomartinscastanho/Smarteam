@@ -76,8 +76,22 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     }
 
     private void checkMinPlayers(){
-        if(MyApplication.db.getPlayersCountByTeamId(teamId) < getResources().getInteger(R.integer.minPlayersPerMatch))
-            callEditActivity(); //FIXME: this might cause confusion on the User. Instead show an alert dialog with just an OK button
+        Integer numPlayers = MyApplication.db.getPlayersCountByTeamId(teamId);
+        if(numPlayers < getResources().getInteger(R.integer.minPlayersPerMatch)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(getResources().getString(R.string.dialogNotEnoughPlayersInTeamPrefix) +
+                    getResources().getInteger(R.integer.minPlayersPerMatch) +
+                    getResources().getString(R.string.dialogNotEnoughPlayersInTeamSuffix));
+            builder.setTitle(getResources().getString(R.string.dialogNewTeamCreatedAddPlayersTitle));
+            builder.setCancelable(false);
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     @Override

@@ -86,16 +86,6 @@ public class EditActivity extends Activity implements View.OnClickListener {
         super.onStart();
         Log.i(TAG, "onStart()");
         setTeamNameOnActionBar(teamName);
-        checkMinPlayers();
-    }
-
-    private void checkMinPlayers(){
-        Integer minPlayers = getResources().getInteger(R.integer.minPlayersPerMatch);
-        Integer numPlayers = MyApplication.db.getPlayersCountByTeamId(teamId);
-        if(numPlayers < minPlayers){
-            MyApplication.showLongToast(context, getResources().getString(R.string.toastNoPlayersInitPrefix)+(minPlayers-numPlayers)+getResources().getString(R.string.toastNoPlayersInitSuffix));
-            addPlayerButtonClick();
-        }
     }
 
     @Override
