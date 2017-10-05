@@ -29,7 +29,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
     private Button statisticsButton;
     private Button editButton;
 
-    final ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
+    private final ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
 
     private Integer teamId;
     private String teamName;
@@ -77,7 +77,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
     private void checkMinPlayers(){
         if(MyApplication.db.getPlayersCountByTeamId(teamId) < getResources().getInteger(R.integer.minPlayersPerMatch))
-            callEditActivity();
+            callEditActivity(); //FIXME: this might cause confusion on the User. Instead show an alert dialog with just an OK button
     }
 
     @Override
@@ -258,19 +258,19 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         callEditActivity();
     }
 
-    public void callResultsActivity(){
+    private void callResultsActivity(){
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("teamId", teamId);
         startActivity(intent);
     }
 
-    public void callEditActivity(){
+    private void callEditActivity(){
         Intent intent = new Intent(this, EditActivity.class);
         intent.putExtra("teamId", teamId);
         startActivity(intent);
     }
 
-    public void callRankingActivity(){
+    private void callRankingActivity(){
         Intent intent = new Intent(this, RankingActivity.class);
         intent.putExtra("teamId", teamId);
         startActivity(intent);
@@ -283,7 +283,7 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         startActivity(intent);
     }
 
-    public void callStatisticsActivity(){
+    private void callStatisticsActivity(){
         Intent intent = new Intent(this, StatisticsActivity.class);
         intent.putExtra("teamId", teamId);
         startActivity(intent);

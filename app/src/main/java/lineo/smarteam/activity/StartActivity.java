@@ -60,24 +60,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop()");
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onStop()");
@@ -252,7 +234,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public void callTeamActivity(String teamName){
+    private void callTeamActivity(String teamName){
         Integer teamId = null;
         try {
             teamId = MyApplication.db.getTeamIdByName(teamName);

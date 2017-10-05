@@ -9,9 +9,9 @@ import android.util.Log;
 
 import java.sql.SQLException;
 
-import lineo.smarteam.db.DataBaseAdapter;
 import lineo.smarteam.MyApplication;
 import lineo.smarteam.db.DataBase;
+import lineo.smarteam.db.DataBaseAdapter;
 
 public class SplashActivity extends Activity {  //TODO: make splash logo larger
     private static final String TAG = "SplashActivity";
@@ -40,11 +40,6 @@ public class SplashActivity extends Activity {  //TODO: make splash logo larger
                 Log.wtf(TAG, "MyApplication.db.open() - Failed to open db");
             }
             return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
         }
 
         @Override

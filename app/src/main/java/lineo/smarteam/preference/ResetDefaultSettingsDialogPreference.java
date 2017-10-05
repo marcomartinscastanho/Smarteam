@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import lineo.smarteam.R;
 
 public class ResetDefaultSettingsDialogPreference extends DialogPreference {
-    protected Context context;
+    private Context context;
 
     public ResetDefaultSettingsDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -307,9 +307,11 @@ public class DataBase {
         } catch (TeamNotFoundException e) {
             e.printStackTrace();
             Log.wtf(TAG, "addResult() - team "+teamId+" not found!");
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             Log.wtf(TAG, "SqlException");
+            return false;
         } finally {
             Log.d(TAG, "insertResult() - end Transaction");
             endTransaction();

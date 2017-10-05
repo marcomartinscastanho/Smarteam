@@ -22,11 +22,11 @@ import lineo.smarteam.exception.TeamNotFoundException;
 
 public class StatisticsActivity extends ListActivity {
     private static final String TAG = "StatisticsActivity";
-    Context context;
-    Integer teamId;
-    String teamName;
-    Cursor mCursor;
-    ShareAction shareAction;
+    private Context context;
+    private Integer teamId;
+    private String teamName;
+    private Cursor mCursor;
+    private ShareAction shareAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

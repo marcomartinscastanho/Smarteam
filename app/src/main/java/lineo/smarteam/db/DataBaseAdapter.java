@@ -1,13 +1,10 @@
 package lineo.smarteam.db;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLException;
-
-import lineo.smarteam.R;
 
 /**
  * Created by marco on 26/09/2016.

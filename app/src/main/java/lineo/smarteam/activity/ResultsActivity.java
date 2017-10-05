@@ -29,9 +29,9 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
     private Button deleteButton;
 
     // player selection indexes
-    final ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
-    final ArrayList<Integer> selectedWinnersIndexList = new ArrayList<>();
-    final ArrayList<Integer> selectedLosersIndexList = new ArrayList<>();
+    private final ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
+    private final ArrayList<Integer> selectedWinnersIndexList = new ArrayList<>();
+    private final ArrayList<Integer> selectedLosersIndexList = new ArrayList<>();
 
     private Integer teamId;
 
@@ -387,7 +387,7 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
     }
 
     private void goToRanking(){
-
+        //TODO: after inserting a result, go to RankingActivity
     }
 
     private void deleteLastResultButtonClick() {

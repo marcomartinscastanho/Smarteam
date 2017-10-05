@@ -30,11 +30,6 @@ public class MyApplication extends Application {
         }
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-    }
-
     public static void showToast(Context context, String string){
         showToast(context, string, Toast.LENGTH_SHORT);
     }

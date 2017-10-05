@@ -18,8 +18,8 @@ import lineo.smarteam.R;
 
 public class SettingsActivity extends PreferenceActivity {
     private static final String TAG = "SettingsActivity";
-    static MyApplication myApp;
-    static SharedPreferences sharedPreferences;
+    private static MyApplication myApp;
+    private static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

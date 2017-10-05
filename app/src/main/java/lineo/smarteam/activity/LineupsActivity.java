@@ -25,7 +25,7 @@ import lineo.smarteam.exception.TeamNotFoundException;
 public class LineupsActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "LineupsActivity";
     private Context context;
-    ShareAction shareAction;
+    private ShareAction shareAction;
 
     private Integer teamId;
     private ArrayList<Integer> selectedPlayersIndexList = new ArrayList<>();
@@ -41,8 +41,10 @@ public class LineupsActivity extends Activity implements View.OnClickListener {
         getIntentExtras();
         setActionBarTitle();
         //setContentView(R.layout.loading);
-        generateLineups();
+        generateLineups(); //FIXME: this might take a while, screen cannot be empty in the meanwhile
+        //TODO: use the same logic as in the Splash Screen
         setLayout();
+
     }
 
     private void setLayout(){
