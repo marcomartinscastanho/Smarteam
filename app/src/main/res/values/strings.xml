@@ -35,6 +35,7 @@
     <string name="rankingHeaderName">PLAYER</string>
     <string name="rankingHeaderGames">GAMES</string>
     <string name="rankingHeaderScore">SCORE</string>
+    <string name="lineups_activity_vs">vs</string>
 
     <!-- Toasts -->
     <!--- Settings -->

@@ -22,7 +22,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="center_horizontal|center_vertical"
-          android:text="vs"
+          android:text="@string/lineups_activity_vs"
           android:textColor="@color/colorBlack"
           android:maxLines="1"
           android:textSize="@dimen/ranking_line_text_size"
