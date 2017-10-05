@@ -42,10 +42,10 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
     private void setLayout(){
         setContentView(R.layout.activity_start);
-        loadButton = (Button) findViewById(R.id.start_button_load);
-        createButton = (Button) findViewById(R.id.start_button_create);
-        deleteButton = (Button) findViewById(R.id.start_button_delete);
-        settingsButton = (Button) findViewById(R.id.start_button_settings);
+        loadButton = findViewById(R.id.start_button_load);
+        createButton = findViewById(R.id.start_button_create);
+        deleteButton = findViewById(R.id.start_button_delete);
+        settingsButton = findViewById(R.id.start_button_settings);
         loadButton.setOnClickListener(this);
         createButton.setOnClickListener(this);
         deleteButton.setOnClickListener(this);
@@ -216,7 +216,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         startActivity(intent);
     }
 
-    public class CreateTeamDialogListener implements View.OnClickListener {
+    private class CreateTeamDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         private final EditText editTextCreateTeam;
         CreateTeamDialogListener(Dialog dialog, EditText editText) {

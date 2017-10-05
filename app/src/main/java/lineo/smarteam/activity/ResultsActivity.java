@@ -46,10 +46,10 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
 
     private void setLayout(){
         setContentView(R.layout.activity_results);
-        addButton = (Button) findViewById(R.id.results_button_add);
-        viewButton = (Button) findViewById(R.id.results_button_View);
-        editButton = (Button) findViewById(R.id.results_button_Edit);
-        deleteButton = (Button) findViewById(R.id.results_button_delete);
+        addButton = findViewById(R.id.results_button_add);
+        viewButton = findViewById(R.id.results_button_View);
+        editButton = findViewById(R.id.results_button_Edit);
+        deleteButton = findViewById(R.id.results_button_delete);
         addButton.setOnClickListener(this);
         viewButton.setOnClickListener(this);
         editButton.setOnClickListener(this);
@@ -163,7 +163,7 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
         okButton.setOnClickListener(new ResultsActivity.InsertResultDrawDialogListener(dialogDraw));
     }
 
-    public class InsertResultDrawDialogListener implements View.OnClickListener {
+    private class InsertResultDrawDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         InsertResultDrawDialogListener(Dialog dialog) {
             this.dialog = dialog;

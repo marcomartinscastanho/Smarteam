@@ -46,11 +46,11 @@ public class TeamActivity extends Activity implements View.OnClickListener {
 
     private void setLayout(){
         setContentView(R.layout.activity_team);
-        resultsButton = (Button) findViewById(R.id.team_buttonResults);
-        rankingButton = (Button) findViewById(R.id.team_buttonRanking);
-        lineupsButton = (Button) findViewById(R.id.team_buttonLineups);
-        statisticsButton = (Button) findViewById(R.id.team_buttonStatistics);
-        editButton = (Button) findViewById(R.id.team_buttonEdit);
+        resultsButton = findViewById(R.id.team_buttonResults);
+        rankingButton = findViewById(R.id.team_buttonRanking);
+        lineupsButton = findViewById(R.id.team_buttonLineups);
+        statisticsButton = findViewById(R.id.team_buttonStatistics);
+        editButton = findViewById(R.id.team_buttonEdit);
         resultsButton.setOnClickListener(this);
         rankingButton.setOnClickListener(this);
         lineupsButton.setOnClickListener(this);
@@ -200,8 +200,9 @@ public class TeamActivity extends Activity implements View.OnClickListener {
         }
         @Override
         public void onClick(View v) {
-            if(!isSelectionValid())
+            if(!isSelectionValid()) {
                 return;
+            }
             AlertDialog.Builder builderAreYouSure = new AlertDialog.Builder(context);
             builderAreYouSure.setTitle(getResources().getString(R.string.dialogSelectPlayersLineupsAreYouSurePrefix)+selectedPlayersIndexList.size()+getResources().getString(R.string.dialogSelectPlayersLineupsAreYouSureSuffix));
             builderAreYouSure.setCancelable(false);

@@ -28,7 +28,7 @@ public class SplashActivity extends Activity {  //TODO: make splash logo larger
         finish();
     }
 
-    protected class LoadDataBase extends AsyncTask<Context, Integer, String>{
+    private class LoadDataBase extends AsyncTask<Context, Integer, String>{
         @Override
         protected String doInBackground(Context... params) {
             try{

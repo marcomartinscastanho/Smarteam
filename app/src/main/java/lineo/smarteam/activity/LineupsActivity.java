@@ -48,8 +48,8 @@ public class LineupsActivity extends Activity implements View.OnClickListener {
     private void setLayout(){
         //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
         setContentView(R.layout.activity_lineups);
-        ListView listHome = (ListView) findViewById(R.id.listViewTeamHome);
-        ListView listAway = (ListView) findViewById(R.id.listViewTeamAway);
+        ListView listHome = findViewById(R.id.listViewTeamHome);
+        ListView listAway = findViewById(R.id.listViewTeamAway);
         listHome.setAdapter(new ArrayAdapter<>(context, R.layout.lineups_line_black, lineupHome));
         listAway.setAdapter(new ArrayAdapter<>(context, R.layout.lineups_line_white, lineupAway));
         //TODO: put both lists centered vertically

@@ -49,10 +49,10 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
     private void setLayout(){
         setContentView(R.layout.activity_edit);
-        renameTeamButton = (Button) findViewById(R.id.edit_button_rename_team);
-        addPlayerButton = (Button) findViewById(R.id.edit_button_add_player);
-        renamePlayerButton = (Button) findViewById(R.id.edit_button_rename_player);
-        deletePlayerButton = (Button) findViewById(R.id.edit_button_delete_player);
+        renameTeamButton = findViewById(R.id.edit_button_rename_team);
+        addPlayerButton = findViewById(R.id.edit_button_add_player);
+        renamePlayerButton = findViewById(R.id.edit_button_rename_player);
+        deletePlayerButton = findViewById(R.id.edit_button_delete_player);
         renameTeamButton.setOnClickListener(this);
         addPlayerButton.setOnClickListener(this);
         renamePlayerButton.setOnClickListener(this);
@@ -153,7 +153,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         okButton.setOnClickListener(new EditActivity.RenameTeamDialogListener(createDialog, editTextRenameTeam));
     }
 
-    public class RenameTeamDialogListener implements View.OnClickListener {
+    private class RenameTeamDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         private final EditText editTextRenameTeam;
         RenameTeamDialogListener(Dialog dialog, EditText editText) {
@@ -222,7 +222,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         okButton.setOnClickListener(new EditActivity.AddPlayerDialogListener(addDialog, editTextAddPlayer));
     }
 
-    public class AddPlayerDialogListener implements View.OnClickListener {
+    private class AddPlayerDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         private final EditText editTextAddPlayer;
         AddPlayerDialogListener(Dialog dialog, EditText editText) {
@@ -313,7 +313,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         deleteDialog.show();
     }
 
-    public class RenamePlayerDialogListener implements View.OnClickListener {
+    private class RenamePlayerDialogListener implements View.OnClickListener {
         private final Dialog dialog;
         private final EditText editTextRenamePlayer;
         private final Integer playerId;
