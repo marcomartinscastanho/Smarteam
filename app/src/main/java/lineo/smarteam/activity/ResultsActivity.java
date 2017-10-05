@@ -157,6 +157,12 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
                 selectedPlayersIndexList.clear();
             }
         });
+        builderDraw.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                selectedPlayersIndexList.clear();
+            }
+        });
         AlertDialog dialogDraw = builderDraw.create();
         dialogDraw.show();
         Button okButton = dialogDraw.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -241,6 +247,12 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
                 selectedWinnersIndexList.clear();
             }
         });
+        builderWin.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                selectedWinnersIndexList.clear();
+            }
+        });
         AlertDialog dialogWin = builderWin.create();
         dialogWin.show();
         Button okButton = dialogWin.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -290,6 +302,12 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
             builderDefeat.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    selectedLosersIndexList.clear();
+                }
+            });
+            builderDefeat.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
                     selectedLosersIndexList.clear();
                 }
             });

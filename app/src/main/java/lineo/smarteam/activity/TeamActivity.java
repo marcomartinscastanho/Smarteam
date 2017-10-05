@@ -187,6 +187,12 @@ public class TeamActivity extends Activity implements View.OnClickListener {
                 selectedPlayersIndexList.clear();
             }
         });
+        builderLineup.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                selectedPlayersIndexList.clear();
+            }
+        });
         AlertDialog dialogLineup = builderLineup.create();
         dialogLineup.show();
         Button okButton = dialogLineup.getButton(DialogInterface.BUTTON_POSITIVE);
