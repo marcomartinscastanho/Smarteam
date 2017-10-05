@@ -186,7 +186,7 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
                 public void onClick(DialogInterface dialogAreYouSure, int which) {
                     dialog.dismiss();
                     if(MyApplication.db.insertResult(teamId, selectedWinnersIndexList, selectedLosersIndexList, MyApplication.ResultType.Draw)){
-                        goToRanking();
+                        callRankingActivity();
                     }
                     else{
                         MyApplication.showToast(context, getResources().getString(R.string.toastFailedToAddResult));
@@ -349,7 +349,7 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
                         dialogDefeat.dismiss();
                         dialogWin.dismiss();
                         if(MyApplication.db.insertResult(teamId, selectedWinnersIndexList, selectedLosersIndexList, MyApplication.ResultType.Win)){
-                            goToRanking();
+                            callRankingActivity();
                         }
                         else{
                             MyApplication.showToast(context, getResources().getString(R.string.toastFailedToAddResult));
@@ -386,8 +386,10 @@ public class ResultsActivity extends Activity  implements View.OnClickListener {
         }
     }
 
-    private void goToRanking(){
-        //TODO: after inserting a result, go to RankingActivity
+    private void callRankingActivity(){
+        Intent intent = new Intent(this, RankingActivity.class);
+        intent.putExtra("teamId", teamId);
+        startActivity(intent);
     }
 
     private void deleteLastResultButtonClick() {
