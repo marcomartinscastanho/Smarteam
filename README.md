@@ -20,7 +20,7 @@ The first version on this tool was made in Excel, in a very user-unfriendly way 
 
 I made a first version, a very amateur and low performing one, with data stored in text files since I didn't know Android supported SQL Lite. Later I discarded this version and started a new one from scratch, this time trying to make it cleaner and faster and more ambitious.
 
-I really enjoy developing for Android and while I was developing this App I thaught I could make this available on Play Store. Even if no one would ever used, at least I could show it on my cv. But working 8h a day as an IT developer and go home to work a few more hours on Android is exhausting and social life-consuming, so the progress of this App stalled, as you can see on the commits history.
+I really enjoy developing for Android and while I was developing this App I thought I could make this available on Play Store. Even if no one would ever used, at least I could show it on my cv. But working 8h a day as an IT developer and go home to work a few more hours on Android is exhausting and social life-consuming, so the progress of this App stalled, as you can see on the commits history.
 
 First I had all code private since I wanted to do this all by myself, I was very protective of my baby and didn't want any external influence on this. But I realized that it's better to allow someone else to contribute to finish the App than to keep it locked in my computer and never finishing it.
 
@@ -38,7 +38,7 @@ The **Main Menu** Activity has 4 buttons:
 
 **New**, **Load** and **Delete** here refers to Teams, in case you have regular games with more than a group of friends (ex: former college friends; current work colleagues). Both this 3 buttons open a dialog in which the user can set a name to a new Team or select an existing one to Load or Delete. The **Settings** button goes to a **Settings Menu**, in which the user can set different values to Wins, Draws, Defeats, etc. or restore the default ones.
 
-After creating a New Team or Loading an existing one, a different Acitivity is opened. I called this the **Team Menu** Activity. This activity has 5 buttons:
+After creating a New Team or Loading an existing one, a different Activity is opened. I called this the **Team Menu** Activity. This activity has 5 buttons:
 * Results
 * Ranking
 * Lineups
@@ -52,7 +52,7 @@ The Results button opens another a **Team->Results Menu** Activity which allows 
 * Edit, to edit a result (I haven't decided yet if I will keep this)
 * Delete, to delete a result (same as before)
 
-The **Ranking** button just shows an Activity with the ranking of the Team's players, with each line of the table containing the Player's position, its name and its Score. This Activity has a Share Button on the Action Bar, allowing the user to share a snapshot of the Ranking on several platforms such as Facebook, Whatsapp, Twitter or e-mail.
+The **Ranking** button just shows an Activity with the ranking of the Team's players, with each line of the table containing the Player's position, its name and its Score. This Activity has a Share Button on the Action Bar, allowing the user to share a snapshot of the Ranking on several platforms such as Facebook, WhatsApp, Twitter or e-mail.
 
 The **Lineups** button is where the magic happens. It shows a dialog asking the user to select the players who will play on the next game, upon confirmation, opens a new activity showing the allocation of those players into 2 groups with average scores the closest possible. Like in the Ranking activity, this is also shareable.
 
@@ -70,7 +70,7 @@ All are self-explanatory
 ## What's left? ##
 * The basic functions are mostly working properly, except for some likely not yet identified bugs;
 * As mentioned, the Statistics Menu is not done yet, not even started. I have done however a set of methods with queries that may be useful.
-* I thaught about replacing the structure of the Results Menu with a Card List, with each game result (the date, result and players involved) presented in a card, and the options to Edit or Delete a result being prompted upon tapping on the corresponding card. The Add button would be a floating round button. I actually begin implementing this idea, but it is only half done and not working, so I haven't commited it yet.
+* I thought about replacing the structure of the Results Menu with a Card List, with each game result (the date, result and players involved) presented in a card, and the options to Edit or Delete a result being prompted upon tapping on the corresponding card. The Add button would be a floating round button. I actually begin implementing this idea, but it is only half done and not working, so I haven't commited it yet.
 
 I have a few more ideas for this, which are listed below, but right know I just want to finish a first fully working version of this App.
 
@@ -93,5 +93,5 @@ I have a few more ideas for this, which are listed below, but right know I just 
 
 ### Smarteam 2 - Future version ###
 * Authentication
-* Every team is synched among its user members
+* Every team is synced among its user members
 * Data is stored in a cloud, in order to be accessed by all team members
