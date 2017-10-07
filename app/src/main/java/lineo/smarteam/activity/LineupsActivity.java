@@ -86,7 +86,7 @@ public class LineupsActivity extends Activity implements View.OnClickListener {
         }
         ActionBar ab = getActionBar();
         if (ab != null) {
-            ab.setTitle(String.format(getResources().getString(R.string.title_activity_lineups) + " : %s", teamName));
+            ab.setTitle(String.format("%s: " + getResources().getString(R.string.title_activity_lineups), teamName));
         }
     }
 

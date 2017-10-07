@@ -78,7 +78,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     private void setTeamNameOnActionBar(String name){
         ActionBar ab = getActionBar();
         if (ab != null)
-            ab.setTitle(String.format(getResources().getString(R.string.title_activity_edit)+" : %s", name));
+            ab.setTitle(String.format("%s: " + getResources().getString(R.string.title_activity_edit), name));
     }
 
     @Override

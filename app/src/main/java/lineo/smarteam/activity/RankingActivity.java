@@ -43,7 +43,7 @@ public class RankingActivity extends ListActivity {
     private void setActionBarTitle(){
         ActionBar ab = getActionBar();
         if (ab != null) {
-            ab.setTitle(String.format(getResources().getString(R.string.title_activity_ranking) + " : %s", teamName));
+            ab.setTitle(String.format("%s: " + getResources().getString(R.string.title_activity_ranking), teamName));
         }
     }
 
