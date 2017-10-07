@@ -16,7 +16,7 @@
         <item name="android:textViewStyle">@style/MainTheme.Text</item>
     </style>
 
-    <style name="StartTheme" parent="android:style/Theme.DeviceDefault">
+    <style name="StartTheme" parent="android:style/Theme.DeviceDefault.Light">
         <item name="android:alertDialogTheme">@style/MainTheme.Dialog</item>
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
         <item name="android:navigationBarColor">@color/primaryDarkColor</item>
@@ -34,7 +34,7 @@
         <item name="android:buttonStyle">@style/MainTheme.Button</item>
     </style>
 
-    <style name="MainTheme" parent="android:style/Theme.DeviceDefault">
+    <style name="MainTheme" parent="android:style/Theme.DeviceDefault.Light">
         <item name="android:alertDialogTheme">@style/MainTheme.Dialog</item>
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
         <item name="android:actionBarStyle">@style/MainTheme.ActionBar</item>
