@@ -119,8 +119,9 @@ public class EditActivity extends Activity implements View.OnClickListener {
         AlertDialog.Builder renameTeamBuilder = new AlertDialog.Builder(context);
         renameTeamBuilder.setTitle(getResources().getString(R.string.dialogCreateTeamTitle));
         renameTeamBuilder.setCancelable(false);
-
         EditText editTextRenameTeam = new EditText(this);
+        editTextRenameTeam.setText(teamName);
+        editTextRenameTeam.setSelection(teamName.length());
         renameTeamBuilder.setView(editTextRenameTeam);
         renameTeamBuilder.setCancelable(true);
         renameTeamBuilder.setPositiveButton(android.R.string.ok,
@@ -262,8 +263,9 @@ public class EditActivity extends Activity implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int which) {
                 selectedPlayer = which;
                 Log.d(TAG, "selectedPlayer value=" + selectedPlayer);
-                if(selectedPlayer<0)
+                if(selectedPlayer<0){
                     return;
+                }
                 Integer playerId = null;
                 try {
                     playerId = MyApplication.db.getPlayerIdByNameAndTeamId(choiceList[selectedPlayer].toString(), teamId);
@@ -274,8 +276,9 @@ public class EditActivity extends Activity implements View.OnClickListener {
                 AlertDialog.Builder renamePlayerBuilder = new AlertDialog.Builder(context);
                 renamePlayerBuilder.setTitle(getResources().getString(R.string.dialogAddPlayerTitle));
                 renamePlayerBuilder.setCancelable(false);
-
                 EditText editTextRenamePlayer = new EditText(context);
+                editTextRenamePlayer.setText(choiceList[selectedPlayer].toString());
+                editTextRenamePlayer.setSelection(choiceList[selectedPlayer].toString().length());
                 renamePlayerBuilder.setView(editTextRenamePlayer);
                 renamePlayerBuilder.setCancelable(true);
                 renamePlayerBuilder.setPositiveButton(android.R.string.ok,
