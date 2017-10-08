@@ -52,6 +52,7 @@ public class DataBase {
     public static final String PLAYERS_COLUMN_SCORE = "SCORE";
     static final String PLAYERS_COLUMN_UPDATE_DATE = "UPDATE_DATE";
     public static final String PLAYERS_RANKING_POSITION = "_id";
+    public static final String RESULTS_MATCHDAY_ID = "_id";
     public static final String STATISTICS_HEADER = "STAT_HEADER";
     public static final String STATISTICS_VALUE = "STAT_VALUE";
     static final String INDIVIDUAL_RESULTS_TABLE = "INDIVIDUAL_RESULTS";
@@ -861,6 +862,23 @@ public class DataBase {
         String[] selectionArgs = {teamId.toString()};
         String sortOrder = PLAYERS_COLUMN_NAME + " ASC";
         return db.query(PLAYERS_TABLE, projection, selection, selectionArgs, null, null, sortOrder);
+    }
+
+    public Cursor getPrintableResultsByTeamId(Integer teamId){
+        String query = "SELECT result." + INDIVIDUAL_RESULTS_COLUMN_MATCHDAY + " AS " + RESULTS_MATCHDAY_ID + ", " +
+                "'Matchday ' || result." + INDIVIDUAL_RESULTS_COLUMN_MATCHDAY + " AS MATCHDAY, " +
+                "DATE(result." + INDIVIDUAL_RESULTS_COLUMN_MATCHDAY_DATE + ", 'unixepoch', 'localtime') AS 'DATE', " +
+                "GROUP_CONCAT(CASE result." + INDIVIDUAL_RESULTS_COLUMN_RESULT + " WHEN '" + MyApplication.ResultType.Win.toString() + "' THEN players." + PLAYERS_COLUMN_NAME + " END, char(10)) AS WIN, " +
+                "GROUP_CONCAT(CASE result." + INDIVIDUAL_RESULTS_COLUMN_RESULT + " WHEN '" + MyApplication.ResultType.Draw.toString() + "' THEN players." + PLAYERS_COLUMN_NAME + " END, char(10)) AS DRAW, " +
+                "GROUP_CONCAT(CASE result." + INDIVIDUAL_RESULTS_COLUMN_RESULT + " WHEN '" + MyApplication.ResultType.Defeat.toString() + "' THEN players." + PLAYERS_COLUMN_NAME + " END, char(10)) AS DEFEAT " +
+                "FROM " + INDIVIDUAL_RESULTS_TABLE + " result INNER JOIN " + PLAYERS_TABLE + " players " +
+                "ON result." + INDIVIDUAL_RESULTS_COLUMN_PLAYER_ID + " = players." + PLAYERS_COLUMN_ID + " " +
+                "WHERE result." + INDIVIDUAL_RESULTS_COLUMN_TEAM_ID + " = ? " +
+                "GROUP BY " + INDIVIDUAL_RESULTS_COLUMN_MATCHDAY + " " +
+                "ORDER BY " + RESULTS_MATCHDAY_ID + " DESC ";
+        Log.d(TAG, "getPrintableResultsByTeamId() - query:"+query);
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
     }
 
     /*
