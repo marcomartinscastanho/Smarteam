@@ -77,21 +77,105 @@ I have a few more ideas for this, which are listed below, but right know I just 
 
 ## Future ideas ##
 
-### Smarteam 1 ###
-* No authentication
-* No Sync
-* Data stored only locally
-* Only English
-
-#### Free version ####
-* Has adds
-* * banner adds
-* * full screen add when generating line-up
-* Limited to 5x5 line-ups
-* Limited to 15 players
-
-
-### Smarteam 2 - Future version ###
-* Authentication
-* Every team is synced among its user members
-* Data is stored in a cloud, in order to be accessed by all team members
+### Smarteam Social ###
+- Registration
+  - Phone number authentication (similar to WhatsApp) - under consideration
+    - (the idea is to prevent users from creating multiple profiles, or trying to reset their history)
+  - Users must register - they become Players
+  - Upon registered, Players must choose a unique @handle
+- Player
+  - Players can edit their personal info
+    - Name
+    - Picture
+    - Location
+  - All Players have a global Score
+    - Every Player starts with a default Score
+    - The Score is determined by accummulation of points
+    - Players win or lose points after each Match played
+    - Points added or deducted from the Player's Score after each Match depend on the result the Player obtained in that Match (win/draw/defeat)
+    - Points added or deducted from the Player's Score after each Match depend on the difference between the Overall Scores of the Squads playing that Match
+      - e.g. winning against a weaker Squad awards fewer points than winning against a stronger Squad
+      - e.g. losing against a weaker Squad deducts more points than losing against a stronger Squad
+  - The Score is public
+  - Players can set configurations such as Block Invites from Teams, change visibility of Personal Info, etc.
+  - Players can be members of multiple Teams (a maximum number is under consideration)
+- Teams
+  - All Players can create Teams
+  - The creator of a Team is the default Admin
+  - The creator of a Team must define a name for the Team
+  - The creator of a Team can define additional Team information such as Picture, Description, Location, etc.
+  - Admins can invite Players (by their @handle) to the Team
+  - Admins can elevate other Players in the Team to Admin
+  - Admins can remove Players from the Team
+  - Matches
+    - Admins can book Matches
+    - Matches must have a Date and Time (set in the future), set upon creation of the Match
+      - validation of multiple matches at similar datetimes under consideration, to avoid cheating
+    - Matches can have a Location, set at any time
+    - Admins can edit the Match info (Date, Time and Location) for Matches "not yet played"
+    - Admins can call Team Players to Matches "not yet played"
+      - Called Players receive notifications of invite to Matches
+    - Admins can un-call Players from Matches "not yet played"
+    - Players can un-call themselves from Matches "not yet played"
+    - Guest Players
+      - Admins can add Guest Players to Matches "not yet played"
+      - Guest Players are unregistered players
+      - Guest Payers must have a name
+      - Guest Players have a default Score equal to the average Score of the Players called for the Match
+      - There should be a limit to the number of Guest Players allowed per Match (under consideration)
+      - Guest Players exist only in the scope of the single Match they were called to
+      - They are not usable in other Matches
+    - All Players in the Team can consult a Match
+      - Match screen shows Date, Time, Location (if any) and list of called Players (if any)
+      - Match screen shows the Squads, if published
+      - Match screen shows the Result, if published
+    - Players can Share (social media) the info of a Match "not yet played", if Share is enabled
+    - Admins can publish the Match Squads at any time
+      - Called Players are split in 2 Squads
+      - Splitting of Players in Squads depends on the Players' Scores, such that the Overal Score of the Squads is balanced
+      - Squads show the list of Players in it, and their individual Score
+      - Squads show the Overal Score of the Squad
+      - When published, Squads become are visible for everyone
+      - Squads stop being visible if the list of called Players changes
+      - Players can Share (social media) the Squads, if they are visible and Share is enabled
+    - Admins can Cancel Matches "not yet played"
+      - When cancelled, a Match is deleted
+    - Admins can set the Result of Matches "not yet played"
+      - Upon setting the Result, a Match becomes "played"
+      - This action only becomes available x minutes (1h?) after the specified Match DateTime - avoid cheating
+      - The Match Result becomes visible
+      - The added or deducted points for each Squad becomes visible
+      - When a Match becomes "played", all of its content can no longer be edited
+      - It can however be consulted
+      - Playes can Share (social media) the Results of Matches "played", if Share is enabled
+  - History of Matches
+    - All Players can consult the History of Matches at any time
+    - A maximum of number of Matches that can be consulted is under consideration
+  - Ranking
+    - A Ranking of all Players in the Team, ordered by their score
+    - Players can consult the Ranking at any time
+    - The Ranking is updated everytime a Player score changes
+    - Playes can Share (social media) the Ranking, if Share is enabled
+  - Statistics
+    - All Players can consult Statistics
+    - Statisctics only consider Matches played inside the Team
+    - Statistics may include
+      - highest # of games played
+      - highest # of wins
+      - highest # of draws
+      - highest # of defeats
+      - lowest of each ?
+      - highest winning %
+      - highest unbeaten %
+      - longest winning streak
+      - longest unbeaten streak
+      - longest ongoing winning streak
+      - longest ongoing unbeaten streak
+    - Playes can Share (social media) the Statistics, if Share is enabled
+  - Configurations
+    - Admins can set the shareable status of:
+      - Matches "not yet played"
+      - Match Squads
+      - Match Results
+      - Team Ranking
+      - Team Statistics
