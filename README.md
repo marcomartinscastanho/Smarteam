@@ -102,8 +102,10 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Points added or deducted from the Player's Score after each Match depend on the difference between the Overall Scores of the Squads playing that Match (TODO: to be reviewed... if Squads are balanced, this doesn't make much sense...)
       - e.g. winning against a weaker Squad awards fewer points than winning against a stronger Squad
       - e.g. losing against a weaker Squad deducts more points than losing against a stronger Squad
+  - The Unique @handle is public
   - The Score is public
   - Number of Matches played is public
+  - Visibility of all other Player information can be configured by the Player
   - Players can set configurations such as Block Invites from Teams, change visibility of Personal Info, etc.
   - Players can be members of multiple Teams (a maximum number is under consideration)
 - Teams
