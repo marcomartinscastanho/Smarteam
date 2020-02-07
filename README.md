@@ -261,6 +261,9 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Only input after each Match is the Match Result (win/draw/loss)
   - Automatic Scores
     - App updates Players' Scores automatically after each Match played
+  - Balanced Squads feature
+    - No more time spent on deciding the Squads before each Match
+    - Play more challenging Matches between balanced Squads
   - **Gamification**
     - Improves user engagement by defining game-design elements such as:
       - Global user score
@@ -268,7 +271,5 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - Intra-Team Statistics
     - Social Networks integration
       - Ability to share App content on Social Networks make GameSquad improve app visibility and user competition
-    - Balanced Squads feature
-      - No more time spent on deciding the Squads before each Match
-      - Play more challenging Matches between balanced Squads
+      - Periodic automatic publication of Global Leaderboards on Social Media
   - Simplicity of use
