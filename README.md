@@ -225,7 +225,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Spanish
     - French
     
-- Additional Features under consideration
+#### Additional Features under consideration ####
   - Team chat (WhatsApp-like)
   - Lobby of Open Matches
     - Team Admins can create Open Matches
