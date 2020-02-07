@@ -142,9 +142,12 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Players can Share (social media) the info of a Match "not yet played", if Share is enabled
     - Admins can publish the Match Squads at any time
       - Called Players are split in 2 Squads
-      - Splitting of Players in Squads depends on the Players' Scores, such that the Overal Score of the Squads is balanced
-      - The Squads have the same number of Players, if number of called Players is even
-      - If the number of called Players is odd, one Squad has 1 more Player than the other, but the Overall Scores of the Squads is still balanced
+      - Each Squad has an Overall Score, equal to the sum of the Scores of all Players in the Squad
+      - The Overall Scores of the 2 Squads must be balanced (i.e. the difference between them must be the minimum possible)
+      - An algorithm splits the Players into Squads, respecting the balance between Squads Overall Scores
+      - If the number of called Players is even, the Squads must have the same number of Players
+      - If the number of called Players is odd, one Squad has 1 more Player than the other
+      - In any case, Overall Scores of the Squads must be balanced
       - Squads show the list of Players in it, and their individual Score
       - Squads show the Overal Score of the Squad
       - When published, Squads become are visible for everyone
