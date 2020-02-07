@@ -106,7 +106,10 @@ I have a few more ideas for this, which are listed below, but right know I just 
   - The Score is public
   - Number of Matches played is public
   - Visibility of all other Player information can be configured by the Player
-  - Players can set configurations such as Block Invites from Teams, change visibility of Personal Info, etc.
+  - Players can set configurations:
+    - Block Invites to join Teams
+    - Block Invites to join Matches
+    - Set visibility of Personal Info, etc. (Public/Team/Private)
   - Players can be members of multiple Teams (a maximum number is under consideration)
 - Teams
   - All Players can create Teams
