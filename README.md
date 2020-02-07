@@ -124,16 +124,26 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Admins can edit the Match info (Date, Time and Location) for Matches "not yet played"
     - Admins can call Team Players to Matches "not yet played"
       - Called Players receive notifications of invite to Matches
+      - Called Players are automatically added to the list of called players to the Match
+      - No presence confirmation status for Team Players, means Players in the Team don't need to confirm they'll be present
     - Admins can un-call Players from Matches "not yet played"
-    - No presence confirmation status, means Players don't need to confirm they'll be present at the Match
     - Players can un-call themselves from Matches "not yet played"
     - Guest Players
-      - Admins can add Guest Players to Matches "not yet played"
-      - Guest Players are unregistered players
-      - Guest Payers must have a name
-      - Guest Players have a default Score equal to the average Score of the Players called for the Match
-      - There should be a limit to the number of Guest Players allowed per Match (under consideration)
-      - Guest Players exist only in the scope of the single Match they were called to
+      - Guest Players are registered Players that are not part of the Team
+      - Admins can invite Guest Players for individual Matches, using their unique @handle
+      - Guest Players are notified of invitations to Matches
+      - Guest Players can accept or reject invitations to Matches
+      - Guest Players are added to the Match list of called Players only if and when they accept the invitation
+      - Guest Players don't become part of the Team
+      - Guest Players are not displayed in the Team Ranking
+      - Guest Players Statistics are not accounted in the Team Statistics
+    - Ghost Players - name under consideration
+      - Ghost Players are unregistered players
+      - Admins can add Ghost Players to Matches "not yet played"
+      - Ghost Payers must have a name
+      - Ghost Players have a default Score equal to the average Score of the Players called for the Match
+      - There should be a limit to the number of Ghost Players allowed per Match (under consideration)
+      - Ghost Players exist only in the scope of the single Match they were called to
       - They are not usable in other Matches
     - All Players in the Team can consult a Match
       - Match screen shows Date, Time, Location (if any) and list of called Players (if any)
