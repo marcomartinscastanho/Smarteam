@@ -194,7 +194,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - Team Ranking
       - Team Statistics
 
-#### Competitors ####
+#### Competitors Analysis ####
 - **SportEasy**
   - https://www.sporteasy.net/
   - Registerd users: ~1M (according to website)
