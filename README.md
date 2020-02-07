@@ -82,8 +82,9 @@ I have a few more ideas for this, which are listed below, but right know I just 
 - ...
 #### Requirements and Walkthrough ####
 - Registration
-  - Phone number authentication (similar to WhatsApp) - under consideration
-    - (the idea is to prevent users from creating multiple profiles, or trying to reset their history)
+  - Phone number validated registration (similar to WhatsApp) - under consideration, for cheating prevention
+    - Prevent users from having multiple accounts and create fake Matches to impact their Scores
+    - Prevent users from deleting their accounts and starting fresh with the default Score, erasing their history of Match Results
   - Users must register - they become Players
   - Upon registered, Players must choose a unique @handle
 - Player
@@ -92,6 +93,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Age
     - Picture
     - Location
+    - Unique @handle
   - All Players have a global Score
     - Every Player starts with a default Score
     - The Score is determined by accummulation of points
@@ -194,8 +196,8 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - Team Ranking
       - Team Statistics
 - Global features
-  - Global Ranking, updated periodically
-  - National Ranking, updated periodically
+  - Global Ranking, updated periodically, can be consulted at any time
+  - National Ranking, updated periodically, can be consulted at any time
   - Periodic automatic Leaderboard publications on Social Media
 - Languages
   - Default: English
