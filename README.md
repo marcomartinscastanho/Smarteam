@@ -76,8 +76,11 @@ I have a few more ideas for this, which are listed below, but right know I just 
 
 
 ## Future ideas ##
-
 ### Smarteam Social ###
+#### New name proposals ####
+- **GameSquad**
+- ...
+#### Requirements and Walkthrough ####
 - Registration
   - Phone number authentication (similar to WhatsApp) - under consideration
     - (the idea is to prevent users from creating multiple profiles, or trying to reset their history)
@@ -86,6 +89,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
 - Player
   - Players can edit their personal info
     - Name
+    - Age
     - Picture
     - Location
   - All Players have a global Score
@@ -97,6 +101,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - e.g. winning against a weaker Squad awards fewer points than winning against a stronger Squad
       - e.g. losing against a weaker Squad deducts more points than losing against a stronger Squad
   - The Score is public
+  - Number of Matches played is public
   - Players can set configurations such as Block Invites from Teams, change visibility of Personal Info, etc.
   - Players can be members of multiple Teams (a maximum number is under consideration)
 - Teams
@@ -133,14 +138,23 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Admins can publish the Match Squads at any time
       - Called Players are split in 2 Squads
       - Splitting of Players in Squads depends on the Players' Scores, such that the Overal Score of the Squads is balanced
+      - The Squads have the same number of Players, if number of called Players is even
+      - If the number of called Players is odd, one Squad has 1 more Player than the other, but the Overall Scores of the Squads is still balanced
       - Squads show the list of Players in it, and their individual Score
       - Squads show the Overal Score of the Squad
       - When published, Squads become are visible for everyone
       - Squads stop being visible if the list of called Players changes
       - Players can Share (social media) the Squads, if they are visible and Share is enabled
+    - Admins can manually modify the Squads
+      - Admin can swap a number of Players in Squad A for the same number of Players in Squad B
+      - Can be done at any time, if the Squads are visible and the Match is "not yet played"
     - Admins can Cancel Matches "not yet played"
       - When cancelled, a Match is deleted
     - Admins can set the Result of Matches "not yet played"
+      - Result can be:
+        - Squad A wins
+        - Draw
+        - Squad B wins
       - Upon setting the Result, a Match becomes "played"
       - This action only becomes available x minutes (1h?) after the specified Match DateTime - avoid cheating
       - The Match Result becomes visible
@@ -163,7 +177,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - highest # of games played
       - highest # of wins
       - highest # of draws
-      - highest # of defeats
+      - highest # of losses
       - lowest of each ?
       - highest winning %
       - highest unbeaten %
@@ -179,3 +193,68 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - Match Results
       - Team Ranking
       - Team Statistics
+
+#### Competitors ####
+- **SportEasy**
+  - https://www.sporteasy.net/
+  - Registerd users: ~1M (according to website)
+  - Android downloads: +100k
+  - iOS downloads: ?
+  - Origin: France
+  - Features
+    - Multi-language (8 languages)
+    - Multi-sports
+    - Creation of Team website
+    - Scheduling Team events
+    - Team comminucation via e-mail, notifications and in-app comments
+    - Track Players availability
+    - Manually set Lineups (Squads splitting)
+    - Statistics analysis
+    - Manual player rating
+  
+- **Chega+**
+  - https://chegamaisapp.com/
+  - Registered users: ?
+  - Android downloads: +100k
+  - iOS downloads: ?
+  - Origin: Brazil
+  - Features
+    - 1 language (Portuguese only)
+    - Football only
+    - Presence list
+    - Field cost splitting
+    - Tracking of Goal scorers
+    - Notifications
+    - Manual rating
+    - Squad split, randomly or by Rating
+  
+- **Footinho**
+  - https://footinho.com/
+  - Registered users: ~30k (according to website)
+  - Android downloads: +5k
+  - iOS downloads: ?
+  - Origin: France
+  - Features
+    - 2 languages (French and English)
+    - Football only
+    - Presence management
+    - Man of the Match voting after each Match
+    - Player invites via SMS, Notification, email, etc
+    - Open Matches, publicly available
+
+- Added value of **GameSquad**:
+  - Automatic Scores
+    - App updates Players' Scores automatically after each Match
+  - Simplicity of inputs
+    - Only input is the Match result (win/draw/loss)
+  - **Gamification**
+    - Improves user engagement by defining game-design elements such as:
+      - Global user score
+      - Global and intra-Team rankings
+      - Intra-Team Statistics
+    - Social Networks integration
+      - Ability to share App content on Social Networks make GameSquad improve app visibility and user competition
+    - Balanced Squads feature
+      - No more time spent on deciding the Squads before each Match
+      - Play more challenging Matches between balanced Squads
+  - Simplicity of use
