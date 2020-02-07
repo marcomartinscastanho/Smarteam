@@ -224,7 +224,19 @@ I have a few more ideas for this, which are listed below, but right know I just 
     
 - Additional Features under consideration
   - Team chat (WhatsApp-like)
-  - Invite Registered Guests (Players not in the Team) for Matches - strongly under consideration
+  - Lobby of Open Matches
+    - Team Admins can create Open Matches
+    - Open Matches must have a maximum limit of participants
+    - Open Matches are added to a Lobby
+    - Players can invite themselves into Open Matches
+    - Team Admins can accept or reject Self-Invited Players - TODO: find a better name
+    - Team Admins can report on Self-Invited Players who missed a Match
+    - Players have Fair-Play rating (A-F)
+      - Fair-Play rating of a Player is A by default
+      - Fair-Play rating of a Player is affected by missing Matches as Self-Invited Player
+      - Players can also report other Players on lack of Fair-Play
+      - Fair-Play rate is affected if a Player is often reported on by multiple Teams
+      - Ultimately, a Player may be banned if their Fair-Play rate is too low
 
 #### Competitors Analysis ####
 - **SportEasy**
