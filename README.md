@@ -97,7 +97,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - The Score is determined by accummulation of points
     - Players win or lose points after each Match played
     - Points added or deducted from the Player's Score after each Match depend on the result the Player obtained in that Match (win/draw/defeat)
-    - Points added or deducted from the Player's Score after each Match depend on the difference between the Overall Scores of the Squads playing that Match
+    - Points added or deducted from the Player's Score after each Match depend on the difference between the Overall Scores of the Squads playing that Match (TODO: to be reviewed... if Squads are balanced, this doesn't make much sense...)
       - e.g. winning against a weaker Squad awards fewer points than winning against a stronger Squad
       - e.g. losing against a weaker Squad deducts more points than losing against a stronger Squad
   - The Score is public
