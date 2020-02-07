@@ -214,6 +214,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
     
 - Additional Features under consideration
   - Team chat (WhatsApp-like)
+  - Invite Registered Guests (Players not in the Team) for Matches - strongly under consideration
 
 #### Competitors Analysis ####
 - **SportEasy**
