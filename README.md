@@ -193,6 +193,16 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - Match Results
       - Team Ranking
       - Team Statistics
+- Global features
+  - Global Ranking, updated periodically
+  - National Ranking, updated periodically
+  - Periodic automatic Leaderboard publications on Social Media
+- Languages
+  - Default: English
+  - Other languages should be available:
+    - Portuguese
+    - Spanish
+    - French
 
 #### Competitors Analysis ####
 - **SportEasy**
