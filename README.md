@@ -243,10 +243,10 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Open Matches, publicly available
 
 - Added value of **GameSquad**:
-  - Automatic Scores
-    - App updates Players' Scores automatically after each Match
   - Simplicity of inputs
-    - Only input is the Match result (win/draw/loss)
+    - Only input after each Match is the Match Result (win/draw/loss)
+  - Automatic Scores
+    - App updates Players' Scores automatically after each Match played
   - **Gamification**
     - Improves user engagement by defining game-design elements such as:
       - Global user score
