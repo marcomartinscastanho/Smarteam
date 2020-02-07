@@ -125,6 +125,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
     - Admins can call Team Players to Matches "not yet played"
       - Called Players receive notifications of invite to Matches
     - Admins can un-call Players from Matches "not yet played"
+    - No presence confirmation status, means Players don't need to confirm they'll be present at the Match
     - Players can un-call themselves from Matches "not yet played"
     - Guest Players
       - Admins can add Guest Players to Matches "not yet played"
