@@ -230,6 +230,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
   - Lobby of Open Matches
     - Team Admins can create Open Matches
     - Open Matches must have a maximum limit of participants
+    - Open Matches must have a Location
     - Open Matches are added to a Lobby
     - Players can invite themselves into Open Matches
     - Team Admins can accept or reject Self-Invited Players - TODO: find a better name
