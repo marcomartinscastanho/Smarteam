@@ -237,6 +237,8 @@ I have a few more ideas for this, which are listed below, but right know I just 
       - Players can also report other Players on lack of Fair-Play
       - Fair-Play rate is affected if a Player is often reported on by multiple Teams
       - Ultimately, a Player may be banned if their Fair-Play rate is too low
+        - Temporary ban
+        - Length increases with number of occurrences
 
 #### Competitors Analysis ####
 - **SportEasy**
