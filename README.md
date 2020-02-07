@@ -300,6 +300,7 @@ I have a few more ideas for this, which are listed below, but right know I just 
   - No more time spent on deciding the Squads before each Match
   - Play more challenging Matches between balanced Squads
 - **Gamification**
+  - About Gamification: https://en.wikipedia.org/wiki/Gamification
   - Improves user engagement by defining game-design elements such as:
     - Global user score
     - Global and intra-Team rankings
