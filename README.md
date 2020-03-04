@@ -73,3 +73,7 @@ All are self-explanatory
 * I thought about replacing the structure of the Results Menu with a Card List, with each game result (the date, result and players involved) presented in a card, and the options to Edit or Delete a result being prompted upon tapping on the corresponding card. The Add button would be a floating round button. I actually begin implementing this idea, but it is only half done and not working, so I haven't commited it yet.
 
 I have a few more ideas for this, which are listed below, but right know I just want to finish a first fully working version of this App.
+
+
+## Motivation ##
+Future project: Smarteam Social
