@@ -8,10 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import com.martinscastanho.marco.smarteam.helpers.CoefficientsFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -323,7 +325,7 @@ public class DataBase {
         }
     }
 
-    public ArrayList<Integer> getPlayersIdsFromNames(ArrayList<String> playersNames){
+    private ArrayList<Integer> getPlayersIdsFromNames(ArrayList<String> playersNames){
         ArrayList<Integer> ids = new ArrayList<>();
         if(playersNames != null){
             for(String playerName : playersNames){
@@ -331,6 +333,29 @@ public class DataBase {
             }
         }
         return ids;
+    }
+
+    public ArrayList<Map<String, Integer>> getPlayersIdsAndScores(String[] selectedPlayersNames, Integer teamId){
+        String query = "SELECT " + Player._ID + ", CAST(100*" + Player.COLUMN_NAME_SCORE + " AS INTEGER) AS "+ Player.COLUMN_NAME_SCORE +
+                " FROM " + Player.TABLE_NAME +
+                " WHERE " + Player.COLUMN_NAME_NAME + " IN (" + makePlaceholders(selectedPlayersNames.length) + ") AND " + Player.COLUMN_NAME_TEAM_ID + " = ?";
+
+        ArrayList<String> argsArray = new ArrayList<>(Arrays.asList(selectedPlayersNames));
+        argsArray.add(teamId.toString());
+        
+        ArrayList<Map<String, Integer>> playersIdsAndScores = new ArrayList<>();
+        Cursor c = db.rawQuery(query, argsArray.toArray(new String[0]));
+        if(c.moveToFirst()) {
+            do {
+                Map<String, Integer> playerIdAndScore = new HashMap<>();
+                playerIdAndScore.put("id", c.getInt(c.getColumnIndexOrThrow(Player._ID)));
+                playerIdAndScore.put("score", c.getInt(c.getColumnIndexOrThrow(Player.COLUMN_NAME_SCORE)));
+                playersIdsAndScores.add(playerIdAndScore);
+            }
+            while(c.moveToNext());
+        }
+        c.close();
+        return playersIdsAndScores;
     }
 
     private Integer getAbsenceStreak(Integer playerId){
@@ -593,9 +618,18 @@ public class DataBase {
     public Cursor getRankingByTeamId(Integer teamId){
         String query = "SELECT " + Player.COLUMN_NAME_NAME + ", CAST(100*" + Player.COLUMN_NAME_SCORE + " AS INTEGER) AS "+ Player.COLUMN_NAME_SCORE +", " + Player.COLUMN_NAME_MATCHES + " ,"
                 + " 1+(SELECT COUNT(*) FROM " + Player.TABLE_NAME + " B WHERE A." + Player.COLUMN_NAME_SCORE + " < B." + Player.COLUMN_NAME_SCORE + " AND B." + Player.COLUMN_NAME_TEAM_ID + " = ?) AS " + Player.PLAYERS_RANKING_POSITION
-                + " FROM " + Player.TABLE_NAME + " A WHERE A." + Player.COLUMN_NAME_TEAM_ID + " = ? ORDER BY " + Player.COLUMN_NAME_SCORE + " DESC ";
+                + " FROM " + Player.TABLE_NAME + " A WHERE A." + Player.COLUMN_NAME_TEAM_ID + " = ? ORDER BY " + Player.COLUMN_NAME_SCORE + " DESC, " + Player.COLUMN_NAME_MATCHES + " DESC ";
         String[] selectionArgs = {teamId.toString(), teamId.toString()};
         return db.rawQuery(query, selectionArgs);
+    }
+
+    public Cursor getSideLineup(ArrayList<Integer> homePlayersIds){
+        String query = "SELECT " + Player._ID + ", " + Player.COLUMN_NAME_NAME + ", " + Player.COLUMN_NAME_MATCHES + ", CAST(100*" + Player.COLUMN_NAME_SCORE + " AS INTEGER) AS "+ Player.COLUMN_NAME_SCORE +
+                " FROM " + Player.TABLE_NAME +
+                " WHERE " + Player._ID + " IN (" + makePlaceholders(homePlayersIds.size()) + ") ORDER BY " + Player.COLUMN_NAME_SCORE + " DESC, " + Player.COLUMN_NAME_MATCHES + " DESC ";
+
+        Log.d("query", query);
+        return db.rawQuery(query, getSelectionParams(homePlayersIds));
     }
 
     // RESULTS
@@ -721,5 +755,28 @@ public class DataBase {
         map.put(ResultType.LongAbsence.toString(), -2);
 
         return map;
+    }
+
+    private String makePlaceholders(int len) {
+        if (len < 1) {
+            // It will lead to an invalid query anyway ..
+            throw new RuntimeException("No placeholders");
+        } else {
+            StringBuilder sb = new StringBuilder(len * 2 - 1);
+            sb.append("?");
+            for (int i = 1; i < len; i++) {
+                sb.append(",?");
+            }
+            return sb.toString();
+        }
+    }
+
+    private String[] getSelectionParams(ArrayList<Integer> params){
+        ArrayList<String> sParams = new ArrayList<>();
+        for (Integer param: params) {
+            sParams.add(String.valueOf(param));
+        }
+
+        return sParams.toArray(new String[0]);
     }
 }

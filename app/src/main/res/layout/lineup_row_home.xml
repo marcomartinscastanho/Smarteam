@@ -5,31 +5,20 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/rankingPlayerRankRow"
+        android:id="@+id/playerNameRowHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="#"
-        android:textColor="@android:color/white" />
-
-    <TextView
-        android:id="@+id/rankingPlayerNameRow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_weight="6"
+        android:layout_weight="7"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:text="Player"
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/rankingPlayerMatchesRow"
+        android:id="@+id/playerMatchesRowHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
@@ -38,7 +27,7 @@
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/rankingPlayerScoreRow"
+        android:id="@+id/playerScoreRowHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
