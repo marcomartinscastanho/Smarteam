@@ -1,96 +1,11 @@
-<!DOCTYPE resources [
-    <!ELEMENT resources (style)*>
-    <!ELEMENT style (item)*>
-    <!ATTLIST style
-        name CDATA #REQUIRED
-        parent CDATA #REQUIRED>
-    <!ELEMENT item (#PCDATA)>
-    <!ATTLIST item
-        name CDATA #REQUIRED>
-    ]>
 <resources>
-    <style name="SplashTheme" parent="android:style/Theme.DeviceDefault.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="android:statusBarColor">@color/primaryDarkColor</item>
-        <item name="android:navigationBarColor">@color/primaryDarkColor</item>
-        <item name="android:textViewStyle">@style/MainTheme.Text</item>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="StartTheme" parent="android:style/Theme.DeviceDefault.Light">
-        <item name="android:alertDialogTheme">@style/MainTheme.Dialog</item>
-        <item name="android:statusBarColor">@color/primaryDarkColor</item>
-        <item name="android:navigationBarColor">@color/primaryDarkColor</item>
-        <item name="android:actionBarStyle">@style/StartTheme.ActionBar</item>
-        <item name="android:textViewStyle">@style/MainTheme.Text</item>
-        <item name="android:buttonStyle">@style/MainTheme.Button</item>
-    </style>
-
-    <style name="SettingsTheme" parent="android:style/Theme.DeviceDefault.Light">
-        <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
-        <item name="android:alertDialogTheme">@style/MainTheme.Dialog</item>
-        <item name="android:statusBarColor">@color/primaryDarkColor</item>
-        <item name="android:navigationBarColor">@color/primaryDarkColor</item>
-        <item name="android:textViewStyle">@style/MainTheme.Text</item>
-        <item name="android:buttonStyle">@style/MainTheme.Button</item>
-    </style>
-
-    <style name="MainTheme" parent="android:style/Theme.DeviceDefault.Light">
-        <item name="android:alertDialogTheme">@style/MainTheme.Dialog</item>
-        <item name="android:statusBarColor">@color/primaryDarkColor</item>
-        <item name="android:actionBarStyle">@style/MainTheme.ActionBar</item>
-        <item name="android:navigationBarColor">@color/primaryDarkColor</item>
-        <item name="android:textViewStyle">@style/MainTheme.Text</item>
-        <item name="android:buttonStyle">@style/MainTheme.Button</item>
-    </style>
-
-    <style name="ShareableTheme" parent="MainTheme">
-        <item name="android:actionBarStyle">@style/ShareableTheme.ActionBar</item>
-    </style>
-
-    <style name="StartTheme.ActionBar" parent="android:Theme.DeviceDefault">
-        <item name="android:background">@color/primaryColor</item>
-        <item name="android:titleTextStyle">@style/MainTheme.ActionBar.Title</item>
-        <item name="android:title">@string/app_name</item>
-        <item name="android:elevation">4dp</item>
-        <item name="android:displayOptions">useLogo|showHome|showTitle</item>
-        <item name="android:logo">@drawable/start_menu_actionbar_logo</item>
-    </style>
-
-    <style name="MainTheme.ActionBar" parent="android:Theme.DeviceDefault.Light.DarkActionBar">
-        <item name="android:background">@color/primaryColor</item>
-        <item name="android:titleTextStyle">@style/MainTheme.ActionBar.Title</item>
-        <item name="android:elevation">4dp</item>
-        <item name="android:displayOptions">homeAsUp|showTitle</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back_white_36dp</item>
-    </style>
-
-    <style name="ShareableTheme.ActionBar" parent="MainTheme.ActionBar">
-        <item name="android:actionBarWidgetTheme">@style/MainTheme.ActionBar.Menu</item>
-    </style>
-
-    <style name="SettingsTheme.ActionBar" parent="MainTheme.ActionBar">
-        <item name="android:title">@string/buttonStartMenuSettings</item>
-    </style>
-
-
-    <style name="MainTheme.ActionBar.Title" parent="android:TextAppearance.DeviceDefault.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textSize">26sp</item>
-    </style>
-
-    <style name="MainTheme.Button" parent="android:Widget.DeviceDefault.Button">
-        <item name="android:elevation">2dp</item>
-        <item name="android:background">@color/primaryLightColor</item>
-        <item name="android:textColor">@color/colorWhite</item>
-    </style>
-
-    <style name="MainTheme.Text" parent="android:Widget.DeviceDefault.Light.TextView">
-    </style>
-
-    <style name="MainTheme.Dialog" parent="android:Theme.DeviceDefault.Light.Dialog">
-    </style>
-
-    <style name="MainTheme.ActionBar.Menu" parent="android:Widget.DeviceDefault.Light.ActionBar">
-        <item name="actionModeShareDrawable">@drawable/ic_share_white_24dp</item>
-    </style>
 </resources>

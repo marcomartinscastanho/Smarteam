@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:background="@color/default_background">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".RankingActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="@dimen/ranking_margins"
-        android:padding="@dimen/ranking_margins">
-        <TextView android:id="@+id/ranking_header_position"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/primaryColor"
-                  android:textColor="@color/colorWhite"
-                  android:maxLines="1"
-                  android:text="@string/rankingHeaderRank"
-                  android:textSize="@dimen/ranking_header_text_size"/>
-        <TextView android:id="@+id/ranking_header_name"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="5"
-                  android:layout_marginStart="@dimen/ranking_margins"
-                  android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/primaryColor"
-                  android:textColor="@color/colorWhite"
-                  android:maxLines="1"
-                  android:text="@string/rankingHeaderName"
-                  android:textSize="@dimen/ranking_header_text_size"/>
-        <TextView android:id="@+id/ranking_header_games"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:layout_marginStart="@dimen/ranking_margins"
-                  android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/primaryColor"
-                  android:textColor="@color/colorWhite"
-                  android:maxLines="1"
-                  android:text="@string/rankingHeaderGames"
-                  android:textSize="@dimen/ranking_header_text_size"/>
-        <TextView android:id="@+id/ranking_header_score"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:layout_marginStart="@dimen/ranking_margins"
-                  android:gravity="center_horizontal|center_vertical"
-                  android:background="@color/primaryColor"
-                  android:textColor="@color/colorWhite"
-                  android:maxLines="1"
-                  android:text="@string/rankingHeaderScore"
-                  android:textSize="@dimen/ranking_header_text_size"/>
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp">
+
+        <TextView
+            android:id="@+id/playerRank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="#"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/playerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="6"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="Player"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/playerMatches"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="M"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/playerScore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:text="S"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
+
     <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_margin="@dimen/ranking_margins"
-        android:dividerHeight="1dp"
-        android:divider="@null"
-        android:id="@android:id/list" />
+        android:id="@+id/rankingListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1" />
 </LinearLayout>

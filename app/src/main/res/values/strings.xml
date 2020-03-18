@@ -1,154 +1,24 @@
 <resources>
-    <string name="app_name" translatable="false">Smarteam</string>
-
-    <!-- Activities Names -->
-    <string name="title_activity_splash">ActivitySplash</string>
-    <string name="title_activity_start">ActivityStart</string>
-    <string name="title_activity_team">ActivityTeam</string>
-    <string name="title_activity_edit">Edit</string>
-    <string name="title_activity_results">Results</string>
-    <string name="title_activity_ranking">Ranking</string>
-    <string name="title_activity_lineups">Lineup</string>
-    <string name="title_activity_statistics">Statistics</string>
-    <string name="splash_loading">Loading</string>
-
-    <!-- Buttons text -->
-    <string name="buttonStartMenuLoad">Open</string>
-    <string name="buttonStartMenuCreate">New</string>
-    <string name="buttonStartMenuDelete">Delete</string>
-    <string name="buttonStartMenuSettings">Settings</string>
-    <string name="buttonTeamResults">Results</string>
-    <string name="buttonTeamRanking">Ranking</string>
-    <string name="buttonTeamLineups">Lineups</string>
-    <string name="buttonTeamStatistics">Statistics</string>
-    <string name="buttonTeamEdit">Edit</string>
-    <string name="buttonEditRenameTeam">Rename Team</string>
-    <string name="buttonEditAddPlayer">Add Player</string>
-    <string name="buttonEditRenamePlayer">Rename Player</string>
-    <string name="buttonEditDeletePlayer">Delete Player</string>
-    <string name="buttonResultsAdd">Add</string>
-    <string name="buttonResultsView">View</string>
-    <string name="buttonResultsEdit">Edit</string>
-    <string name="buttonResultsDelete">Delete</string>
-    <string name="buttonMenuShare">Share</string>
-    <string name="rankingHeaderRank">RANK</string>
-    <string name="rankingHeaderName">PLAYER</string>
-    <string name="rankingHeaderGames">GAMES</string>
-    <string name="rankingHeaderScore">SCORE</string>
-    <string name="lineups_activity_vs">vs</string>
-
-    <!-- Toasts -->
-    <!--- Settings -->
-    <string name="err_points_win_not_larger_than_draw">Points per Win must be larger than points per Draw</string>
-    <string name="err_points_draw_smaller_than_short_absence">Points per Draw must not be smaller than points per Short Absence</string>
-    <string name="err_points_draw_not_larger_than_defeat">Points per Draw must be larger than points per Defeat</string>
-    <string name="err_points_draw_not_larger_than_zero">Points per Draw must be larger than 0</string>
-    <string name="err_points_draw_not_smaller_than_win">Points per Draw must be smaller than points per Win</string>
-    <string name="err_k_smaller_than_one">The Weight Coefficient must not be smaller than 1.0</string>
-    <string name="err_points_defeat_not_smaller_than_draw">Points per Defeat must be smaller than points per Draw</string>
-    <string name="err_points_defeat_larger_than_zero">Points per Defeat must not be larger than 0</string>
-    <string name="err_points_short_absence_smaller_than_medium">Points per Short Absence must not be smaller than points per Medium</string>
-    <string name="err_points_short_absence_larger_than_draw">Points per Short Absence must not be larger than points per Draw</string>
-    <string name="err_points_medium_absence_smaller_than_long">Points per Medium Absence must not be smaller than points per Long</string>
-    <string name="err_points_medium_absence_larger_than_short">Points per Medium Absence must not be larger than points per Short</string>
-    <string name="err_points_long_absence_larger_than_medium">Points per Long Absence must not be larger than points per Medium</string>
-    <string name="err_long_absence_duration_smaller_than_medium">Long Absence must not be smaller than Medium Absence</string>
-    <string name="err_medium_absence_duration_larger_than_long">Medium Absence must not be larger than Long Absence</string>
-    <string name="err_medium_absence_duration_smaller_than_zero">Medium Absence must not be smaller than 0</string>
-    <!--- Teams -->
-    <string name="toastNoTeamsInit">Start by creating a New team</string>
-    <string name="toastNoTeamsToDelete">There are no Teams to delete</string>
-    <string name="toastTeamNameTooShort">That name is too short</string>
-    <string name="toastTeamNameTooLong">That name is too long</string>
-    <string name="toastTeamAlreadyExists">That name is already in use</string>
-    <string name="toastSuccessfullyDeletedTeamPrefix">Deleted Team&#160;</string>
-    <string name="toastSuccessfullyDeletedTeamSuffix"/>
-    <string name="toastFailedToDeleteTeamPrefix">Failed to Delete Team&#160;</string>
-    <string name="toastFailedToDeleteTeamSuffix"/>
-    <string name="toastNoTeamsToLoad">There are no Teams to open</string>
-    <string name="toastFailedToLoadTeam">Failed to Open team</string>
-    <string name="toastNotEnoughPlayersInTeam">Not enough Players in the Team. Minimum is&#160;</string>
-    <!--- Players -->
-    <string name="toastNoPlayersInitPrefix">Add at least&#160;</string>
-    <string name="toastNoPlayersInitSuffix">&#160;Players to your Team</string>
-    <string name="toastPlayerAlreadyExists">There is already a player with that name in this team</string>
-    <string name="toastPlayerNameTooShort">That Player name is too short</string>
-    <string name="toastPlayerNameTooLong">That Player name is too long</string>
-    <string name="toastNoPlayers">This Team has no Players!</string>
-    <string name="toastNoMatches">This Team has no Games played!</string>
-    <string name="toastSuccessfullyDeletedPlayerPrefix">Deleted Player&#160;</string>
-    <string name="toastSuccessfullyDeletedPlayerSuffix"/>
-    <string name="toastFailedToDeletePlayerPrefix">Failed to delete Player&#160;</string>
-    <string name="toastFailedToDeletePlayerSuffix"/>
-    <string name="toastNotEnoughPlayersSelected">Not enough Players Selected. Minimum is&#160;</string>
-    <string name="toastTooManyPlayersSelected">Too many Players selected. Maximum is&#160;</string>
-    <!--- Results -->
-    <string name="toastFailedToAddResult">Failed to Add Result</string>
-    <string name="toastTeamsUnbalanced">Teams are unbalanced</string>
-
-    <!-- Dialogs -->
-    <!-- Preferences -->
-    <string name="dialogRestoreDefault">Reset all settings to their initial values\?</string>
-    <!--- Teams -->
-    <string name="dialogCreateTeamTitle">Choose a name for your Team</string>
-    <string name="dialogTeamToDelete">Which Team do you want to delete?</string>
-    <string name="dialogTeamToRename">Which Team do you want to rename?</string>
-    <string name="dialogAreYouSureDeleteTeamPrefix">Are you sure you want to delete Team&#160;</string>
-    <string name="dialogAreYouSureDeleteTeamSuffix" translatable="false">\?</string>
-    <string name="dialogTeamToLoad">Open a Team</string>
-    <string name="dialogNotEnoughPlayersInTeamPrefix">Now, go to Edit and add at least&#160;</string>
-    <string name="dialogNotEnoughPlayersInTeamSuffix">&#160;Players to your Team!</string>
-    <string name="dialogNewTeamCreatedAddPlayersTitle">New Team created!</string>
-    <!--- Players -->
-    <string name="dialogAddPlayerTitle">Choose a name for the new Player</string>
-    <string name="dialogPlayerToDelete">Which Player do you want to delete?</string>
-    <string name="dialogPlayerToRename">Which Player do you want to rename?</string>
-    <string name="dialogAreYouSureDeletePlayerPrefix">Are you sure you want to delete Player&#160;</string>
-    <string name="dialogAreYouSureDeletePlayerSuffix">\?</string>
-    <string name="dialogSelectPlayersDrawAreYouSurePrefix">You selected&#160;</string>
-    <string name="dialogSelectPlayersDrawAreYouSureSuffix">&#160;Players. Are you sure?</string>
-    <!--- Results -->
-    <string name="dialogInsertResult">How was the outcome of the match?</string>
-    <string name="dialogOptionDraw">Draw</string>
-    <string name="dialogOptionWinDefeat">Win:Defeat</string>
-    <string name="dialogSelectPlayersDraw">Select the Players</string>
-    <string name="dialogSelectPlayersWin">Select the winners</string>
-    <string name="dialogSelectPlayersDefeat">Select the losers</string>
-    <string name="dialogSelectPlayersWinLoseAreYouSurePrefix">You played a&#160;</string>
-    <string name="dialogSelectPlayersWinLoseAreYouSureSuffix">&#160;match. Are you sure?</string>
-    <string name="dialogSelectPlayersLineupsAreYouSurePrefix">You selected&#160;</string>
-    <string name="dialogSelectPlayersLineupsAreYouSureSuffix">&#160;Players. Are you sure?</string>
-
-    <!-- Preferences -->
-    <string name="pref_category_scores_title">Scores</string>
-    <string name="pref_category_absences_title">Absences Duration</string>
-    <string name="pref_category_model_title">Model</string>
-    <string name="pref_category_default_title">Default</string>
-    <string name="pref_title_win_score">Win</string>
-    <string name="pref_title_draw_score">Draw</string>
-    <string name="pref_title_defeat_score">Defeat</string>
-    <string name="pref_title_short_absence_score">Short Absence</string>
-    <string name="pref_title_medium_absence_score">Medium Absence</string>
-    <string name="pref_title_long_absence_score">Long Absence</string>
-    <string name="pref_title_medium_absence_duration">Medium Absence</string>
-    <string name="pref_title_long_absence_duration">Long Absence</string>
-    <string name="pref_title_k">Weight Coefficient</string>
-    <string name="pref_title_restore_default">Restore Default</string>
-    <string name="pref_summary_medium_absence_duration">Number of absence matches that sets the line between Short and Medium Absence</string>
-    <string name="pref_summary_long_absence_duration">Number of absence matches that sets the line between Medium and Long Absence</string>
-    <string name="pref_summary_k">The relation between the weights of 2 consecutive matches</string>
-    <string name="pref_summary_default">Reset all settings to their default values.</string>
-
-    <!-- Statistics -->
-    <string name="statistics_most_games">Most Games:</string>
-    <string name="statistics_most_wins">Most Wins:</string>
-    <string name="statistics_most_draws">Most Draws:</string>
-    <string name="statistics_most_defeats">Most Defeats:</string>
-    <string name="statistics_most_absences">Most Absences:</string>
-    <string name="statistics_highest_win_percentage">Highest Win Percentage:</string>
-    <string name="statistics_most_wins_row">Current Most Wins in a row:</string>
-    <string name="statistics_current_most_wins_row">Current Most Wins in a row:</string>
-    <string name="statistics_most_defeats_row">Current Most Defeats in a row:</string>
-    <string name="statistics_current_most_defeats_row">Current Most Defeats in a row:</string>
-    <string name="statistics_current_most_absences_row">Current Most Absences in a row:</string>
+    <string name="app_name">Smarteam</string>
+    <string name="openTeamButton">Open Team</string>
+    <string name="newTeamButton">New Team</string>
+    <string name="deleteTeamButton">Delete Team</string>
+    <string name="newTeamDialog">New Team</string>
+    <string name="openTeamDialog">Open Team</string>
+    <string name="addResultButton">Add Result</string>
+    <string name="rankingButton">Ranking</string>
+    <string name="lineupButton">Lineup</string>
+    <string name="statisticsButton">Statistics</string>
+    <string name="editTeamButton">Edit Team</string>
+    <string name="resultTypeDialog">What type of result?</string>
+    <string name="drawResult">Draw</string>
+    <string name="winDefeatResult">Win:Defeat</string>
+    <string name="drawPlayersSelectionTitle">Select the players</string>
+    <string name="renameTeamButton">Rename Team</string>
+    <string name="addPlayerButton">Add Player</string>
+    <string name="renamePlayerButton">Rename Player</string>
+    <string name="deletePlayerButton">Delete Player</string>
+    <string name="newPlayerDialog">New Player</string>
+    <string name="winnersSelectionTitle">Select the winners</string>
+    <string name="losersSelectionTitle">Select the losers</string>
 </resources>
