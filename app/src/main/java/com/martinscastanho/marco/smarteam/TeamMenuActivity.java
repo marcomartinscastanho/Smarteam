@@ -34,12 +34,7 @@ public class TeamMenuActivity extends AppCompatActivity {
 
     public void addResultButtonClick(View view){
         final ArrayList<String> playersList = db.getPlayersNames(teamId);
-        if(playersList.isEmpty()){
-            Toast.makeText(TeamMenuActivity.this, "Add at least 4 players", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(playersList.size() < 4){
-            Toast.makeText(TeamMenuActivity.this, String.format("Add %s players more", 4 - playersList.size()), Toast.LENGTH_SHORT).show();
+        if(isPlayersListTooShort(playersList)){
             return;
         }
 
@@ -62,7 +57,7 @@ public class TeamMenuActivity extends AppCompatActivity {
             drawAlert.setMultiChoiceItems(choiceList, isSelectedArray, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                    if(getNumberSelected(isSelectedArray) >= 4){
+                    if(getNumberSelected(isSelectedArray) >= getResources().getInteger(R.integer.min_players_per_game)){
                         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
                     else{
@@ -79,7 +74,7 @@ public class TeamMenuActivity extends AppCompatActivity {
                     int numPlayersSelected = getNumberSelected(isSelectedArray);
 
                     final ArrayList<String> selectedPlayers = new ArrayList<>();
-                    for(int i=0; i<isSelectedArray.length; i++){
+                    for(int i = 0; i < isSelectedArray.length; i++){
                         if(isSelectedArray[i])
                             selectedPlayers.add(playersList.get(i));
                     }
@@ -120,7 +115,7 @@ public class TeamMenuActivity extends AppCompatActivity {
             winAlert.setMultiChoiceItems(choiceWinnersList, isSelectedWinnersArray, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                    if(getNumberSelected(isSelectedWinnersArray) >= 2){
+                    if(getNumberSelected(isSelectedWinnersArray) >= getResources().getInteger(R.integer.min_players_per_game) / 2){
                         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
                     else{
@@ -236,8 +231,7 @@ public class TeamMenuActivity extends AppCompatActivity {
     }
 
     // HELPERS
-
-    public static int getNumberSelected(boolean[] selectedArray){
+    private int getNumberSelected(boolean[] selectedArray){
         int numPlayersSelected = 0;
         for (boolean isSelected : selectedArray) {
             numPlayersSelected += (isSelected ? 1 : 0);
@@ -245,4 +239,16 @@ public class TeamMenuActivity extends AppCompatActivity {
         return numPlayersSelected;
     }
 
+    private boolean isPlayersListTooShort(ArrayList<String> playersList){
+        if(playersList.isEmpty()){
+            Toast.makeText(this, String.format("Add at least %s players", getResources().getInteger(R.integer.min_players_per_game)), Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if(playersList.size() < 4){
+            Toast.makeText(this, String.format("Add %s players more", getResources().getInteger(R.integer.min_players_per_game) - playersList.size()), Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return false;
+    }
 }
