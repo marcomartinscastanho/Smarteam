@@ -119,7 +119,7 @@ public class DataBase {
         }
     }
 
-    public static class GetDataBaseTask extends AsyncTask<DataBaseHelper, Void, SQLiteDatabase> {
+    private static class GetDataBaseTask extends AsyncTask<DataBaseHelper, Void, SQLiteDatabase> {
         @Override
         protected SQLiteDatabase doInBackground(DataBaseHelper... dataBaseHelpers) {
             return dataBaseHelpers[0].getWritableDatabase();
@@ -127,6 +127,7 @@ public class DataBase {
 
         @Override
         protected void onPostExecute(SQLiteDatabase sqLiteDatabase) {
+            super.onPostExecute(sqLiteDatabase);
             db = sqLiteDatabase;
         }
     }
@@ -322,7 +323,7 @@ public class DataBase {
         }
     }
 
-    private ArrayList<Integer> getPlayersIdsFromNames(ArrayList<String> playersNames){
+    public ArrayList<Integer> getPlayersIdsFromNames(ArrayList<String> playersNames){
         ArrayList<Integer> ids = new ArrayList<>();
         if(playersNames != null){
             for(String playerName : playersNames){

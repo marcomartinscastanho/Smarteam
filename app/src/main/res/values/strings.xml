@@ -21,4 +21,6 @@
     <string name="newPlayerDialog">New Player</string>
     <string name="winnersSelectionTitle">Select the winners</string>
     <string name="losersSelectionTitle">Select the losers</string>
+    <string name="player_map_id_key">id</string>
+    <string name="player_map_score_key">score</string>
 </resources>
