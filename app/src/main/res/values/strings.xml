@@ -25,4 +25,7 @@
     <string name="player_map_score_key">score</string>
     <string name="deleteTeamDialog">Delete Team</string>
     <string name="deletePlayerDialog">Delete Player</string>
+    <string name="renameTeamDialog">Rename the Team</string>
+    <string name="renamePlayerDialog">Rename the Player</string>
+    <string name="selectPlayerDialog">Select the Player</string>
 </resources>

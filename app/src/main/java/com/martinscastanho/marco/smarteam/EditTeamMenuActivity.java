@@ -37,14 +37,14 @@ public class EditTeamMenuActivity extends AppCompatActivity {
     }
 
     public void renameTeam(View view){
-        AlertDialog.Builder newTeamAlert = new AlertDialog.Builder(this);
-        final EditText newTeamEditText = new EditText(this);
-        newTeamAlert.setTitle(getResources().getString(R.string.newTeamDialog));
-        newTeamAlert.setView(newTeamEditText);
-        newTeamAlert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+        AlertDialog.Builder renameTeamAlert = new AlertDialog.Builder(this);
+        final EditText renameTeamEditText = new EditText(this);
+        renameTeamAlert.setTitle(getResources().getString(R.string.renameTeamDialog));
+        renameTeamAlert.setView(renameTeamEditText);
+        renameTeamAlert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String teamName = newTeamEditText.getText().toString();
+                String teamName = renameTeamEditText.getText().toString();
 
                 if(teamName.length() < getResources().getInteger(R.integer.min_name_length)){
                     Toast.makeText(EditTeamMenuActivity.this, "Name is too short", Toast.LENGTH_SHORT).show();
@@ -69,7 +69,7 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                 }
             }
         });
-        newTeamAlert.show();
+        renameTeamAlert.show();
     }
 
     public void addPlayer(View view){
@@ -103,7 +103,51 @@ public class EditTeamMenuActivity extends AppCompatActivity {
     }
 
     public void renamePlayer(View view){
-        // TODO: this
+        final ArrayList<String> playerList = db.getPlayersNames(teamId);
+        if(playerList.isEmpty()){
+            Toast.makeText(EditTeamMenuActivity.this, "The team has no players", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final String[] choiceList = playerList.toArray(new String[0]);
+        AlertDialog.Builder renamePlayerAlert = new AlertDialog.Builder(this);
+        renamePlayerAlert.setTitle(getResources().getString(R.string.selectPlayerDialog));
+        renamePlayerAlert.setItems(choiceList, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("Rename Player", Integer.toString(which));
+                final String playerName = playerList.get(which);
+
+                AlertDialog.Builder renamePlayerAlert = new AlertDialog.Builder(EditTeamMenuActivity.this);
+                final EditText renamePlayerEditText = new EditText(EditTeamMenuActivity.this);
+                renamePlayerAlert.setTitle(getResources().getString(R.string.renamePlayerDialog));
+                renamePlayerAlert.setView(renamePlayerEditText);
+                renamePlayerAlert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String newPlayerName = renamePlayerEditText.getText().toString();
+
+                        if(newPlayerName.length() < getResources().getInteger(R.integer.min_name_length)){
+                            Toast.makeText(EditTeamMenuActivity.this, "Name is too short", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(newPlayerName.length() > getResources().getInteger(R.integer.max_name_length)){
+                            Toast.makeText(EditTeamMenuActivity.this, "Name is too long", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        try{
+                            db.updatePlayerName(db.getPlayerId(playerName, teamId), newPlayerName);
+                            Toast.makeText(EditTeamMenuActivity.this, "Player name updated!", Toast.LENGTH_SHORT).show();
+                        }
+                        catch(SQLException e){
+                            Toast.makeText(EditTeamMenuActivity.this, "Invalid Player Name", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                renamePlayerAlert.show();
+            }
+        });
+        renamePlayerAlert.show();
     }
 
     public void deletePlayer(View view){

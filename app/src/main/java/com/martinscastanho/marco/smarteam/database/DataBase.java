@@ -299,6 +299,16 @@ public class DataBase {
         }
     }
 
+    public void updatePlayerName(Integer playerId, String playerName) throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(Player.COLUMN_NAME_NAME, playerName);
+        String selection = Player._ID + " = ?";
+        String[] selectionArgs = {playerId.toString()};
+        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        if(count <= 0)
+            throw new SQLException();
+    }
+
     public ArrayList<String> getPlayersNames(Integer teamId){
         ArrayList<String> playerList = new ArrayList<>();
         String[] projection = {Player.COLUMN_NAME_NAME};
@@ -722,7 +732,6 @@ public class DataBase {
         String[] selectionArgs = {playerId.toString()};
         db.delete(Result.TABLE_NAME, selection, selectionArgs);
     }
-
 
     // HELPERS
     enum ResultType {
