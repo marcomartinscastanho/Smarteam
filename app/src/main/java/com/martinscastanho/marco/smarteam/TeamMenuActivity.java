@@ -73,6 +73,8 @@ public class TeamMenuActivity extends AppCompatActivity {
             drawAlert.setMultiChoiceItems(choiceList, isSelectedArray, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    ((AlertDialog)dialog).setTitle(getResources().getString(R.string.drawPlayersSelectionTitle) + String.format(": %s selected", getNumberSelected(isSelectedArray)));
+
                     if(getNumberSelected(isSelectedArray) >= getResources().getInteger(R.integer.min_players_per_game)){
                         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
@@ -131,6 +133,8 @@ public class TeamMenuActivity extends AppCompatActivity {
             winAlert.setMultiChoiceItems(choiceWinnersList, isSelectedWinnersArray, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    ((AlertDialog)dialog).setTitle(getResources().getString(R.string.drawPlayersSelectionTitle) + String.format(": %s selected", getNumberSelected(isSelectedWinnersArray)));
+
                     if(getNumberSelected(isSelectedWinnersArray) >= getResources().getInteger(R.integer.min_players_per_game) / 2){
                         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
@@ -167,6 +171,8 @@ public class TeamMenuActivity extends AppCompatActivity {
                     defeatAlert.setMultiChoiceItems(choiceLosersList, isSelectedLosersArray, new DialogInterface.OnMultiChoiceClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                            ((AlertDialog)dialog).setTitle(getResources().getString(R.string.drawPlayersSelectionTitle) + String.format(": %s selected", getNumberSelected(isSelectedLosersArray)));
+
                             if(getNumberSelected(isSelectedLosersArray) >= numWinnersSelected-1 && getNumberSelected(isSelectedLosersArray) <= numWinnersSelected+1){
                                 ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                             }
@@ -223,6 +229,11 @@ public class TeamMenuActivity extends AppCompatActivity {
     }
 
     public void showRanking(View view){
+        final ArrayList<String> playersList = db.getPlayersNames(teamId);
+        if(playersList.isEmpty()){
+            Toast.makeText(this, "This team has no players", Toast.LENGTH_SHORT).show();
+            return;
+        }
         callRankingActivity();
     }
 
