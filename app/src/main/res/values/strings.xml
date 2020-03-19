@@ -23,4 +23,6 @@
     <string name="losersSelectionTitle">Select the losers</string>
     <string name="player_map_id_key">id</string>
     <string name="player_map_score_key">score</string>
+    <string name="deleteTeamDialog">Delete Team</string>
+    <string name="deletePlayerDialog">Delete Player</string>
 </resources>

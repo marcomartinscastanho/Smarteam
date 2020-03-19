@@ -81,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
     public void deleteTeam(View view){
         final ArrayList<String> teamList = db.getTeamsNames();
         if(teamList.isEmpty()){
-            Toast.makeText(MainActivity.this, "Not teams to show", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "There are no teams", Toast.LENGTH_SHORT).show();
             return;
         }
 
         final String[] choiceList = teamList.toArray(new String[0]);
         AlertDialog.Builder deleteTeamAlert = new AlertDialog.Builder(this);
-        deleteTeamAlert.setTitle(getResources().getString(R.string.openTeamDialog));
+        deleteTeamAlert.setTitle(getResources().getString(R.string.deleteTeamDialog));
         deleteTeamAlert.setItems(choiceList, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

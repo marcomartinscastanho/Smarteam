@@ -205,12 +205,6 @@ public class DataBase {
         db.delete(Player.TABLE_NAME, selection, selectionArgs);
     }
 
-    private void deleteTeamResults(Integer teamId){
-        String selection = Result.COLUMN_NAME_TEAM_ID + " = ?";
-        String[] selectionArgs = {teamId.toString()};
-        db.delete(Result.TABLE_NAME, selection, selectionArgs);
-    }
-
     private Integer getTeamNumMatches(Integer teamId) {
         String[] projection = {Team.COLUMN_NAME_NUM_MATCHES};
         String selection = Team._ID + " = ?";
@@ -260,6 +254,16 @@ public class DataBase {
         setTeamNumMatches(teamId, getTeamNumMatches(teamId) + 1);
     }
 
+    public void updateTeamName(Integer teamId, String teamName) throws SQLException {
+        ContentValues values = new ContentValues();
+        values.put(Team.COLUMN_NAME_NAME, teamName);
+        String selection = Team._ID + " = ?";
+        String[] selectionArgs = {teamId.toString()};
+        int count = db.update(Team.TABLE_NAME, values, selection, selectionArgs);
+        if(count <= 0)
+            throw new SQLException();
+    }
+
     // PLAYER
     public void insertPlayer(String name, Integer teamId) {
         ContentValues values = new ContentValues();
@@ -275,6 +279,24 @@ public class DataBase {
         long tsLong = System.currentTimeMillis() / 1000;
         values.put(Player.COLUMN_NAME_UPDATE_DATE, Long.toString(tsLong));
         db.insertOrThrow(Player.TABLE_NAME, null, values);
+    }
+
+    public void deletePlayer(Integer playerId){
+        db.beginTransaction();
+        try{
+            // delete player
+            String selection = Player._ID + " = ?";
+            String[] selectionArgs = {playerId.toString()};
+            db.delete(Player.TABLE_NAME, selection, selectionArgs);
+
+            // delete player matches
+            deletePlayerResults(playerId);
+
+            db.setTransactionSuccessful();
+        }
+        finally {
+            db.endTransaction();
+        }
     }
 
     public ArrayList<String> getPlayersNames(Integer teamId){
@@ -310,10 +332,10 @@ public class DataBase {
         return playerIdList;
     }
 
-    private Integer getPlayerId(String name){
+    public Integer getPlayerId(String playerName, Integer teamId){
         String[] projection = {Player._ID};
-        String selection = Player.COLUMN_NAME_NAME + " = ?";
-        String[] selectionArgs = {name};
+        String selection = Player.COLUMN_NAME_NAME + " = ? AND " + Player.COLUMN_NAME_TEAM_ID + " = ?";
+        String[] selectionArgs = {playerName, teamId.toString()};
         Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             int playerId = c.getInt(c.getColumnIndexOrThrow(Player._ID));
@@ -325,11 +347,11 @@ public class DataBase {
         }
     }
 
-    private ArrayList<Integer> getPlayersIdsFromNames(ArrayList<String> playersNames){
+    private ArrayList<Integer> getPlayersIdsFromNames(ArrayList<String> playersNames, Integer teamId){
         ArrayList<Integer> ids = new ArrayList<>();
         if(playersNames != null){
             for(String playerName : playersNames){
-                ids.add(getPlayerId(playerName));
+                ids.add(getPlayerId(playerName, teamId));
             }
         }
         return ids;
@@ -635,9 +657,9 @@ public class DataBase {
     // RESULTS
     public void addMatch(Integer teamId, ArrayList<String> drawPlayersNames, ArrayList<String> winnersNames, ArrayList<String> losersNames){
         int matchday = getTeamNumMatches(teamId) + 1;
-        ArrayList<Integer> drawPlayers = getPlayersIdsFromNames(drawPlayersNames);
-        ArrayList<Integer> winners = getPlayersIdsFromNames(winnersNames);
-        ArrayList<Integer> losers = getPlayersIdsFromNames(losersNames);
+        ArrayList<Integer> drawPlayers = getPlayersIdsFromNames(drawPlayersNames, teamId);
+        ArrayList<Integer> winners = getPlayersIdsFromNames(winnersNames, teamId);
+        ArrayList<Integer> losers = getPlayersIdsFromNames(losersNames, teamId);
         db.beginTransaction();
         try {
             for(int playerId : getPlayersIds(teamId)){
@@ -688,6 +710,19 @@ public class DataBase {
         values.put(Result.COLUMN_NAME_MATCHDAY_DATE, tsLong);
         db.insertOrThrow(Result.TABLE_NAME, null, values);
     }
+
+    private void deleteTeamResults(Integer teamId){
+        String selection = Result.COLUMN_NAME_TEAM_ID + " = ?";
+        String[] selectionArgs = {teamId.toString()};
+        db.delete(Result.TABLE_NAME, selection, selectionArgs);
+    }
+
+    private void deletePlayerResults(Integer playerId){
+        String selection = Result.COLUMN_NAME_PLAYER_ID + " = ?";
+        String[] selectionArgs = {playerId.toString()};
+        db.delete(Result.TABLE_NAME, selection, selectionArgs);
+    }
+
 
     // HELPERS
     enum ResultType {

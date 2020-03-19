@@ -2,13 +2,13 @@ package com.martinscastanho.marco.smarteam;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.martinscastanho.marco.smarteam.database.DataBase;
@@ -32,6 +32,21 @@ public class TeamMenuActivity extends AppCompatActivity {
         db = new DataBase(getApplicationContext());
         teamId = db.getTeamId(teamName);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String newTeamName = data.getStringExtra("teamName");
+                if (newTeamName != null) {
+                    setTitle(newTeamName);
+                }
+            }
+        }
+    }
+
 
     public void addResultButtonClick(View view){
         final ArrayList<String> playersList = db.getPlayersNames(teamId);
@@ -259,13 +274,6 @@ public class TeamMenuActivity extends AppCompatActivity {
                 confirmResultAlert.show();
             }
         });
-//        lineupAlert.setNeutralButton(android.R.string.selectAll, new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int id) {
-//                    for (int i = 0; i < isSelectedArray.length; i++) {
-//                        isSelectedArray[i] = true;
-//                    }
-//                }
-//        });
         AlertDialog lineupDialog = lineupAlert.create();
         lineupDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -283,7 +291,7 @@ public class TeamMenuActivity extends AppCompatActivity {
     public void editTeam(View view){
         Intent editTeamMenuIntent = new Intent(getApplicationContext(), EditTeamMenuActivity.class);
         editTeamMenuIntent.putExtra("teamId", teamId);
-        startActivity(editTeamMenuIntent);
+        startActivityForResult(editTeamMenuIntent, 1);
     }
 
     public void callRankingActivity(){
