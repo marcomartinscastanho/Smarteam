@@ -45,11 +45,11 @@ public class RankingActivity extends AppCompatActivity {
         userListView.setAdapter(listAdapter);
     }
 
-    public void headerMatchesLegend(View view){
+    public void matchesHeaderLegend(View view){
         Toast.makeText(RankingActivity.this, "M: Matches played", Toast.LENGTH_SHORT).show();
     }
 
-    public void headerScoreLegend(View view){
+    public void scoreHeaderLegend(View view){
         Toast.makeText(RankingActivity.this, "S: Score", Toast.LENGTH_SHORT).show();
     }
 }

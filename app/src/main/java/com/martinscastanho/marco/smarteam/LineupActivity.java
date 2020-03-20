@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -217,5 +218,21 @@ public class LineupActivity extends AppCompatActivity {
 
         homeSideListView.setAdapter(homeSideListAdapter);
         awaySideListView.setAdapter(awaySideListAdapter);
+    }
+
+    public void homeSideScoreLegend(View view) {
+        Toast.makeText(LineupActivity.this, "Total Score of Home side", Toast.LENGTH_SHORT).show();
+    }
+
+    public void awaySideScoreLegend(View view) {
+        Toast.makeText(LineupActivity.this, "Total Score of Away side", Toast.LENGTH_SHORT).show();
+    }
+
+    public void matchesHeaderLegend(View view){
+        Toast.makeText(LineupActivity.this, "M: Matches played", Toast.LENGTH_SHORT).show();
+    }
+
+    public void scoreHeaderLegend(View view){
+        Toast.makeText(LineupActivity.this, "S: Score", Toast.LENGTH_SHORT).show();
     }
 }
