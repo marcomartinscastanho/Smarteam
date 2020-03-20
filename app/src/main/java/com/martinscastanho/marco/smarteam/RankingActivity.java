@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.martinscastanho.marco.smarteam.database.DataBase;
 
@@ -41,5 +43,13 @@ public class RankingActivity extends AppCompatActivity {
         ListView userListView = findViewById(R.id.rankingListView);
         ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.ranking_row, mCursor, new String[] {DataBase.Player.PLAYERS_RANKING_POSITION, DataBase.Player.COLUMN_NAME_NAME, DataBase.Player.COLUMN_NAME_MATCHES, DataBase.Player.COLUMN_NAME_SCORE}, new int[]{R.id.rankingPlayerRankRow, R.id.rankingPlayerNameRow, R.id.rankingPlayerMatchesRow, R.id.rankingPlayerScoreRow}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         userListView.setAdapter(listAdapter);
+    }
+
+    public void headerMatchesLegend(View view){
+        Toast.makeText(RankingActivity.this, "M: Matches played", Toast.LENGTH_SHORT).show();
+    }
+
+    public void headerScoreLegend(View view){
+        Toast.makeText(RankingActivity.this, "S: Score", Toast.LENGTH_SHORT).show();
     }
 }
