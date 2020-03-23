@@ -10,9 +10,13 @@ import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.martinscastanho.marco.smarteam.database.DataBase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RankingActivity extends AppCompatActivity {
     int teamId;
@@ -45,11 +49,12 @@ public class RankingActivity extends AppCompatActivity {
         userListView.setAdapter(listAdapter);
     }
 
-    public void matchesHeaderLegend(View view){
-        Toast.makeText(RankingActivity.this, "M: Matches played", Toast.LENGTH_SHORT).show();
-    }
+    public void headerLegend(View view){
+        Map<String, String> toasts = new HashMap<>();
+        toasts.put("M", "M: Matches played");
+        toasts.put("S", "S: Score");
 
-    public void scoreHeaderLegend(View view){
-        Toast.makeText(RankingActivity.this, "S: Score", Toast.LENGTH_SHORT).show();
+        String header = String.valueOf(((TextView) view).getText());
+        Toast.makeText(RankingActivity.this, toasts.get(header), Toast.LENGTH_SHORT).show();
     }
 }

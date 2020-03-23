@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".RankingActivity">
+    tools:context=".StatisticActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         android:layout_marginEnd="1dp">
 
         <TextView
-            android:id="@+id/rankingPlayerRankHeader"
+            android:id="@+id/statisticPlayerRankHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
@@ -28,7 +27,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/rankingPlayerNameHeader"
+            android:id="@+id/statisticPlayerNameHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
@@ -40,7 +39,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/rankingPlayerMatchesHeader"
+            android:id="@+id/statisticPlayerMatchesHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="1dp"
@@ -53,7 +52,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/rankingPlayerScoreHeader"
+            android:id="@+id/statisticPlayerScoreHeader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -63,13 +62,13 @@
             android:text="S"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
-
     </LinearLayout>
 
     <ListView
-        android:id="@+id/rankingListView"
+        android:id="@+id/statisticListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="1dp"
         android:layout_weight="1" />
+
 </LinearLayout>
