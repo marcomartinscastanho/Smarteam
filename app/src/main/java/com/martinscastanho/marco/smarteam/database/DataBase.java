@@ -3,6 +3,7 @@ package com.martinscastanho.marco.smarteam.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -25,6 +26,44 @@ public class DataBase {
     public DataBase(Context context) {
         new GetDataBaseTask().execute(new DataBaseHelper(context));
         coefficientsFactory = new CoefficientsFactory();
+    }
+
+    /****************************    DEFINITION OF TABLES SCHEMAS    ******************************/
+
+    public static class Team implements BaseColumns {
+        static final String TABLE_NAME = "team";
+        static final String COLUMN_NAME_NAME = "name";
+        static final String COLUMN_NAME_NUM_MATCHES = "num_matches";
+        static final String COLUMN_NAME_LAST_MATCH_DATE = "last_match";
+        static final String COLUMN_NAME_IS_SCORE_UPDATED = "is_score_updated";
+        static final String COLUMN_NAME_UPDATE_DATE = "update_date";
+    }
+
+    public static class Player implements BaseColumns {
+        static final String TABLE_NAME = "player";
+        public static final String COLUMN_NAME_NAME = "NAME";
+        static final String COLUMN_NAME_TEAM_ID = "TEAM_ID";
+        static final String COLUMN_NAME_WINS = "WINS";
+        static final String COLUMN_NAME_DRAWS = "DRAWS";
+        static final String COLUMN_NAME_DEFEATS = "DEFEATS";
+        public static final String COLUMN_NAME_MATCHES = "MATCHES";
+        static final String COLUMN_NAME_MATCHES_AFTER_DEBUT = "MATCHES_AFTER_DEBUT";
+        static final String COLUMN_NAME_WIN_PERCENTAGE = "WIN_PERCENTAGE";
+        public static final String COLUMN_NAME_SCORE = "SCORE";
+        static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
+
+        public static final String PLAYERS_RANKING_POSITION = "_id";
+        public static final String STATISTIC_NAME = "STAT_NAME";
+        public static final String STATISTIC_VALUE = "STAT_VALUE";
+    }
+
+    public static class Result implements BaseColumns {
+        static final String TABLE_NAME = "INDIVIDUAL_RESULTS";
+        static final String COLUMN_NAME_PLAYER_ID = "PLAYER_ID";
+        static final String COLUMN_NAME_TEAM_ID = "TEAM_ID";
+        static final String COLUMN_NAME_MATCHDAY = "MATCHDAY";
+        static final String COLUMN_NAME_RESULT = "RESULT";
+        static final String COLUMN_NAME_MATCHDAY_DATE = "MATCHDAY_DATE";
     }
 
     /*****************************   SQL CREATE AND DELETE STATEMENTS    **************************/
@@ -54,45 +93,9 @@ public class DataBase {
                     + " PRIMARY KEY (" + Result.COLUMN_NAME_PLAYER_ID + "," + Result.COLUMN_NAME_MATCHDAY + ")" + ")";
     private static final String SQL_DELETE_TABLE_INDIVIDUAL_RESULTS = "DROP TABLE IF EXISTS " + Result.TABLE_NAME;
 
-    /****************************    DEFINITION OF TABLES SCHEMAS    ******************************/
-
-    public static class Team implements BaseColumns {
-        static final String TABLE_NAME = "team";
-        static final String COLUMN_NAME_NAME = "name";
-        static final String COLUMN_NAME_NUM_MATCHES = "num_matches";
-        static final String COLUMN_NAME_LAST_MATCH_DATE = "last_match";
-        static final String COLUMN_NAME_IS_SCORE_UPDATED = "is_score_updated";
-        static final String COLUMN_NAME_UPDATE_DATE = "update_date";
-    }
-
-    public static class Player implements BaseColumns {
-        static final String TABLE_NAME = "player";
-        public static final String COLUMN_NAME_NAME = "NAME";
-        static final String COLUMN_NAME_TEAM_ID = "TEAM_ID";
-        static final String COLUMN_NAME_WINS = "WINS";
-        static final String COLUMN_NAME_DRAWS = "DRAWS";
-        static final String COLUMN_NAME_DEFEATS = "DEFEATS";
-        public static final String COLUMN_NAME_MATCHES = "MATCHES";
-        static final String COLUMN_NAME_MATCHES_AFTER_DEBUT = "MATCHES_AFTER_DEBUT";
-        static final String COLUMN_NAME_WIN_PERCENTAGE = "WIN_PERCENTAGE";
-        public static final String COLUMN_NAME_SCORE = "SCORE";
-        static final String COLUMN_NAME_UPDATE_DATE = "UPDATE_DATE";
-
-        public static final String PLAYERS_RANKING_POSITION = "_id";
-    }
-
-    public static class Result implements BaseColumns {
-        static final String TABLE_NAME = "INDIVIDUAL_RESULTS";
-        static final String COLUMN_NAME_PLAYER_ID = "PLAYER_ID";
-        static final String COLUMN_NAME_TEAM_ID = "TEAM_ID";
-        static final String COLUMN_NAME_MATCHDAY = "MATCHDAY";
-        static final String COLUMN_NAME_RESULT = "RESULT";
-        static final String COLUMN_NAME_MATCHDAY_DATE = "MATCHDAY_DATE";
-    }
-
     /********************************    HELPERS    ***********************************************/
 
-    public class DataBaseHelper extends SQLiteOpenHelper {
+    public static class DataBaseHelper extends SQLiteOpenHelper {
         static final int DATABASE_VERSION = 1;
         static final String DATABASE_NAME = "Smarteam.db";
 
@@ -205,13 +208,13 @@ public class DataBase {
         db.delete(Player.TABLE_NAME, selection, selectionArgs);
     }
 
-    private Integer getTeamNumMatches(Integer teamId) {
+    public int getTeamNumMatches(Integer teamId) {
         String[] projection = {Team.COLUMN_NAME_NUM_MATCHES};
         String selection = Team._ID + " = ?";
         String[] selectionArgs = {teamId.toString()};
         Cursor c = db.query(Team.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
-            Integer numMatches = c.getInt(c.getColumnIndexOrThrow(Team.COLUMN_NAME_NUM_MATCHES));
+            int numMatches = c.getInt(c.getColumnIndexOrThrow(Team.COLUMN_NAME_NUM_MATCHES));
             c.close();
             return numMatches;
         } else {
@@ -262,6 +265,21 @@ public class DataBase {
         int count = db.update(Team.TABLE_NAME, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
+    }
+
+    public Cursor getStatistics(int teamId) {
+        return new MergeCursor(new Cursor[] {
+                getMostWins(teamId),
+                getMostDraws(teamId),
+                getMostDefeats(teamId),
+                getMostMatches(teamId),
+                getHighestWinPercentage(teamId),
+                getLeastAbsences(teamId)//,   // only players who have played already
+//                getLongestWinningStreak(teamId)//,
+//                getCurrentLongestWinningStreak(teamId)//,
+//                getLongestLosingStreak(teamId)//,
+//                getCurrentLongestLosingStreak(teamId)
+        });
     }
 
     // PLAYER
@@ -732,6 +750,49 @@ public class DataBase {
         String[] selectionArgs = {playerId.toString()};
         db.delete(Result.TABLE_NAME, selection, selectionArgs);
     }
+
+    private Cursor getMostWins(Integer teamId){
+        String query = "SELECT "+Player._ID+", 'Most Wins' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_WINS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_WINS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_DEFEATS+" ASC LIMIT 1";
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+//    getMostDraws(teamId),
+
+    private Cursor getMostDraws(Integer teamId){
+        String query = "SELECT "+Player._ID+", 'Most Draws' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_DRAWS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_DRAWS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_DEFEATS+" ASC LIMIT 1";
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getMostDefeats(Integer teamId){
+        String query = "SELECT "+Player._ID+", 'Most Defeats' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_DEFEATS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_DEFEATS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_WINS+" ASC LIMIT 1";
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getMostMatches(Integer teamId){
+        String query = "SELECT "+Player._ID+", 'Most Games' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_MATCHES+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_MATCHES+" DESC, "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+" ASC, "+Player.COLUMN_NAME_WINS+" DESC LIMIT 1";
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getHighestWinPercentage(Integer teamId){
+        String query = "SELECT "+Player._ID+", 'Highest Win %' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", CAST(100*" + Player.COLUMN_NAME_WIN_PERCENTAGE + " AS INTEGER)  || '%'"+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_WIN_PERCENTAGE+" DESC, "+Player.COLUMN_NAME_MATCHES+" DESC, "+Player.COLUMN_NAME_DEFEATS+" ASC LIMIT 1";
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+    private Cursor getLeastAbsences(Integer teamId){
+        String query = "SELECT "+Player._ID+", 'Least Absences' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+"-"+Player.COLUMN_NAME_MATCHES+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? AND "+ Player.COLUMN_NAME_MATCHES +">0 ORDER BY "+Player.STATISTIC_VALUE+" ASC, "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+" DESC, "+Player.COLUMN_NAME_WINS+" DESC LIMIT 1";
+        String[] selectionArgs = {teamId.toString()};
+        return db.rawQuery(query, selectionArgs);
+    }
+
+//    getLongestWinningStreak(teamId),
+//    getCurrentLongestWinningStreak(teamId),
+//    getLongestLosingStreak(teamId),
+//    getCurrentLongestLosingStreak(teamId)
 
     // HELPERS
     enum ResultType {
