@@ -211,10 +211,10 @@ public class LineupActivity extends AppCompatActivity {
         Log.d("awayPlayersIds", String.valueOf(awayPlayersIds));
 
         Cursor mCursor = db.getSideLineup(homePlayersIds);
-        ListAdapter homeSideListAdapter = new SimpleCursorAdapter(this, R.layout.lineup_row_home, mCursor, new String[] {DataBase.Player.COLUMN_NAME_NAME, DataBase.Player.COLUMN_NAME_MATCHES, DataBase.Player.COLUMN_NAME_SCORE}, new int[]{R.id.playerNameRowHome, R.id.playerMatchesRowHome, R.id.playerScoreRowHome}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListAdapter homeSideListAdapter = new SimpleCursorAdapter(this, R.layout.lineup_row_home, mCursor, new String[] {DataBase.Player.COLUMN_NAME, DataBase.Player.COLUMN_MATCHES, DataBase.Player.COLUMN_SCORE}, new int[]{R.id.playerNameRowHome, R.id.playerMatchesRowHome, R.id.playerScoreRowHome}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         mCursor = db.getSideLineup(awayPlayersIds);
-        ListAdapter awaySideListAdapter = new SimpleCursorAdapter(this, R.layout.lineup_row_away, mCursor, new String[] {DataBase.Player.COLUMN_NAME_NAME, DataBase.Player.COLUMN_NAME_MATCHES, DataBase.Player.COLUMN_NAME_SCORE}, new int[]{R.id.playerNameRowAway, R.id.playerMatchesRowAway, R.id.playerScoreRowAway}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListAdapter awaySideListAdapter = new SimpleCursorAdapter(this, R.layout.lineup_row_away, mCursor, new String[] {DataBase.Player.COLUMN_NAME, DataBase.Player.COLUMN_MATCHES, DataBase.Player.COLUMN_SCORE}, new int[]{R.id.playerNameRowAway, R.id.playerMatchesRowAway, R.id.playerScoreRowAway}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         homeSideListView.setAdapter(homeSideListAdapter);
         awaySideListView.setAdapter(awaySideListAdapter);

@@ -45,7 +45,7 @@ public class RankingActivity extends AppCompatActivity {
     private void setLayout(){
         Cursor mCursor = db.getRankingByTeamId(teamId);
         ListView userListView = findViewById(R.id.rankingListView);
-        ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.ranking_row, mCursor, new String[] {DataBase.Player.PLAYERS_RANKING_POSITION, DataBase.Player.COLUMN_NAME_NAME, DataBase.Player.COLUMN_NAME_MATCHES, DataBase.Player.COLUMN_NAME_SCORE}, new int[]{R.id.rankingPlayerRankRow, R.id.rankingPlayerNameRow, R.id.rankingPlayerMatchesRow, R.id.rankingPlayerScoreRow}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.ranking_row, mCursor, new String[] {DataBase.Statistic.ROW, DataBase.Player.COLUMN_NAME, DataBase.Player.COLUMN_MATCHES, DataBase.Player.COLUMN_SCORE}, new int[]{R.id.rankingPlayerRankRow, R.id.rankingPlayerNameRow, R.id.rankingPlayerMatchesRow, R.id.rankingPlayerScoreRow}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         userListView.setAdapter(listAdapter);
     }
 

@@ -39,15 +39,22 @@ public class StatisticsMenuActivity extends AppCompatActivity {
     }
 
     private void setLayout(){
-        Cursor mCursor = db.getStatistics(teamId, DataBase.Statistic.All);
+        Cursor mCursor = db.getStatistics(teamId, DataBase.StatisticName.All);
         ListView userListView = findViewById(R.id.statisticsMenuListView);
-        ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.statistics_menu_row, mCursor, new String[] {DataBase.Player.STATISTIC_NAME, DataBase.Player.COLUMN_NAME_NAME, DataBase.Player.STATISTIC_VALUE}, new int[]{R.id.statisticsMenuRowStatName, R.id.statisticsMenuRowPlayerName, R.id.statisticsMenuRowStatValue}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.statistics_menu_row, mCursor, new String[] {DataBase.Statistic.STATISTIC_NAME, DataBase.Player.COLUMN_NAME, DataBase.Statistic.STATISTIC_VALUE}, new int[]{R.id.statisticsMenuRowStatName, R.id.statisticsMenuRowPlayerName, R.id.statisticsMenuRowStatValue}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         userListView.setAdapter(listAdapter);
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                callStatisticActivity(position);
             }
         });
+    }
+
+    public void callStatisticActivity(Integer iStatistic){
+        Intent statisticIntent = new Intent(getApplicationContext(), StatisticActivity.class);
+        statisticIntent.putExtra("teamId", teamId);
+        statisticIntent.putExtra("iStatistic", iStatistic);
+        startActivity(statisticIntent);
     }
 }
