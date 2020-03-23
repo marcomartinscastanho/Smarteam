@@ -267,19 +267,55 @@ public class DataBase {
             throw new SQLException();
     }
 
-    public Cursor getStatistics(int teamId) {
-        return new MergeCursor(new Cursor[] {
-                getMostWins(teamId),
-                getMostDraws(teamId),
-                getMostDefeats(teamId),
-                getMostMatches(teamId),
-                getHighestWinPercentage(teamId),
-                getLeastAbsences(teamId)//,   // only players who have played already
-//                getLongestWinningStreak(teamId)//,
-//                getCurrentLongestWinningStreak(teamId)//,
-//                getLongestLosingStreak(teamId)//,
-//                getCurrentLongestLosingStreak(teamId)
-        });
+    public Cursor getStatistics(int teamId, Statistic stat) {
+        ArrayList<Cursor> stats = new ArrayList<>();
+
+        switch (stat){
+            case All:
+                stats.add(getMostMatches(teamId, true));
+                stats.add(getMostWins(teamId, true));
+                stats.add(getMostDraws(teamId, true));
+                stats.add(getMostDefeats(teamId, true));
+                stats.add(getHighestWinPercentage(teamId, true));
+                stats.add(getLeastAbsences(teamId, true));
+//                stats.add(getLongestWinningStreak(teamId, true));
+//                stats.add(getCurrentWinningStreak(teamId, true));
+//                stats.add(getLongestLosingStreak(teamId, true));
+//                stats.add(getCurrentLosingStreak(teamId, true));
+                break;
+            case MostMatches:
+                stats.add(getMostMatches(teamId, false));
+                break;
+            case MostWins:
+                stats.add(getMostWins(teamId, false));
+                break;
+            case MostDraws:
+                stats.add(getMostDraws(teamId, false));
+                break;
+            case MostDefeats:
+                stats.add(getMostDefeats(teamId, false));
+                break;
+            case HighestWinPercentage:
+                stats.add(getHighestWinPercentage(teamId, false));
+                break;
+            case LeastAbsences:
+                stats.add(getLeastAbsences(teamId, false));
+                break;
+//            case LongestWinningStreak:
+//                stats.add(getLongestWinningStreak(teamId, false));
+//                break;
+//            case CurrentWinningStreak:
+//                stats.add(getCurrentWinningStreak(teamId, false));
+//                break;
+//            case LongestLosingStreak:
+//                stats.add(getLongestLosingStreak(teamId, false));
+//                break;
+//            case CurrentLosingStreak:
+//                stats.add(getCurrentLosingStreak(teamId, false));
+//                break;
+        }
+
+        return new MergeCursor(stats.toArray(new Cursor[0]));
     }
 
     // PLAYER
@@ -751,48 +787,46 @@ public class DataBase {
         db.delete(Result.TABLE_NAME, selection, selectionArgs);
     }
 
-    private Cursor getMostWins(Integer teamId){
-        String query = "SELECT "+Player._ID+", 'Most Wins' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_WINS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_WINS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_DEFEATS+" ASC LIMIT 1";
+    private Cursor getMostMatches(Integer teamId, boolean isLimit1){
+        String query = "SELECT "+Player._ID+", 'Most Games' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_MATCHES+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_MATCHES+" DESC, "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+" ASC, "+Player.COLUMN_NAME_WINS+" DESC"+ (isLimit1 ? " LIMIT 1" : "");
         String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
-//    getMostDraws(teamId),
-
-    private Cursor getMostDraws(Integer teamId){
-        String query = "SELECT "+Player._ID+", 'Most Draws' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_DRAWS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_DRAWS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_DEFEATS+" ASC LIMIT 1";
+    private Cursor getMostWins(Integer teamId, boolean isLimit1){
+        String query = "SELECT "+Player._ID+", 'Most Wins' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_WINS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_WINS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_DEFEATS+" ASC"+ (isLimit1 ? " LIMIT 1" : "");
         String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
-    private Cursor getMostDefeats(Integer teamId){
-        String query = "SELECT "+Player._ID+", 'Most Defeats' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_DEFEATS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_DEFEATS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_WINS+" ASC LIMIT 1";
+    private Cursor getMostDraws(Integer teamId, boolean isLimit1){
+        String query = "SELECT "+Player._ID+", 'Most Draws' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_DRAWS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_DRAWS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_DEFEATS+" ASC"+ (isLimit1 ? " LIMIT 1" : "");
         String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
-    private Cursor getMostMatches(Integer teamId){
-        String query = "SELECT "+Player._ID+", 'Most Games' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_MATCHES+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_MATCHES+" DESC, "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+" ASC, "+Player.COLUMN_NAME_WINS+" DESC LIMIT 1";
+    private Cursor getMostDefeats(Integer teamId, boolean isLimit1){
+        String query = "SELECT "+Player._ID+", 'Most Defeats' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_DEFEATS+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_DEFEATS+" DESC, "+Player.COLUMN_NAME_MATCHES+" ASC, "+Player.COLUMN_NAME_WINS+" ASC"+ (isLimit1 ? " LIMIT 1" : "");
         String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
-    private Cursor getHighestWinPercentage(Integer teamId){
-        String query = "SELECT "+Player._ID+", 'Highest Win %' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", CAST(100*" + Player.COLUMN_NAME_WIN_PERCENTAGE + " AS INTEGER)  || '%'"+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_WIN_PERCENTAGE+" DESC, "+Player.COLUMN_NAME_MATCHES+" DESC, "+Player.COLUMN_NAME_DEFEATS+" ASC LIMIT 1";
+    private Cursor getHighestWinPercentage(Integer teamId, boolean isLimit1){
+        String query = "SELECT "+Player._ID+", 'Highest Win %' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", CAST(100*" + Player.COLUMN_NAME_WIN_PERCENTAGE + " AS INTEGER)  || '%'"+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? ORDER BY "+Player.COLUMN_NAME_WIN_PERCENTAGE+" DESC, "+Player.COLUMN_NAME_MATCHES+" DESC, "+Player.COLUMN_NAME_DEFEATS+" ASC"+ (isLimit1 ? " LIMIT 1" : "");
         String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
-    private Cursor getLeastAbsences(Integer teamId){
-        String query = "SELECT "+Player._ID+", 'Least Absences' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+"-"+Player.COLUMN_NAME_MATCHES+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? AND "+ Player.COLUMN_NAME_MATCHES +">0 ORDER BY "+Player.STATISTIC_VALUE+" ASC, "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+" DESC, "+Player.COLUMN_NAME_WINS+" DESC LIMIT 1";
+    private Cursor getLeastAbsences(Integer teamId, boolean isLimit1){
+        String query = "SELECT "+Player._ID+", 'Least Absences' AS "+Player.STATISTIC_NAME+", "+Player.COLUMN_NAME_NAME+", "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+"-"+Player.COLUMN_NAME_MATCHES+" AS "+Player.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_NAME_TEAM_ID+" = ? AND "+ Player.COLUMN_NAME_MATCHES +">0 ORDER BY "+Player.STATISTIC_VALUE+" ASC, "+Player.COLUMN_NAME_MATCHES_AFTER_DEBUT+" DESC, "+Player.COLUMN_NAME_WINS+" DESC"+ (isLimit1 ? " LIMIT 1" : "");
         String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
-//    getLongestWinningStreak(teamId),
-//    getCurrentLongestWinningStreak(teamId),
-//    getLongestLosingStreak(teamId),
-//    getCurrentLongestLosingStreak(teamId)
+// TODO:   getLongestWinningStreak(teamId),
+// TODO:   getCurrentWinningStreak(teamId),
+// TODO:   getLongestLosingStreak(teamId),
+// TODO:   getCurrentLosingStreak(teamId)
 
     // HELPERS
     enum ResultType {
@@ -804,6 +838,23 @@ public class DataBase {
         LongAbsence("*");
 
         ResultType(String r){
+        }
+    }
+
+    public enum Statistic {
+        All(-1),
+        MostMatches(0),
+        MostWins(1),
+        MostDraws(2),
+        MostDefeats(3),
+        HighestWinPercentage(4),
+        LeastAbsences(5),
+        LongestWinningStreak(6),
+        CurrentWinningStreak(7),
+        LongestLosingStreak(8),
+        CurrentLosingStreak(9);
+
+        Statistic(Integer s){
         }
     }
 

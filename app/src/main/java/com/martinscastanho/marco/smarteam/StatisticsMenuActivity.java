@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -37,9 +39,15 @@ public class StatisticsMenuActivity extends AppCompatActivity {
     }
 
     private void setLayout(){
-        Cursor mCursor = db.getStatistics(teamId);
+        Cursor mCursor = db.getStatistics(teamId, DataBase.Statistic.All);
         ListView userListView = findViewById(R.id.statisticsMenuListView);
         ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.statistics_menu_row, mCursor, new String[] {DataBase.Player.STATISTIC_NAME, DataBase.Player.COLUMN_NAME_NAME, DataBase.Player.STATISTIC_VALUE}, new int[]{R.id.statisticsMenuRowStatName, R.id.statisticsMenuRowPlayerName, R.id.statisticsMenuRowStatValue}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         userListView.setAdapter(listAdapter);
+        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 }
