@@ -41,7 +41,7 @@ public class StatisticsMenuActivity extends AppCompatActivity {
     private void setLayout(){
         Cursor mCursor = db.getStatistics(teamId);
         ListView userListView = findViewById(R.id.statisticsMenuListView);
-        ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.statistics_menu_row, mCursor, new String[] {DataBase.Statistic.STATISTIC_NAME, DataBase.Player.COLUMN_NAME, DataBase.Statistic.STATISTIC_VALUE}, new int[]{R.id.statisticsMenuRowStatName, R.id.statisticsMenuRowPlayerName, R.id.statisticsMenuRowStatValue}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        ListAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.statistics_menu_row, mCursor, new String[] {DataBase.Statistic.PRIMARY_STATISTIC_NAME, DataBase.Player.COLUMN_NAME, DataBase.Statistic.PRIMARY_STATISTIC_VALUE}, new int[]{R.id.statisticsMenuRowStatName, R.id.statisticsMenuRowPlayerName, R.id.statisticsMenuRowStatValue}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         userListView.setAdapter(listAdapter);
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -67,9 +67,9 @@ public class DataBase {
     // not an actual DB table, just names for columns of queries
     public static class Statistic implements BaseColumns {
         public static final String ROW_NUM = "_id";
-        public static final String STATISTIC_NAME = "STAT_NAME";
-        public static final String STATISTIC_VALUE = "STAT_VALUE";
-        public static final String SECONDARY_STAT_VALUE = "SECOND_STAT_VALUE";
+        public static final String PRIMARY_STATISTIC_NAME = "PRIMARY_STATISTIC_NAME";
+        public static final String PRIMARY_STATISTIC_VALUE = "PRIMARY_STATISTIC_VALUE";
+        public static final String SECONDARY_STATISTIC_VALUE = "SECONDARY_STATISTIC_VALUE";
     }
 
     /*****************************   SQL CREATE AND DELETE STATEMENTS    **************************/

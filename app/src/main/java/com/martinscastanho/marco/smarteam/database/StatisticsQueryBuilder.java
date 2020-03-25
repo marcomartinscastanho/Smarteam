@@ -17,10 +17,10 @@ class StatisticsQueryBuilder {
         assert secondaryStatistic != null;
 
         String select = "SELECT ";
-        select += "'" + statisticName.toString() + "'" + " AS " + DataBase.Statistic.STATISTIC_NAME + ", ";
+        select += "'" + statisticName.toString() + "'" + " AS " + DataBase.Statistic.PRIMARY_STATISTIC_NAME + ", ";
         select += DataBase.Player.COLUMN_NAME + ", ";
-        select += primaryStatistic[0] + " AS " + DataBase.Statistic.STATISTIC_VALUE + ", ";
-        select += secondaryStatistic[0] + " AS " + DataBase.Statistic.SECONDARY_STAT_VALUE + ", ";
+        select += primaryStatistic[0] + " AS " + DataBase.Statistic.PRIMARY_STATISTIC_VALUE + ", ";
+        select += secondaryStatistic[0] + " AS " + DataBase.Statistic.SECONDARY_STATISTIC_VALUE + ", ";
         select += buildRank(primaryStatistic, secondaryStatistic) + "AS " + DataBase.Statistic.ROW_NUM + " ";
         return select;
     }
