@@ -33,7 +33,7 @@ public class DataBase {
     /****************************    DEFINITION OF TABLES SCHEMAS    ******************************/
 
     public static class Team implements BaseColumns {
-        static final String TABLE_NAME = "team";
+        static final String TABLE = "team";
         static final String COLUMN_NAME = "name";
         static final String COLUMN_NUM_MATCHES = "num_matches";
         static final String COLUMN_LAST_MATCH_DATE = "last_match";
@@ -42,7 +42,7 @@ public class DataBase {
     }
 
     public static class Player implements BaseColumns {
-        static final String TABLE_NAME = "player";
+        static final String TABLE = "player";
         public static final String COLUMN_NAME = "NAME";
         static final String COLUMN_TEAM_ID = "TEAM_ID";
         static final String COLUMN_WINS = "WINS";
@@ -56,7 +56,7 @@ public class DataBase {
     }
 
     public static class Result implements BaseColumns {
-        static final String TABLE_NAME = "INDIVIDUAL_RESULTS";
+        static final String TABLE = "INDIVIDUAL_RESULTS";
         static final String COLUMN_PLAYER_ID = "PLAYER_ID";
         static final String COLUMN_TEAM_ID = "TEAM_ID";
         static final String COLUMN_MATCHDAY = "MATCHDAY";
@@ -66,7 +66,7 @@ public class DataBase {
 
     // not an actual DB table, just names for columns of queries
     public static class Statistic implements BaseColumns {
-        public static final String ROW = "_ID";
+        public static final String ROW_NUM = "_id";
         public static final String STATISTIC_NAME = "STAT_NAME";
         public static final String STATISTIC_VALUE = "STAT_VALUE";
         public static final String SECONDARY_STAT_VALUE = "SECOND_STAT_VALUE";
@@ -75,29 +75,29 @@ public class DataBase {
     /*****************************   SQL CREATE AND DELETE STATEMENTS    **************************/
 
     private static final String SQL_CREATE_TABLE_TEAMS =
-            "CREATE TABLE " + Team.TABLE_NAME + " (" + Team._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+            "CREATE TABLE " + Team.TABLE + " (" + Team._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + Team.COLUMN_NAME + " TEXT," + Team.COLUMN_NUM_MATCHES + " INTEGER,"
                     + Team.COLUMN_LAST_MATCH_DATE + " DATETIME," + Team.COLUMN_IS_SCORE_UPDATED + " INTEGER,"
                     + Team.COLUMN_UPDATE_DATE + " DATETIME,"
                     + " CONSTRAINT" + " TEAM_NAME_UNIQUE" + " UNIQUE" + " (" + Team.COLUMN_NAME + ")" +")";
-    private static final String SQL_DELETE_TABLE_TEAMS = "DROP TABLE IF EXISTS " + Team.TABLE_NAME;
+    private static final String SQL_DELETE_TABLE_TEAMS = "DROP TABLE IF EXISTS " + Team.TABLE;
 
     private static final String SQL_CREATE_TABLE_PLAYERS =
-            "CREATE TABLE " + Player.TABLE_NAME + " (" + Player._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+            "CREATE TABLE " + Player.TABLE + " (" + Player._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                     + Player.COLUMN_NAME + " TEXT," + Player.COLUMN_TEAM_ID + " TEXT,"
                     + Player.COLUMN_WINS + " INTEGER," + Player.COLUMN_DRAWS + " INTEGER,"
                     + Player.COLUMN_DEFEATS + " INTEGER," + Player.COLUMN_MATCHES + " INTEGER,"
                     + Player.COLUMN_MATCHES_AFTER_DEBUT + " INTEGER," + Player.COLUMN_WIN_PERCENTAGE + " INTEGER,"
                     + Player.COLUMN_SCORE + " INTEGER," + Player.COLUMN_UPDATE_DATE + " DATETIME,"
                     + " UNIQUE" + "(" + Player.COLUMN_NAME + "," + Player.COLUMN_TEAM_ID + "))";
-    private static final String SQL_DELETE_TABLE_PLAYERS = "DROP TABLE IF EXISTS " + Player.TABLE_NAME;
+    private static final String SQL_DELETE_TABLE_PLAYERS = "DROP TABLE IF EXISTS " + Player.TABLE;
 
     private static final String SQL_CREATE_TABLE_INDIVIDUAL_RESULTS =
-            "CREATE TABLE " + Result.TABLE_NAME + " (" + Result.COLUMN_PLAYER_ID + " INTEGER,"
+            "CREATE TABLE " + Result.TABLE + " (" + Result.COLUMN_PLAYER_ID + " INTEGER,"
                     + Result.COLUMN_TEAM_ID + " INTEGER," + Result.COLUMN_MATCHDAY + " INTEGER,"
                     + Result.COLUMN_RESULT + " TEXT," + Result.COLUMN_MATCHDAY_DATE + " DATETIME,"
                     + " PRIMARY KEY (" + Result.COLUMN_PLAYER_ID + "," + Result.COLUMN_MATCHDAY + ")" + ")";
-    private static final String SQL_DELETE_TABLE_INDIVIDUAL_RESULTS = "DROP TABLE IF EXISTS " + Result.TABLE_NAME;
+    private static final String SQL_DELETE_TABLE_INDIVIDUAL_RESULTS = "DROP TABLE IF EXISTS " + Result.TABLE;
 
     /********************************    HELPERS    ***********************************************/
 
@@ -153,13 +153,13 @@ public class DataBase {
         long tsLong = System.currentTimeMillis() / 1000;
         values.put(Team.COLUMN_UPDATE_DATE, Long.toString(tsLong));
         values.put(Team.COLUMN_IS_SCORE_UPDATED, "1");
-        db.insertOrThrow(Team.TABLE_NAME, null, values);
+        db.insertOrThrow(Team.TABLE, null, values);
     }
 
     public ArrayList<String> getTeamsNames(){
         ArrayList<String> teamList = new ArrayList<>();
         String[] projection = {Team.COLUMN_NAME};
-        Cursor c = db.query(Team.TABLE_NAME, projection, null, null, null, null, null);
+        Cursor c = db.query(Team.TABLE, projection, null, null, null, null, null);
         if(c.moveToFirst()) {
             do {
                 teamList.add(c.getString(c.getColumnIndexOrThrow(Team.COLUMN_NAME)));
@@ -174,7 +174,7 @@ public class DataBase {
         String[] projection = {Team._ID};
         String selection = Team.COLUMN_NAME + " = ?";
         String[] selectionArgs = {name};
-        Cursor c = db.query(Team.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Team.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             int teamId = c.getInt(c.getColumnIndexOrThrow(Team._ID));
             c.close();
@@ -193,7 +193,7 @@ public class DataBase {
             // delete team
             String selection = Team.COLUMN_NAME + " = ?";
             String[] selectionArgs = {name};
-            db.delete(Team.TABLE_NAME, selection, selectionArgs);
+            db.delete(Team.TABLE, selection, selectionArgs);
 
             // delete team players
             deleteTeamPlayers(teamId);
@@ -211,14 +211,14 @@ public class DataBase {
     private void deleteTeamPlayers(Integer teamId){
         String selection = Player.COLUMN_TEAM_ID + " = ?";
         String[] selectionArgs = {teamId.toString()};
-        db.delete(Player.TABLE_NAME, selection, selectionArgs);
+        db.delete(Player.TABLE, selection, selectionArgs);
     }
 
     public int getTeamNumMatches(Integer teamId) {
         String[] projection = {Team.COLUMN_NUM_MATCHES};
         String selection = Team._ID + " = ?";
         String[] selectionArgs = {teamId.toString()};
-        Cursor c = db.query(Team.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Team.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             int numMatches = c.getInt(c.getColumnIndexOrThrow(Team.COLUMN_NUM_MATCHES));
             c.close();
@@ -234,7 +234,7 @@ public class DataBase {
         values.put(Team.COLUMN_NUM_MATCHES, numMatches);
         String selection = Team._ID + " = ?";
         String[] selectionArgs = { teamId.toString() };
-        int count = db.update(Team.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Team.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -244,7 +244,7 @@ public class DataBase {
         values.put(Team.COLUMN_IS_SCORE_UPDATED, 1);
         String selection = Team._ID + " = ?";
         String[] selectionArgs = { teamId.toString() };
-        int count = db.update(Team.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Team.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -254,7 +254,7 @@ public class DataBase {
         values.put(Team.COLUMN_UPDATE_DATE, System.currentTimeMillis() / 1000);
         String selection = Team._ID + " = ?";
         String[] selectionArgs = { teamId.toString() };
-        int count = db.update(Team.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Team.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -268,63 +268,19 @@ public class DataBase {
         values.put(Team.COLUMN_NAME, teamName);
         String selection = Team._ID + " = ?";
         String[] selectionArgs = {teamId.toString()};
-        int count = db.update(Team.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Team.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
 
-    public Cursor getStatistics(int teamId, StatisticName stat) {
-        ArrayList<Cursor> stats = new ArrayList<>();
-
-        // TODO: fix the ids
-        // TODO: get the secondary statistic there
-
-        switch (stat){
-            case All:
-                stats.add(getMostMatches(teamId, true));
-                stats.add(getMostWins(teamId, true));
-                stats.add(getMostDraws(teamId, true));
-                stats.add(getMostDefeats(teamId, true));
-                stats.add(getHighestWinPercentage(teamId, true));
-                stats.add(getLeastAbsences(teamId, true));
-//                stats.add(getLongestWinningStreak(teamId, true));
-//                stats.add(getCurrentWinningStreak(teamId, true));
-//                stats.add(getLongestLosingStreak(teamId, true));
-//                stats.add(getCurrentLosingStreak(teamId, true));
-                break;
-            case MostMatches:
-                stats.add(getMostMatches(teamId, false));
-                break;
-            case MostWins:
-                stats.add(getMostWins(teamId, false));
-                break;
-            case MostDraws:
-                stats.add(getMostDraws(teamId, false));
-                break;
-            case MostDefeats:
-                stats.add(getMostDefeats(teamId, false));
-                break;
-            case HighestWinPercentage:
-                stats.add(getHighestWinPercentage(teamId, false));
-                break;
-            case LeastAbsences:
-                stats.add(getLeastAbsences(teamId, false));
-                break;
-//            case LongestWinningStreak:
-//                stats.add(getLongestWinningStreak(teamId, false));
-//                break;
-//            case CurrentWinningStreak:
-//                stats.add(getCurrentWinningStreak(teamId, false));
-//                break;
-//            case LongestLosingStreak:
-//                stats.add(getLongestLosingStreak(teamId, false));
-//                break;
-//            case CurrentLosingStreak:
-//                stats.add(getCurrentLosingStreak(teamId, false));
-//                break;
-        }
-
-        return new MergeCursor(stats.toArray(new Cursor[0]));
+    public Cursor getStatistics(int teamId) {
+        return new MergeCursor(new Cursor[]{
+                getStatistic(teamId, StatisticName.MostMatches, true)//,
+//                getStatistic(teamId, StatisticName.MostWins, true),
+//                getStatistic(teamId, StatisticName.MostDraws, true),
+//                getStatistic(teamId, StatisticName.MostDefeats, true),
+//                getStatistic(teamId, StatisticName.HighestWinPercentage, true)
+        });
     }
 
     // PLAYER
@@ -341,7 +297,7 @@ public class DataBase {
         values.put(Player.COLUMN_SCORE, 0.5);
         long tsLong = System.currentTimeMillis() / 1000;
         values.put(Player.COLUMN_UPDATE_DATE, Long.toString(tsLong));
-        db.insertOrThrow(Player.TABLE_NAME, null, values);
+        db.insertOrThrow(Player.TABLE, null, values);
     }
 
     public void deletePlayer(Integer playerId){
@@ -350,7 +306,7 @@ public class DataBase {
             // delete player
             String selection = Player._ID + " = ?";
             String[] selectionArgs = {playerId.toString()};
-            db.delete(Player.TABLE_NAME, selection, selectionArgs);
+            db.delete(Player.TABLE, selection, selectionArgs);
 
             // delete player matches
             deletePlayerResults(playerId);
@@ -367,7 +323,7 @@ public class DataBase {
         values.put(Player.COLUMN_NAME, playerName);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -378,7 +334,7 @@ public class DataBase {
         String selection = Player.COLUMN_TEAM_ID + " = ?";
         String[] selectionArgs = {teamId.toString()};
         String sortOrder = Player.COLUMN_NAME + " ASC";
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, sortOrder);
         if(c.moveToFirst()) {
             do {
                 playerList.add(c.getString(c.getColumnIndexOrThrow(Player.COLUMN_NAME)));
@@ -394,7 +350,7 @@ public class DataBase {
         String[] projection = {Player._ID};
         String selection = Player.COLUMN_TEAM_ID + " = ?";
         String[] selectionArgs = {teamId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if(c.moveToFirst()) {
             do {
                 playerIdList.add(c.getInt(c.getColumnIndexOrThrow(Player._ID)));
@@ -409,7 +365,7 @@ public class DataBase {
         String[] projection = {Player._ID};
         String selection = Player.COLUMN_NAME + " = ? AND " + Player.COLUMN_TEAM_ID + " = ?";
         String[] selectionArgs = {playerName, teamId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             int playerId = c.getInt(c.getColumnIndexOrThrow(Player._ID));
             c.close();
@@ -432,7 +388,7 @@ public class DataBase {
 
     public ArrayList<Map<String, Integer>> getPlayersIdsAndScores(String[] selectedPlayersNames, Integer teamId){
         String query = "SELECT " + Player._ID + ", CAST(100*" + Player.COLUMN_SCORE + " AS INTEGER) AS "+ Player.COLUMN_SCORE +
-                " FROM " + Player.TABLE_NAME +
+                " FROM " + Player.TABLE +
                 " WHERE " + Player.COLUMN_NAME + " IN (" + makePlaceholders(selectedPlayersNames.length) + ") AND " + Player.COLUMN_TEAM_ID + " = ?";
 
         ArrayList<String> argsArray = new ArrayList<>(Arrays.asList(selectedPlayersNames));
@@ -474,7 +430,7 @@ public class DataBase {
         String[] projection = {Player.COLUMN_WINS};
         String selection = Player._ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer wins = c.getInt(c.getColumnIndexOrThrow(Player.COLUMN_WINS));
             c.close();
@@ -489,7 +445,7 @@ public class DataBase {
         String[] projection = {Player.COLUMN_DRAWS};
         String selection = Player._ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer draws = c.getInt(c.getColumnIndexOrThrow(Player.COLUMN_DRAWS));
             c.close();
@@ -504,7 +460,7 @@ public class DataBase {
         String[] projection = {Player.COLUMN_DEFEATS};
         String selection = Player._ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer defeats = c.getInt(c.getColumnIndexOrThrow(Player.COLUMN_DEFEATS));
             c.close();
@@ -519,7 +475,7 @@ public class DataBase {
         String[] projection = {Player.COLUMN_MATCHES};
         String selection = Player._ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer matches = c.getInt(c.getColumnIndexOrThrow(Player.COLUMN_MATCHES));
             c.close();
@@ -534,7 +490,7 @@ public class DataBase {
         String[] projection = {Player.COLUMN_MATCHES_AFTER_DEBUT};
         String selection = Player._ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             Integer matchesAfterDebut = c.getInt(c.getColumnIndexOrThrow(Player.COLUMN_MATCHES_AFTER_DEBUT));
             c.close();
@@ -550,7 +506,7 @@ public class DataBase {
         values.put(Player.COLUMN_WINS, wins);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -560,7 +516,7 @@ public class DataBase {
         values.put(Player.COLUMN_DRAWS, draws);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -570,7 +526,7 @@ public class DataBase {
         values.put(Player.COLUMN_DEFEATS, defeats);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -580,7 +536,7 @@ public class DataBase {
         values.put(Player.COLUMN_MATCHES, matches);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -590,7 +546,7 @@ public class DataBase {
         values.put(Player.COLUMN_MATCHES_AFTER_DEBUT, matchesAfterDebut);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -600,7 +556,7 @@ public class DataBase {
         values.put(Player.COLUMN_WIN_PERCENTAGE, winPercentage);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -610,7 +566,7 @@ public class DataBase {
         values.put(Player.COLUMN_SCORE, score);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -620,7 +576,7 @@ public class DataBase {
         values.put(Player.COLUMN_UPDATE_DATE, date);
         String selection = Player._ID + " = ?";
         String[] selectionArgs = { playerId.toString() };
-        int count = db.update(Player.TABLE_NAME, values, selection, selectionArgs);
+        int count = db.update(Player.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
     }
@@ -699,7 +655,7 @@ public class DataBase {
         String[] projection = {Player.COLUMN_MATCHES};
         String selection = Player._ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        Cursor c = db.query(Player.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        Cursor c = db.query(Player.TABLE, projection, selection, selectionArgs, null, null, null);
         if (c.moveToFirst()) {
             int numMatches = c.getInt(c.getColumnIndexOrThrow(Player.COLUMN_MATCHES));
             c.close();
@@ -710,17 +666,17 @@ public class DataBase {
         }
     }
 
-    public Cursor getRankingByTeamId(Integer teamId){
+    public Cursor getRanking(Integer teamId){
         String query = "SELECT " + Player.COLUMN_NAME + ", CAST(100*" + Player.COLUMN_SCORE + " AS INTEGER) AS "+ Player.COLUMN_SCORE +", " + Player.COLUMN_MATCHES + " ,"
-                + " 1+(SELECT COUNT(*) FROM " + Player.TABLE_NAME + " B WHERE A." + Player.COLUMN_SCORE + " < B." + Player.COLUMN_SCORE + " AND B." + Player.COLUMN_TEAM_ID + " = ?) AS " + Statistic.ROW
-                + " FROM " + Player.TABLE_NAME + " A WHERE A." + Player.COLUMN_TEAM_ID + " = ? ORDER BY " + Player.COLUMN_SCORE + " DESC, " + Player.COLUMN_MATCHES + " DESC ";
+                + " 1+(SELECT COUNT(*) FROM " + Player.TABLE + " B WHERE A." + Player.COLUMN_SCORE + " < B." + Player.COLUMN_SCORE + " AND B." + Player.COLUMN_TEAM_ID + " = ?) AS " + Statistic.ROW_NUM
+                + " FROM " + Player.TABLE + " A WHERE A." + Player.COLUMN_TEAM_ID + " = ? ORDER BY " + Player.COLUMN_SCORE + " DESC, " + Player.COLUMN_MATCHES + " DESC ";
         String[] selectionArgs = {teamId.toString(), teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
 
     public Cursor getSideLineup(ArrayList<Integer> homePlayersIds){
         String query = "SELECT " + Player._ID + ", " + Player.COLUMN_NAME + ", " + Player.COLUMN_MATCHES + ", CAST(100*" + Player.COLUMN_SCORE + " AS INTEGER) AS "+ Player.COLUMN_SCORE +
-                " FROM " + Player.TABLE_NAME +
+                " FROM " + Player.TABLE +
                 " WHERE " + Player._ID + " IN (" + makePlaceholders(homePlayersIds.size()) + ") ORDER BY " + Player.COLUMN_SCORE + " DESC, " + Player.COLUMN_MATCHES + " DESC ";
 
         Log.d("query", query);
@@ -763,7 +719,7 @@ public class DataBase {
         String selection = Result.COLUMN_PLAYER_ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
         String sortOrder = Result.COLUMN_MATCHDAY + " ASC";
-        Cursor c = db.query(Result.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+        Cursor c = db.query(Result.TABLE, projection, selection, selectionArgs, null, null, sortOrder);
         if (c.moveToFirst()){
             do{
                 playerResults.add(c.getString(c.getColumnIndexOrThrow(Result.COLUMN_RESULT)));
@@ -783,61 +739,27 @@ public class DataBase {
         values.put(Result.COLUMN_RESULT, result.toString());
         long tsLong = System.currentTimeMillis() / 1000;
         values.put(Result.COLUMN_MATCHDAY_DATE, tsLong);
-        db.insertOrThrow(Result.TABLE_NAME, null, values);
+        db.insertOrThrow(Result.TABLE, null, values);
     }
 
     private void deleteTeamResults(Integer teamId){
         String selection = Result.COLUMN_TEAM_ID + " = ?";
         String[] selectionArgs = {teamId.toString()};
-        db.delete(Result.TABLE_NAME, selection, selectionArgs);
+        db.delete(Result.TABLE, selection, selectionArgs);
     }
 
     private void deletePlayerResults(Integer playerId){
         String selection = Result.COLUMN_PLAYER_ID + " = ?";
         String[] selectionArgs = {playerId.toString()};
-        db.delete(Result.TABLE_NAME, selection, selectionArgs);
+        db.delete(Result.TABLE, selection, selectionArgs);
     }
 
-    private Cursor getMostMatches(Integer teamId, boolean isLimit1){
-        String query = "SELECT "+Player._ID+", 'Most Games' AS "+ Statistic.STATISTIC_NAME+", "+Player.COLUMN_NAME +", "+Player.COLUMN_MATCHES +" AS "+ Statistic.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_TEAM_ID +" = ? ORDER BY "+Player.COLUMN_MATCHES +" DESC, "+Player.COLUMN_MATCHES_AFTER_DEBUT +" ASC, "+Player.COLUMN_WINS +" DESC"+ (isLimit1 ? " LIMIT 1" : "");
+    public Cursor getStatistic(Integer teamId, StatisticName statisticName, boolean isOnlyTopResult){
+        String query = StatisticsQueryBuilder.build(statisticName, isOnlyTopResult);
+        Log.d("query", query);
         String[] selectionArgs = {teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
-
-    private Cursor getMostWins(Integer teamId, boolean isLimit1){
-        String query = "SELECT "+Player._ID+", 'Most Wins' AS "+ Statistic.STATISTIC_NAME+", "+Player.COLUMN_NAME +", "+Player.COLUMN_WINS +" AS "+ Statistic.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_TEAM_ID +" = ? ORDER BY "+Player.COLUMN_WINS +" DESC, "+Player.COLUMN_MATCHES +" ASC, "+Player.COLUMN_DEFEATS +" ASC"+ (isLimit1 ? " LIMIT 1" : "");
-        String[] selectionArgs = {teamId.toString()};
-        return db.rawQuery(query, selectionArgs);
-    }
-
-    private Cursor getMostDraws(Integer teamId, boolean isLimit1){
-        String query = "SELECT "+Player._ID+", 'Most Draws' AS "+ Statistic.STATISTIC_NAME+", "+Player.COLUMN_NAME +", "+Player.COLUMN_DRAWS +" AS "+ Statistic.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_TEAM_ID +" = ? ORDER BY "+Player.COLUMN_DRAWS +" DESC, "+Player.COLUMN_MATCHES +" ASC, "+Player.COLUMN_DEFEATS +" ASC"+ (isLimit1 ? " LIMIT 1" : "");
-        String[] selectionArgs = {teamId.toString()};
-        return db.rawQuery(query, selectionArgs);
-    }
-
-    private Cursor getMostDefeats(Integer teamId, boolean isLimit1){
-        String query = "SELECT "+Player._ID+", 'Most Defeats' AS "+ Statistic.STATISTIC_NAME+", "+Player.COLUMN_NAME +", "+Player.COLUMN_DEFEATS +" AS "+ Statistic.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_TEAM_ID +" = ? ORDER BY "+Player.COLUMN_DEFEATS +" DESC, "+Player.COLUMN_MATCHES +" ASC, "+Player.COLUMN_WINS +" ASC"+ (isLimit1 ? " LIMIT 1" : "");
-        String[] selectionArgs = {teamId.toString()};
-        return db.rawQuery(query, selectionArgs);
-    }
-
-    private Cursor getHighestWinPercentage(Integer teamId, boolean isLimit1){
-        String query = "SELECT "+Player._ID+", 'Highest Win %' AS "+ Statistic.STATISTIC_NAME+", "+Player.COLUMN_NAME +", CAST(100*" + Player.COLUMN_WIN_PERCENTAGE + " AS INTEGER)  || '%'"+ Statistic.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_TEAM_ID +" = ? ORDER BY "+Player.COLUMN_WIN_PERCENTAGE +" DESC, "+Player.COLUMN_MATCHES +" DESC, "+Player.COLUMN_DEFEATS +" ASC"+ (isLimit1 ? " LIMIT 1" : "");
-        String[] selectionArgs = {teamId.toString()};
-        return db.rawQuery(query, selectionArgs);
-    }
-
-    private Cursor getLeastAbsences(Integer teamId, boolean isLimit1){
-        String query = "SELECT "+Player._ID+", 'Least Absences' AS "+ Statistic.STATISTIC_NAME+", "+Player.COLUMN_NAME +", "+Player.COLUMN_MATCHES_AFTER_DEBUT +"-"+Player.COLUMN_MATCHES +" AS "+ Statistic.STATISTIC_VALUE+" FROM "+Player.TABLE_NAME+" WHERE "+Player.COLUMN_TEAM_ID +" = ? AND "+ Player.COLUMN_MATCHES +">0 ORDER BY "+ Statistic.STATISTIC_VALUE+" ASC, "+Player.COLUMN_MATCHES_AFTER_DEBUT +" DESC, "+Player.COLUMN_WINS +" DESC"+ (isLimit1 ? " LIMIT 1" : "");
-        String[] selectionArgs = {teamId.toString()};
-        return db.rawQuery(query, selectionArgs);
-    }
-
-// TODO:   getLongestWinningStreak(teamId),
-// TODO:   getCurrentWinningStreak(teamId),
-// TODO:   getLongestLosingStreak(teamId),
-// TODO:   getCurrentLosingStreak(teamId)
 
     // HELPERS
     enum ResultType {
@@ -850,17 +772,16 @@ public class DataBase {
     }
 
     public enum StatisticName {
-        All(-1),
         MostMatches(0),
         MostWins(1),
         MostDraws(2),
         MostDefeats(3),
-        HighestWinPercentage(4),
-        LeastAbsences(5),
-        LongestWinningStreak(6),
-        CurrentWinningStreak(7),
-        LongestLosingStreak(8),
-        CurrentLosingStreak(9);
+        HighestWinPercentage(4);
+//        LeastAbsences(5),
+//        LongestWinningStreak(6),
+//        CurrentWinningStreak(7),
+//        LongestLosingStreak(8),
+//        CurrentLosingStreak(9);
 
         private int value;
         private static Map<Integer, StatisticName> map = new HashMap<>();
