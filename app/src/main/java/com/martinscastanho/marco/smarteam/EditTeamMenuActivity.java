@@ -166,7 +166,7 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                 Log.d("Delete Player", Integer.toString(which));
                 final String playerName = playerList.get(which);
                 AlertDialog.Builder confirmDeleteAlert = new AlertDialog.Builder(EditTeamMenuActivity.this);
-                confirmDeleteAlert.setTitle(R.string.dialog_delete_player_confirm + playerName + "?");
+                confirmDeleteAlert.setTitle(String.format("%s %s?", getResources().getString(R.string.dialog_delete_player_confirm), playerName));
                 confirmDeleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -60,7 +60,8 @@ public class TeamMenuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.help){
-            // TODO: show help page
+            Intent helpIntent = new Intent(getApplicationContext(), TeamHelpActivity.class);
+            startActivity(helpIntent);
         }
 
         return super.onOptionsItemSelected(item);

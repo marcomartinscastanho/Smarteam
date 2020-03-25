@@ -62,4 +62,5 @@
     <string name="away_side">Away</string>
     <string name="option_help">Help</string>
     <string name="error">Something went wrong</string>
+    <string name="title_help">Help</string>
 </resources>
