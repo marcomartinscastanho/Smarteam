@@ -204,7 +204,7 @@ public class DataBase {
         db.delete(Player.TABLE, selection, selectionArgs);
     }
 
-    public int getTeamNumMatches(Integer teamId) {
+    private int getTeamNumMatches(Integer teamId) {
         String[] projection = {Team.COLUMN_NUM_MATCHES};
         String selection = Team._ID + " = ?";
         String[] selectionArgs = {teamId.toString()};

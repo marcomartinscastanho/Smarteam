@@ -1,7 +1,5 @@
 package com.martinscastanho.marco.smarteam;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,13 +8,11 @@ import android.widget.CursorAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.martinscastanho.marco.smarteam.database.DataBase;
 
-import java.util.HashMap;
-import java.util.Map;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RankingActivity extends AppCompatActivity {
     int teamId;
@@ -30,7 +26,7 @@ public class RankingActivity extends AppCompatActivity {
         db = new DataBase(getApplicationContext());
 
         getIntentExtras();
-        setTitle("Ranking");
+        setTitle(R.string.title_ranking);
         setLayout();
     }
 
@@ -49,12 +45,11 @@ public class RankingActivity extends AppCompatActivity {
         userListView.setAdapter(listAdapter);
     }
 
-    public void headerLegend(View view){
-        Map<String, String> toasts = new HashMap<>();
-        toasts.put("M", "M: Matches played");
-        toasts.put("S", "S: Score");
+    public void matchesHeaderLegend(View view){
+        Toast.makeText(RankingActivity.this, R.string.legend_matches, Toast.LENGTH_SHORT).show();
+    }
 
-        String header = String.valueOf(((TextView) view).getText());
-        Toast.makeText(RankingActivity.this, toasts.get(header), Toast.LENGTH_SHORT).show();
+    public void scoreHeaderLegend(View view){
+        Toast.makeText(RankingActivity.this, R.string.legend_score, Toast.LENGTH_SHORT).show();
     }
 }

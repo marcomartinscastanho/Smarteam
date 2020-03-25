@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,10 +29,26 @@ public class MainActivity extends AppCompatActivity {
         db = new DataBase(getApplicationContext());
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_activity_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.help){
+            // TODO: show help page
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void openTeam(View view){
         final ArrayList<String> teamList = db.getTeamsNames();
         if(teamList.isEmpty()){
-            Toast.makeText(MainActivity.this, "Not teams to show", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.toast_no_teams, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -40,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         openTeamAlert.setItems(choiceList, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.d("Open Team", Integer.toString(which));
                 String teamName = teamList.get(which);
                 callTeamActivity(teamName);
             }
@@ -59,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 String teamName = newTeamEditText.getText().toString();
 
                 if(teamName.length() < getResources().getInteger(R.integer.min_name_length)){
-                    Toast.makeText(MainActivity.this, "Name is too short", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.toast_name_too_short, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(teamName.length() > getResources().getInteger(R.integer.max_name_length)){
-                    Toast.makeText(MainActivity.this, "Name is too long", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.toast_name_too_long, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try{
@@ -71,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     callTeamActivity(teamName);
                 }
                 catch(SQLException e){
-                    Toast.makeText(MainActivity.this, "Invalid Team Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.toast_invalid_name, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     public void deleteTeam(View view){
         final ArrayList<String> teamList = db.getTeamsNames();
         if(teamList.isEmpty()){
-            Toast.makeText(MainActivity.this, "There are no teams", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.toast_no_teams, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -91,15 +108,14 @@ public class MainActivity extends AppCompatActivity {
         deleteTeamAlert.setItems(choiceList, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.d("Delete Team", Integer.toString(which));
                 final String teamName = teamList.get(which);
                 AlertDialog.Builder confirmDeleteAlert = new AlertDialog.Builder(MainActivity.this);
-                confirmDeleteAlert.setTitle("Are you sure you want to delete team " + teamName + "?");
+                confirmDeleteAlert.setTitle(String.format("%s %s?", getResources().getString(R.string.dialog_delete_team_confirm), teamName));
                 confirmDeleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         db.deleteTeam(teamName);
-                        Toast.makeText(MainActivity.this, String.format("Team %s deleted!", teamName), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, String.format("%s %s %s", getResources().getString(R.string.toast_team_deleted_prefix), teamName, getResources().getString(R.string.toast_team_deleted_suffix)), Toast.LENGTH_SHORT).show();
                     }
                 });
                 confirmDeleteAlert.setNegativeButton(android.R.string.no, null);

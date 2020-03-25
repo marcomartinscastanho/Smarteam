@@ -31,7 +31,7 @@ public class EditTeamMenuActivity extends AppCompatActivity {
         if(teamId < 0){
             finish();
         }
-        setTitle("Edit Menu");
+        setTitle(R.string.title_edit_team);
 
         db = new DataBase(getApplicationContext());
     }
@@ -47,11 +47,11 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                 String teamName = renameTeamEditText.getText().toString();
 
                 if(teamName.length() < getResources().getInteger(R.integer.min_name_length)){
-                    Toast.makeText(EditTeamMenuActivity.this, "Name is too short", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_name_too_short, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(teamName.length() > getResources().getInteger(R.integer.max_name_length)){
-                    Toast.makeText(EditTeamMenuActivity.this, "Name is too long", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_name_too_long, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try{
@@ -61,11 +61,11 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                     resultIntent.putExtra("teamName", teamName);
                     setResult(Activity.RESULT_OK, resultIntent);
 
-                    Toast.makeText(EditTeamMenuActivity.this, "Team name updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_team_name_updated, Toast.LENGTH_SHORT).show();
 
                 }
                 catch(SQLException e){
-                    Toast.makeText(EditTeamMenuActivity.this, "Invalid Team Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_invalid_name, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -83,19 +83,19 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                 String playerName = newPlayerEditText.getText().toString();
 
                 if(playerName.length() < getResources().getInteger(R.integer.min_name_length)){
-                    Toast.makeText(EditTeamMenuActivity.this, "Name is too short", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_name_too_short, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(playerName.length() > getResources().getInteger(R.integer.max_name_length)){
-                    Toast.makeText(EditTeamMenuActivity.this, "Name is too long", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_name_too_long, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try{
                     db.insertPlayer(playerName, teamId);
-                    Toast.makeText(EditTeamMenuActivity.this, "Player added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_player_added, Toast.LENGTH_SHORT).show();
                 }
                 catch(SQLException e){
-                    Toast.makeText(EditTeamMenuActivity.this, "Invalid Player name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTeamMenuActivity.this, R.string.toast_invalid_name, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -105,7 +105,7 @@ public class EditTeamMenuActivity extends AppCompatActivity {
     public void renamePlayer(View view){
         final ArrayList<String> playerList = db.getPlayersNames(teamId);
         if(playerList.isEmpty()){
-            Toast.makeText(EditTeamMenuActivity.this, "The team has no players", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditTeamMenuActivity.this, R.string.toast_no_players, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -128,19 +128,19 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                         String newPlayerName = renamePlayerEditText.getText().toString();
 
                         if(newPlayerName.length() < getResources().getInteger(R.integer.min_name_length)){
-                            Toast.makeText(EditTeamMenuActivity.this, "Name is too short", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamMenuActivity.this, R.string.toast_name_too_short, Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if(newPlayerName.length() > getResources().getInteger(R.integer.max_name_length)){
-                            Toast.makeText(EditTeamMenuActivity.this, "Name is too long", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamMenuActivity.this, R.string.toast_name_too_long, Toast.LENGTH_SHORT).show();
                             return;
                         }
                         try{
                             db.updatePlayerName(db.getPlayerId(playerName, teamId), newPlayerName);
-                            Toast.makeText(EditTeamMenuActivity.this, "Player name updated!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamMenuActivity.this, R.string.toast_player_name_updated, Toast.LENGTH_SHORT).show();
                         }
                         catch(SQLException e){
-                            Toast.makeText(EditTeamMenuActivity.this, "Invalid Player Name", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditTeamMenuActivity.this, R.string.toast_invalid_name, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -153,7 +153,7 @@ public class EditTeamMenuActivity extends AppCompatActivity {
     public void deletePlayer(View view){
         final ArrayList<String> playerList = db.getPlayersNames(teamId);
         if(playerList.isEmpty()){
-            Toast.makeText(EditTeamMenuActivity.this, "The team has no players", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditTeamMenuActivity.this, R.string.toast_no_players, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -166,12 +166,12 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                 Log.d("Delete Player", Integer.toString(which));
                 final String playerName = playerList.get(which);
                 AlertDialog.Builder confirmDeleteAlert = new AlertDialog.Builder(EditTeamMenuActivity.this);
-                confirmDeleteAlert.setTitle("Are you sure you want to delete " + playerName + "?");
+                confirmDeleteAlert.setTitle(R.string.dialog_delete_player_confirm + playerName + "?");
                 confirmDeleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         db.deletePlayer(db.getPlayerId(playerName, teamId));
-                        Toast.makeText(EditTeamMenuActivity.this, String.format("%s deleted!", playerName), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditTeamMenuActivity.this, String.format("%s %s!", playerName, getResources().getString(R.string.toast_team_deleted_suffix)), Toast.LENGTH_SHORT).show();
                     }
                 });
                 confirmDeleteAlert.setNegativeButton(android.R.string.no, null);

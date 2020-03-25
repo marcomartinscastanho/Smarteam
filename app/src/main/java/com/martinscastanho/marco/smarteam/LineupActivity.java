@@ -32,7 +32,7 @@ public class LineupActivity extends AppCompatActivity {
 
         db = new DataBase(getApplicationContext());
 
-        setTitle("Lineup");
+        setTitle(R.string.title_lineup);
         setLayout();
     }
 
@@ -41,7 +41,7 @@ public class LineupActivity extends AppCompatActivity {
         teamId = intent.getIntExtra("teamId", -1);
         ArrayList<String> selectedPlayersNames = intent.getStringArrayListExtra("selectedPlayersNames");
         if(teamId == -1 || selectedPlayersNames == null){
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -77,7 +77,7 @@ public class LineupActivity extends AppCompatActivity {
             activity.inflateSidesLists(lineupWrapper.getHomePlayerIds(), lineupWrapper.getAwayPlayerIds());
         }
 
-        private class LineupGenerator {
+        private static class LineupGenerator {
             private int maxPlayersPerSide;
             private double tempScoreGap;
             ArrayList<Map<String, Integer>> selectedPlayers;
@@ -221,18 +221,18 @@ public class LineupActivity extends AppCompatActivity {
     }
 
     public void homeSideScoreLegend(View view) {
-        Toast.makeText(LineupActivity.this, "Total Score of Home side", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LineupActivity.this, R.string.legend_home_score, Toast.LENGTH_SHORT).show();
     }
 
     public void awaySideScoreLegend(View view) {
-        Toast.makeText(LineupActivity.this, "Total Score of Away side", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LineupActivity.this, R.string.legend_away_score, Toast.LENGTH_SHORT).show();
     }
 
     public void matchesHeaderLegend(View view){
-        Toast.makeText(LineupActivity.this, "M: Matches played", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LineupActivity.this, R.string.legend_matches, Toast.LENGTH_SHORT).show();
     }
 
     public void scoreHeaderLegend(View view){
-        Toast.makeText(LineupActivity.this, "S: Score", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LineupActivity.this, R.string.legend_score, Toast.LENGTH_SHORT).show();
     }
 }
