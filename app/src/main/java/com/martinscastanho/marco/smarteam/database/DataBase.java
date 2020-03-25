@@ -3,7 +3,6 @@ package com.martinscastanho.marco.smarteam.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.MergeCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -19,7 +18,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
 
 public class DataBase {
     private static SQLiteDatabase db;
@@ -62,14 +60,6 @@ public class DataBase {
         static final String COLUMN_MATCHDAY = "MATCHDAY";
         static final String COLUMN_RESULT = "RESULT";
         static final String COLUMN_MATCHDAY_DATE = "MATCHDAY_DATE";
-    }
-
-    // not an actual DB table, just names for columns of queries
-    public static class Statistic implements BaseColumns {
-        public static final String ROW_NUM = "_id";
-        public static final String STATISTIC_NAME = "STAT_NAME";
-        public static final String STATISTIC_VALUE = "STAT_VALUE";
-        public static final String SECONDARY_STAT_VALUE = "SECOND_STAT_VALUE";
     }
 
     /*****************************   SQL CREATE AND DELETE STATEMENTS    **************************/
@@ -271,16 +261,6 @@ public class DataBase {
         int count = db.update(Team.TABLE, values, selection, selectionArgs);
         if(count <= 0)
             throw new SQLException();
-    }
-
-    public Cursor getStatistics(int teamId) {
-        return new MergeCursor(new Cursor[]{
-                getStatistic(teamId, StatisticName.MostMatches, true)//,
-//                getStatistic(teamId, StatisticName.MostWins, true),
-//                getStatistic(teamId, StatisticName.MostDraws, true),
-//                getStatistic(teamId, StatisticName.MostDefeats, true),
-//                getStatistic(teamId, StatisticName.HighestWinPercentage, true)
-        });
     }
 
     // PLAYER
@@ -668,8 +648,8 @@ public class DataBase {
 
     public Cursor getRanking(Integer teamId){
         String query = "SELECT " + Player.COLUMN_NAME + ", CAST(100*" + Player.COLUMN_SCORE + " AS INTEGER) AS "+ Player.COLUMN_SCORE +", " + Player.COLUMN_MATCHES + " ,"
-                + " 1+(SELECT COUNT(*) FROM " + Player.TABLE + " B WHERE A." + Player.COLUMN_SCORE + " < B." + Player.COLUMN_SCORE + " AND B." + Player.COLUMN_TEAM_ID + " = ?) AS " + Statistic.ROW_NUM
-                + " FROM " + Player.TABLE + " A WHERE A." + Player.COLUMN_TEAM_ID + " = ? ORDER BY " + Player.COLUMN_SCORE + " DESC, " + Player.COLUMN_MATCHES + " DESC ";
+                + " 1+(SELECT COUNT(*) FROM " + Player.TABLE + " B WHERE A." + Player.COLUMN_SCORE + " < B." + Player.COLUMN_SCORE + " AND B." + Player.COLUMN_TEAM_ID + " = ?) AS _id"
+                + " FROM " + Player.TABLE + " A WHERE A." + Player.COLUMN_TEAM_ID + " = ? ORDER BY " + Player.COLUMN_SCORE + " DESC, " + Player.COLUMN_MATCHES + " ASC ";
         String[] selectionArgs = {teamId.toString(), teamId.toString()};
         return db.rawQuery(query, selectionArgs);
     }
@@ -754,13 +734,6 @@ public class DataBase {
         db.delete(Result.TABLE, selection, selectionArgs);
     }
 
-    public Cursor getStatistic(Integer teamId, StatisticName statisticName, boolean isOnlyTopResult){
-        String query = StatisticsQueryBuilder.build(statisticName, isOnlyTopResult);
-        Log.d("query", query);
-        String[] selectionArgs = {teamId.toString()};
-        return db.rawQuery(query, selectionArgs);
-    }
-
     // HELPERS
     enum ResultType {
         Win,
@@ -769,53 +742,6 @@ public class DataBase {
         Absence,   //short or any
         MediumAbsence,
         LongAbsence
-    }
-
-    public enum StatisticName {
-        MostMatches(0),
-        MostWins(1),
-        MostDraws(2),
-        MostDefeats(3),
-        HighestWinPercentage(4);
-//        LeastAbsences(5),
-//        LongestWinningStreak(6),
-//        CurrentWinningStreak(7),
-//        LongestLosingStreak(8),
-//        CurrentLosingStreak(9);
-
-        private int value;
-        private static Map<Integer, StatisticName> map = new HashMap<>();
-
-        StatisticName(int value) {
-            this.value = value;
-        }
-
-        static {
-            for (StatisticName statisticName : StatisticName.values()) {
-                map.put(statisticName.value, statisticName);
-            }
-        }
-
-        public static StatisticName valueOf(int statistic) {
-            return map.get(statistic);
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return splitCamelCase(super.toString());
-        }
-    }
-
-    private static String splitCamelCase(String s) {
-        return s.replaceAll(
-                String.format("%s|%s|%s",
-                        "(?<=[A-Z])(?=[A-Z][a-z])",
-                        "(?<=[^A-Z])(?=[A-Z])",
-                        "(?<=[A-Za-z])(?=[^A-Za-z])"
-                ),
-                " "
-        );
     }
 
     private ResultType getAbsenceType(Integer playerId){

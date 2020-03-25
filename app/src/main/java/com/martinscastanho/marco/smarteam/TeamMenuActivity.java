@@ -295,14 +295,6 @@ public class TeamMenuActivity extends AppCompatActivity {
         lineupDialog.show();
     }
 
-    public void showStatistics(View view){
-        if(db.getTeamNumMatches(teamId) < getResources().getInteger(R.integer.statisticsMinMatchesPlayed)){
-            Toast.makeText(this, String.format("Statistics are available only for Teams who have played at least %s matches", getResources().getInteger(R.integer.statisticsMinMatchesPlayed)), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        callStatisticsMenuActivity();
-    }
-
     public void editTeam(View view){
         Intent editTeamMenuIntent = new Intent(getApplicationContext(), EditTeamMenuActivity.class);
         editTeamMenuIntent.putExtra("teamId", teamId);
@@ -320,12 +312,6 @@ public class TeamMenuActivity extends AppCompatActivity {
         intent.putExtra("teamId", teamId);
         intent.putExtra("selectedPlayersNames", selectedPlayersNames);
         startActivity(intent);
-    }
-
-    public void callStatisticsMenuActivity(){
-        Intent statisticsMenuIntent = new Intent(getApplicationContext(), StatisticsMenuActivity.class);
-        statisticsMenuIntent.putExtra("teamId", teamId);
-        startActivity(statisticsMenuIntent);
     }
 
     // HELPERS
