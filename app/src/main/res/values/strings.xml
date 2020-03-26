@@ -21,8 +21,8 @@
     <string name="newPlayerDialog">New Player</string>
     <string name="winnersSelectionTitle">Select the winners</string>
     <string name="losersSelectionTitle">Select the losers</string>
-    <string name="player_map_id_key">id</string>
-    <string name="player_map_score_key">score</string>
+    <string name="player_map_id_key" translatable="false">id</string>
+    <string name="player_map_score_key" translatable="false">score</string>
     <string name="deleteTeamDialog">Delete Team</string>
     <string name="deletePlayerDialog">Delete Player</string>
     <string name="renameTeamDialog">Rename the Team</string>
@@ -63,4 +63,5 @@
     <string name="option_help">Help</string>
     <string name="error">Something went wrong</string>
     <string name="title_help">Help</string>
+    <string name="toast_player_deleted_suffix">deleted!</string>
 </resources>

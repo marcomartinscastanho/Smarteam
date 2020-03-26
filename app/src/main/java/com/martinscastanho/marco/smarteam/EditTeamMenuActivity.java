@@ -171,7 +171,7 @@ public class EditTeamMenuActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         db.deletePlayer(db.getPlayerId(playerName, teamId));
-                        Toast.makeText(EditTeamMenuActivity.this, String.format("%s %s!", playerName, getResources().getString(R.string.toast_team_deleted_suffix)), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditTeamMenuActivity.this, String.format("%s %s!", playerName, getResources().getString(R.string.toast_player_deleted_suffix)), Toast.LENGTH_SHORT).show();
                     }
                 });
                 confirmDeleteAlert.setNegativeButton(android.R.string.no, null);

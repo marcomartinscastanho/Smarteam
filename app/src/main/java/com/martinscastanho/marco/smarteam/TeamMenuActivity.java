@@ -296,7 +296,7 @@ public class TeamMenuActivity extends AppCompatActivity {
                 }
 
                 AlertDialog.Builder confirmResultAlert = new AlertDialog.Builder(TeamMenuActivity.this);
-                confirmResultAlert.setTitle(String.format("%s %svs%s %s?", getResources().getString(R.string.dialog_confirm_draw_prefix), numPlayersSelected/2 + (numPlayersSelected%2), numPlayersSelected/2, getResources().getString(R.string.dialog_confirm_match_suffix)));
+                confirmResultAlert.setTitle(String.format("%s %s vs %s %s?", getResources().getString(R.string.dialog_confirm_draw_prefix), numPlayersSelected/2 + (numPlayersSelected%2), numPlayersSelected/2, getResources().getString(R.string.dialog_confirm_match_suffix)));
                 confirmResultAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
