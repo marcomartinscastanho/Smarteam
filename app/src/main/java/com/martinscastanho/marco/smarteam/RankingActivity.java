@@ -15,8 +15,8 @@ import com.martinscastanho.marco.smarteam.database.DataBase;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RankingActivity extends AppCompatActivity {
-    int teamId;
-    DataBase db;
+    private int teamId;
+    private DataBase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

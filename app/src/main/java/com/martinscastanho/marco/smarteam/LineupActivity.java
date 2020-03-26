@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class LineupActivity extends AppCompatActivity {
-    static DataBase db;
-    static Integer teamId;
+    private static DataBase db;
+    private static Integer teamId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class LineupActivity extends AppCompatActivity {
     }
 
     private static class GenerateLinuepsTask extends AsyncTask<String, Void, LineupWrapper> {
-        private WeakReference<LineupActivity> activityReference;
+        private final WeakReference<LineupActivity> activityReference;
 
         // only retain a weak reference to the activity
         GenerateLinuepsTask(LineupActivity context) {
@@ -78,12 +78,12 @@ public class LineupActivity extends AppCompatActivity {
         }
 
         private static class LineupGenerator {
-            private int maxPlayersPerSide;
+            private final int maxPlayersPerSide;
             private double tempScoreGap;
-            ArrayList<Map<String, Integer>> selectedPlayers;
+            final ArrayList<Map<String, Integer>> selectedPlayers;
 
-            private ArrayList<Map<String, Integer>> tempHomePlayers;
-            private ArrayList<Map<String, Integer>> tempAwayPlayers;
+            private final ArrayList<Map<String, Integer>> tempHomePlayers;
+            private final ArrayList<Map<String, Integer>> tempAwayPlayers;
             private ArrayList<Map<String, Integer>> tempBestSolutionHomePlayers;
             private ArrayList<Map<String, Integer>> tempBestSolutionAwayPlayers;
 
@@ -157,8 +157,8 @@ public class LineupActivity extends AppCompatActivity {
     }
 
     private static class LineupWrapper {
-        ArrayList<Integer> homePlayerIds;
-        ArrayList<Integer> awayPlayerIds;
+        final ArrayList<Integer> homePlayerIds;
+        final ArrayList<Integer> awayPlayerIds;
         Integer homeSideScore;
         Integer awaySideScore;
 

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TeamMenuActivity extends AppCompatActivity {
-    static Integer teamId;
-    static DataBase db;
+    private static Integer teamId;
+    private static DataBase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -323,7 +323,7 @@ public class TeamMenuActivity extends AppCompatActivity {
         startActivityForResult(editTeamMenuIntent, 1);
     }
 
-    public void callRankingActivity(){
+    private void callRankingActivity(){
         Intent rankingMenuIntent = new Intent(getApplicationContext(), RankingActivity.class);
         rankingMenuIntent.putExtra("teamId", teamId);
         startActivity(rankingMenuIntent);

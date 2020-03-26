@@ -3,8 +3,8 @@ package com.martinscastanho.marco.smarteam.helpers;
 import java.util.ArrayList;
 
 public class CoefficientsFactory {
-    private ArrayList<ArrayList<Double>> coefficients = new ArrayList<>();
-    private Double KEY_PREF_K;
+    private final ArrayList<ArrayList<Double>> coefficients = new ArrayList<>();
+    private final Double KEY_PREF_K;
 
     public CoefficientsFactory() {
         this.KEY_PREF_K = 1.1;

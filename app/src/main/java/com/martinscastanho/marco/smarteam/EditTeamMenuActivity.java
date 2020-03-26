@@ -18,8 +18,8 @@ import com.martinscastanho.marco.smarteam.database.DataBase;
 import java.util.ArrayList;
 
 public class EditTeamMenuActivity extends AppCompatActivity {
-    int teamId;
-    DataBase db;
+    private int teamId;
+    private DataBase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

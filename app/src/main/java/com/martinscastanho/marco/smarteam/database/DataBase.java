@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class DataBase {
     private static SQLiteDatabase db;
-    private CoefficientsFactory coefficientsFactory;
+    private final CoefficientsFactory coefficientsFactory;
 
     public DataBase(Context context) {
         new GetDataBaseTask().execute(new DataBaseHelper(context));
@@ -30,7 +30,7 @@ public class DataBase {
 
     /****************************    DEFINITION OF TABLES SCHEMAS    ******************************/
 
-    public static class Team implements BaseColumns {
+    static class Team implements BaseColumns {
         static final String TABLE = "team";
         static final String COLUMN_NAME = "name";
         static final String COLUMN_NUM_MATCHES = "num_matches";
@@ -53,7 +53,7 @@ public class DataBase {
         static final String COLUMN_UPDATE_DATE = "UPDATE_DATE";
     }
 
-    public static class Result implements BaseColumns {
+    static class Result implements BaseColumns {
         static final String TABLE = "INDIVIDUAL_RESULTS";
         static final String COLUMN_PLAYER_ID = "PLAYER_ID";
         static final String COLUMN_TEAM_ID = "TEAM_ID";
@@ -91,7 +91,7 @@ public class DataBase {
 
     /********************************    HELPERS    ***********************************************/
 
-    public static class DataBaseHelper extends SQLiteOpenHelper {
+    static class DataBaseHelper extends SQLiteOpenHelper {
         static final int DATABASE_VERSION = 1;
         static final String DATABASE_NAME = "Smarteam.db";
 

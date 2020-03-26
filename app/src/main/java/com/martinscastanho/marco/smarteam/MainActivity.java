@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    DataBase db;
+    private DataBase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         deleteTeamAlert.show();
     }
 
-    public void callTeamActivity(String teamName){
+    private void callTeamActivity(String teamName){
         Intent teamMenuIntent = new Intent(getApplicationContext(), TeamMenuActivity.class);
         teamMenuIntent.putExtra("teamName", teamName);
         startActivity(teamMenuIntent);
